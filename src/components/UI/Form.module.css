@@ -1,0 +1,77 @@
+.Form {
+  width: 90%;
+  height: max-content;
+  background: #e6e6e6;
+  border-radius: 8px;
+  box-shadow: 0 0 40px -10px #000;
+  margin-left: auto;
+  margin-right: auto;
+  /*margin: calc(50vh - 220px) auto;*/
+  padding: 10px 30px 50px;
+  max-width: calc(100vw - 40px);
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+  position: relative;
+}
+.Form h2 {
+  margin: 10px 0;
+  padding-bottom: 10px;
+  width: 180px;
+  color: #78788c;
+  border-bottom: 3px solid #78788c;
+}
+.Form input {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  background: none;
+  outline: none;
+  resize: none;
+  border: 0;
+  font-family: "Montserrat", sans-serif;
+  transition: all 0.3s;
+  border-bottom: 2px solid #bebed2;
+}
+.Form input:focus {
+  border-bottom: 2px solid #78788c;
+}
+
+.Form p::before {
+  text-align: start;
+  content: attr(type);
+  display: block;
+  margin: 28px 0 0;
+  font-size: 16px;
+  color: #5a5a5a;
+}
+
+.Form button {
+  float: right;
+  padding: 5px 12px;
+  margin: 6px 0 0;
+  font-family: "Montserrat", sans-serif;
+  border: 2px solid #222;
+  background: 0;
+  color: #222;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-radius: 10px;
+}
+.Form button:hover {
+  background: #003621;
+  color: #fff;
+}
+/*
+div {
+  content: "Hi";
+  position: absolute;
+  bottom: -15px;
+  right: -20px;
+  background: #50505a;
+  color: #fff;
+  width: 320px;
+  padding: 16px 4px 16px 0;
+  border-radius: 6px;
+  font-size: 13px;
+  box-shadow: 10px 10px 40px -14px #000;
+}*/

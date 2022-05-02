@@ -1,0 +1,109 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Inter", sans-serif;
+  color: #343a40;
+  padding: 20px 50px 20px 40px;
+  text-align: center;
+}
+
+.title {
+  display: inline-block;
+  font-size: 35px;
+  color: rgb(255, 255, 255);
+  letter-spacing: -3px;
+  font-weight: 1000;
+  text-shadow: 2px 2px #3e3f41;
+}
+.icon svg {
+  display: block;
+  fill: #003621;
+  width: 45px;
+  height: 45px;
+}
+.icon {
+  display: flex;
+  align-items: center;
+}
+/*Modal*/
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+}
+.modal {
+  max-width: 480px;
+  max-height: 520px;
+  margin: 0 auto;
+  padding: 10px 12px;
+  /*background: white;*/
+  border-radius: 10px;
+  text-align: center;
+  background-color: #f4e8d2;
+}
+.content {
+  max-height: 400px;
+  justify-content: center;
+  align-items: center;
+}
+.content img {
+  width: 60%;
+  height: 60%;
+  padding-top: -10px;
+  margin-top: -30px;
+  padding-bottom: -4px;
+  margin-bottom: -30px;
+}
+.content h2 {
+  font-size: 25px;
+  color: #303235;
+  margin-bottom: 5px;
+}
+.but {
+  font-weight: 1000;
+  color: #003621;
+  display: flex;
+  justify-content: end;
+}
+.butx {
+  color: #222;
+  font-weight: bold;
+  border: 2px solid #222;
+  padding: 0px 0px 0px 0px;
+  border-radius: 22px;
+}
+.butx:hover {
+  background: #003621;
+  color: #fff;
+}
+
+/*
+.subtitle {
+  color: #303235;
+  line-height: 1px;
+  font-size: 25px;
+  display: block;
+}*/
+/*
+.modal button{
+  color: #444;
+  border-color: #444;
+  font-weight: bold;
+  margin-top: 20px;
+}
+.modal p{
+  color: #444;
+  font-weight: bold;
+}*/
+@media screen and (max-width: 35em) {
+  .title {
+    font-size: 25px;
+  }
+}

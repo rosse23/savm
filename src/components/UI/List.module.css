@@ -1,0 +1,65 @@
+.List {
+  background-color: rgb(255, 255, 255);
+
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+}
+
+.filaFoto {
+  display: flex;
+  flex-direction: row;
+}
+.List svg {
+  display: block;
+  margin: 0 auto;
+  fill: rgb(32, 32, 32);
+  width: 20px;
+  height: 20px;
+}
+
+.List img {
+  border-radius: 17px;
+  border: 4px;
+  width: 40px;
+  height: 40px;
+}
+.List h2 {
+  display: inline;
+}
+.List table {
+  color: #3f4042;
+  width: 100%;
+}
+
+.List table th,
+table td {
+  padding: 15px 20px;
+  text-align: left;
+  font-size: 14px;
+}
+.List table tr {
+  background-color: #f4e8d2;
+}
+.List table tr:hover {
+  background-color: #68686646;
+}
+
+.List table tr td button {
+  background-color: #162237;
+  color: #99a5bd;
+  outline: none;
+  border: none;
+  visibility: hidden;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 50px 20px;
+  }
+  table th:nth-of-type(3),
+  table td:nth-of-type(3) {
+    display: none;
+  }
+}

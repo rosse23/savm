@@ -1,0 +1,19 @@
+.container {
+  background-image: linear-gradient(
+      to right,
+      rgba(12, 6, 10, 0.73),
+      rgba(19, 54, 44, 0.445)
+    ),
+    url("../imgs/menu.jpg");
+  /*background-image: url("main1.jpg");*/
+  height: 100vh;
+  background-size: cover;
+  /*background-attachment: fixed;*/
+  /* padding: 20px;*/
+  /*margin-bottom: 50px;*/
+}
+.container2 {
+  max-width: 710px;
+  margin: 40px auto;
+  padding: 20px;
+}

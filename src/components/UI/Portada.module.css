@@ -1,0 +1,29 @@
+.Portada {
+  display: flex;
+  align-items: center;
+  height: max-content;
+}
+.Portada svg {
+  display: block;
+
+  fill: #634526;
+  width: 95px;
+  height: 95px; /*
+  filter: drop-shadow(1px 1px 3px black);*/
+}
+
+.Portada h1 {
+  font-size: 52px;
+  color: rgb(229, 238, 227);
+  font-family: "Inter", sans-serif;
+  text-decoration: block;
+  /* display: block;*/
+  pad: 10px;
+  width: 100%;
+  border-radius: 5px;
+  font-weight: 1000;
+  margin-left: 30px;
+  text-shadow: 1px 1px 2px black; /*
+  text-shadow: #ccc 1px 0 10px;
+  text-shadow: 5px 5px #3e3f41;*/
+}

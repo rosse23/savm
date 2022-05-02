@@ -1,0 +1,139 @@
+/*MAIN COLOR: #5A715E
+GREY COLOR: #343a40
+GREY COLOR 2: #ced4da       #003621;
+
+#EDA737, #00492F, #403F3A,*/
+
+.banner {
+  /* display: flex;
+    justify-content: flex-end;
+    align-items: center; */
+  background-image: linear-gradient(
+      to right,
+      rgba(245, 246, 252, 0),
+      rgba(12, 6, 10, 0.73)
+    ),
+    url("../imgs/main1.2.jpg");
+  /*background-image: url("main1.jpg");*/
+
+  background-size: cover;
+  color: white;
+  font-size: 30px;
+  /*padding: 20px;*/
+  margin-bottom: 50px;
+}
+
+.title {
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.title h2 {
+  color: white;
+  letter-spacing: -3px;
+}
+.title img {
+  width: 40%;
+  padding-top: 120px;
+  padding-bottom: 70px;
+}
+
+/*1ra Parte*/
+.Main .container {
+  width: 100%;
+  margin: 0 auto;
+}
+.c1 {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  width: 100%;
+  /*background-color: brown;*/
+  margin: auto;
+  padding-bottom: 25px;
+}
+.grid2cols {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 30px;
+  /*  width: 70%;*/
+  margin: 10px 2px 10px 2px;
+  /* background-color: black;*/
+  justify-items: center;
+  width: 65%;
+}
+.box1 img {
+  width: 100%;
+}
+/*
+.box1 {
+  width: 35%;
+  background-color: blueviolet;
+  min-width: 300px;
+  margin: 0;
+  padding: 0;
+}*/
+
+/*.grid2cols */
+.box1 {
+  background-color: white;
+  padding: 3px;
+  margin: 7px auto;
+}
+
+.grid3cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px 30px;
+  /*  width: 70%;*/
+  margin: 10px 2px;
+  padding-top: 4px;
+  /* background-color: black;*/
+  /*justify-items: center;*/
+  width: 85%;
+}
+
+.boxg2 p {
+  color: #303235;
+  /*font-family: "Inter", sans-serif;*/
+  line-height: 17px;
+  font-size: 15px;
+  text-align: start;
+}
+.c1 .grid2cols .box1 .boxg2 p {
+  text-align: center;
+  /*letter-spacing: 5px;*/
+  line-height: 20px;
+}
+.cp2 {
+  /* background-color: #f7e3af;*/
+  background-color: #f4e8d2;
+  padding-top: 30px;
+}
+
+.Main .container h2 {
+  color: #003621;
+  letter-spacing: -1px;
+  text-align: center;
+}
+.boxg2 h3 {
+  color: #232425;
+  letter-spacing: -1px;
+  text-align: center;
+}
+@media screen and (max-width: 680px) {
+  .grid2cols {
+    grid-template-columns: 1fr;
+  }
+}
+@media screen and (max-width: 880px) {
+  .grid3cols {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media screen and (max-width: 680px) {
+  .grid3cols {
+    grid-template-columns: 1fr;
+  }
+}

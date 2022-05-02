@@ -1,0 +1,63 @@
+.main-container {
+  display: flex;
+}
+.SideBar {
+  background-color: #222;
+  color: white;
+  height: 100vh;
+  overflow-y: auto;
+}
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 10px;
+}
+.section img {
+  width: 7vh;
+  height: 7vh;
+}
+.bars {
+  width: 30px;
+}
+.bars svg {
+  display: block;
+
+  fill: #957c5c;
+  width: 25px;
+  height: 25px;
+}
+.routes {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.link {
+  display: flex;
+  color: white;
+  gap: 15px;
+  padding: 5px 10px;
+  border-right: 4px solid transparent;
+  transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  text-decoration: none;
+  align-items: center;
+}
+.link:hover {
+  border-right: 4px solid #957c5c;
+  background: #003621;
+  transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+.active {
+  border-right: 4px solid #957c5c;
+  background: #003621;
+}
+
+.linktext {
+  white-space: nowrap;
+  font-size: 15px;
+}
+.icon svg {
+  width: 25px;
+  height: 25px;
+}
