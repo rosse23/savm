@@ -1,9 +1,20 @@
 import { Fragment, React } from "react";
 import classes from "./Usercontainer.module.css";
 import Button from "../UI/Button";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { MdPermContactCalendar } from "react-icons/md";
+
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/auth";
 const Usercontainer = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const actionHandler = () => {
+    dispatch(authActions.setLogout());
+    navigate({ pathname: "/" }, { replace: true });
+  };
+
   return (
     <div className={classes.Usercontainer}>
       <div className={classes.datosuser}>
@@ -19,17 +30,17 @@ const Usercontainer = () => {
           <p>meyko@gmail.com</p>
         </div>
       </div>
-      <div className={classes.linkinfo}>
-        <Fragment>
+      <div className={classes.info}>
+        <div className={classes.linkinfo}>
           <MdPermContactCalendar />
           <NavLink to="/main" className={classes.Navinfo}>
-            Mi cuenta
+            <p>Mi cuenta</p>
+            <p>Información personal</p>
           </NavLink>
-          <p>Información personal</p>
-        </Fragment>
-        <Fragment>
-          <Button>Cerrar sesión</Button>
-        </Fragment>
+        </div>
+        <div className={classes.butoninfo}>
+          <Button onClick={actionHandler}>Cerrar sesión</Button>
+        </div>
       </div>
     </div>
   );

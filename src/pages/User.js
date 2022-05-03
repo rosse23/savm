@@ -7,12 +7,7 @@ import { HiUsers } from "react-icons/hi";
 import classes from "./User.module.css";
 const User = (props) => {
   return (
-    <div
-      // className={`${classes.User} ${
-      //   props.isOpenHamburger ? classes.User : classes.UserMargi
-      // }`}
-      className={classes.User}
-    >
+    <div className={classes.User}>
       <div className={classes.Port}>
         <Portada>
           <HiUsers />

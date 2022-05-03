@@ -2,6 +2,10 @@ import { React, useState } from "react";
 import classes from "./Layout.module.css";
 import Header from "../components/head/Header";
 import User from "./User";
+import SideBar from "../components/sidebar/SideBar";
+import { Route, Routes } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 const Layout = () => {
   const [isOpenHamburger, SetIsOpenHamburger] = useState(false);
   function handleClick() {
@@ -10,13 +14,9 @@ const Layout = () => {
   }
   return (
     <div className={classes.main}>
-      <div
-        className={` ${classes["dashboard-container"]} ${
-          !isOpenHamburger ? classes["dashboard-container--open"] : ""
-        }`}
-      >
-        <Header />
-        <User isOpenHamburger={isOpenHamburger} />
+      <SideBar />
+      <div className={classes["dashboard-container"]}>
+        <User />
       </div>
     </div>
   );

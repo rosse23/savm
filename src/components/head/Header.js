@@ -1,11 +1,9 @@
 import { React, useState } from "react";
 import classes from "./Header.module.css";
 import Button from "../UI/Button";
-import {
-  MdOutlineLocalGroceryStore,
-  MdArrowDropDown,
-  MdSettingsInputSvideo,
-} from "react-icons/md";
+import { MdOutlineLocalGroceryStore, MdArrowDropDown } from "react-icons/md";
+import { RiUser3Line } from "react-icons/ri";
+import { IoPaw } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 import Usercontainer from "./Usercontainer";
 import { AnimatePresence, motion } from "framer-motion";
@@ -44,14 +42,15 @@ const Header = () => {
         <nav className={classes.actions}>
           <NavLink to="/main" className={classes.Navicon}>
             <MdOutlineLocalGroceryStore />
-            <span className={classes.tooltiptext}>hola</span>
+            <span className={classes.tooltiptext}>+ venta</span>
+          </NavLink>
+          <NavLink to="/index" className={classes.Navicon}>
+            <RiUser3Line />
+            <span className={classes.tooltiptext}>+ usuario</span>
           </NavLink>
           <NavLink to="/main" className={classes.Navicon}>
-            <MdOutlineLocalGroceryStore />
-            <span className={classes.tooltiptext}>hola</span>
-          </NavLink>
-          <NavLink to="/main" className={classes.Navicon}>
-            <MdOutlineLocalGroceryStore />
+            <IoPaw />
+            <span className={classes.tooltiptext}>+ paciente</span>
           </NavLink>
         </nav>
         <div className={classes.avatar}>

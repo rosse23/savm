@@ -72,6 +72,14 @@
   border: none;
   cursor: pointer;
 }
+.actions > :nth-child(1n + 0) {
+  transform: rotate(0);
+  transition: transform 0.4s ease-in-out;
+}
+.actions > :nth-child(1n + 0):hover {
+  transform: rotate(360deg);
+}
+/*
 .actions > :first-child {
   transform: rotate(0);
   transition: transform 0.4s ease-in-out;
@@ -89,7 +97,7 @@
   animation: ring 0.7s ease-in-out;
   transform-origin: 50% 2px;
 }
-
+*/
 .Navavatar {
   text-decoration: none;
   border: 0;
@@ -157,6 +165,7 @@
   left: 50%;
   margin-left: -20px;
   transition: 0.1s ease-in-out;
+  font-size: small;
 }
 
 .Navicon:hover .tooltiptext {

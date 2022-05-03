@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 
 const routes = [
   {
-    path: "/",
+    path: "/index",
     name: "Usuarios",
     icon: <HiUsers />,
     op1: "Crear nuevo",

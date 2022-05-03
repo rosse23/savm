@@ -15,7 +15,11 @@ const Button = (props) => {
   };
   return (
     <div className={classes.button}>
-      <motion.button variants={buttonVariants} whileHover="hover">
+      <motion.button
+        onClick={props.onClick}
+        variants={buttonVariants}
+        whileHover="hover"
+      >
         {props.children}
       </motion.button>
     </div>

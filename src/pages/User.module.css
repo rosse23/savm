@@ -1,6 +1,7 @@
 .User {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 .Port {
   /* margin-left: 8%; */

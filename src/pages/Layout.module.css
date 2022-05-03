@@ -2,18 +2,19 @@
   display: flex;
   width: 100%;
   overflow: hidden;
-
   /*estoooo modifique*/
   height: 100vh;
   /* justify-content: flex-end; */
-}
+} /*
 .dashboard-container {
   flex-grow: 1;
 
-  /* transition: all 0.3s; */
 }
-
+*/
 .dashboard-container--open {
-  margin-left: 5rem;
+  /*  margin-left: 5rem;*/
   transition: all 0.3s;
+  width: 100%;
+  /*estoooo modifique*/
+  height: 100vh;
 }

@@ -5,9 +5,9 @@ import List from "../UI/List";
 import { IoIosEye } from "react-icons/io";
 import { AiTwotoneEdit } from "react-icons/ai";
 import { MdOutlineAddCircle } from "react-icons/md";
-import { NavLink } from "react-router-dom";
-
+import { NavLink, useNavigate } from "react-router-dom";
 const ListUser = () => {
+  const navigate = useNavigate();
   const API_URL = "http://localhost:8000/api/user/";
   const [user, SetUser] = useState([]);
   useEffect(() => {
@@ -16,13 +16,18 @@ const ListUser = () => {
       .then((response) => SetUser(response.data.data))
       .catch((error) => console.log(error));
   }, []);
+  const actionHandler = () => {
+    navigate({ pathname: "/newuser" }, { replace: true });
+  };
 
   return (
     <div className={classes.ListUser}>
       <List>
         <header className={classes.cabecera}>
           <h2>Lista de Usuarios</h2>
-          <MdOutlineAddCircle />
+          <button onClick={actionHandler}>
+            <MdOutlineAddCircle />
+          </button>
         </header>
         <div className={classes.tabla}>
           <table className={classes.cuerpotabla}>

@@ -23,4 +23,46 @@
 
 .datosuser p {
   color: aliceblue;
+  text-align: left;
+}
+.butoninfo {
+  font-size: 3vh;
+  color: aqua;
+  padding: 3px;
+  font-weight: bold;
+}
+.info {
+  height: 100vh;
+  /* background-color: red;*/
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px;
+  color: white;
+}
+.Navinfo {
+  display: flex;
+  flex-direction: column;
+  justify-items: start;
+  /*  background-color: aqua;*/
+  text-align: left;
+  text-decoration: none;
+  font-size: 15px;
+  color: white;
+}
+.Navinfo p {
+  color: white;
+}
+.linkinfo :hover {
+  opacity: 0.5;
+}
+.linkinfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.linkinfo svg {
+  fill: #957c5c;
+  width: 35px;
+  height: 35px;
 }

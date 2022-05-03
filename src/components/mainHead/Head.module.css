@@ -40,7 +40,7 @@
 }
 .modal {
   max-width: 480px;
-  max-height: 520px;
+  max-height: 540px;
   margin: 0 auto;
   padding: 10px 12px;
   /*background: white;*/
@@ -102,6 +102,21 @@
   color: #444;
   font-weight: bold;
 }*/
+
+.alert {
+  background-color: rgb(246, 200, 47);
+  border: solid 2px rgb(118, 131, 46);
+  color: #42464b;
+  display: flex;
+  align-items: center;
+  font-size: small;
+  gap: 15px;
+  padding: 3px 10px 3px 10px;
+}
+.alert svg {
+  width: 20px;
+  height: 20px;
+}
 @media screen and (max-width: 35em) {
   .title {
     font-size: 25px;
