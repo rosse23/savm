@@ -1,0 +1,88 @@
+.Getmenavbar {
+  background-color: rgba(31, 29, 29, 0.658);
+  color: white;
+  height: 50vh;
+  border-radius: 12px;
+}
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+}
+.section img {
+  width: 12vh;
+  height: 12vh;
+  border-radius: 10px;
+}
+.section2 {
+  display: flex;
+  justify-content: flex-end;
+  width: 15vh;
+  margin-top: -2vh;
+}
+.section2 > input {
+  display: none;
+}
+.bars {
+  background-color: #222;
+  border-bottom: 3px solid rgb(245, 245, 245);
+}
+
+.routes {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.link {
+  display: flex;
+  color: white;
+  gap: 15px;
+  padding: 5px 10px;
+  border-right: 4px solid transparent;
+  transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  text-decoration: none;
+  align-items: center;
+}
+.link:hover {
+  border-right: 4px solid #957c5c;
+  background: #e7d8864d;
+  transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+.active {
+  border-right: 4px solid #957c5c;
+  background: #e7d8864d;
+}
+
+.linktext {
+  white-space: nowrap;
+  font-size: 15px;
+}
+.icon svg {
+  width: 25px;
+  height: 25px;
+  fill: rgb(235, 168, 129);
+}
+.active {
+  border-right: 4px solid #957c5c;
+  background: #003621;
+}
+
+.inputfile {
+  color: #222;
+  border-radius: 50%;
+}
+.buteliminar {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-size: 25px;
+  padding: 20px;
+}
+.buttoncontainer {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}

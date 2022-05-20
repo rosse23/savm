@@ -1,16 +1,16 @@
 .Portada {
   display: flex;
   align-items: center;
-  height: max-content;
-  width: 100%;
+  height: 13vh;
+  width: max-content;
+  padding-left: 20px;
 }
 .Portada svg {
   display: block;
-
-  fill: #634526;
-  width: 95px;
-  height: 95px; /*
-  filter: drop-shadow(1px 1px 3px black);*/
+  fill: #090c0a;
+  width: 115px;
+  height: 115px;
+  filter: drop-shadow(1px 1px 3px rgb(247, 247, 247));
 }
 
 .Portada h1 {

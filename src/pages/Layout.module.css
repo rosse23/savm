@@ -1,20 +1,24 @@
 .main {
   display: flex;
+  /*display: flex;
+  flex-direction: column;*/
   width: 100%;
   overflow: hidden;
   /*estoooo modifique*/
   height: 100vh;
-  /* justify-content: flex-end; */
-} /*
-.dashboard-container {
-  flex-grow: 1;
+  /* background-color: rgb(181, 181, 196);*/
+  background-image: linear-gradient(
+      to right,
+      rgba(240, 190, 151, 0.418),
+      rgba(55, 88, 41, 0.548)
+    ),
+    url("../imgs/Poruser.jpg");
 
+  background-position: start;
 }
-*/
-.dashboard-container--open {
-  /*  margin-left: 5rem;*/
-  transition: all 0.3s;
+
+.dashboard-container {
   width: 100%;
-  /*estoooo modifique*/
   height: 100vh;
+  transition: all 0.3s;
 }

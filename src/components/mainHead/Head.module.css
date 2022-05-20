@@ -16,6 +16,10 @@
   font-weight: 1000;
   text-shadow: 2px 2px #3e3f41;
 }
+.subtitle {
+  text-shadow: 1px 1px 2px rgb(241, 241, 241);
+  font-weight: 1000;
+}
 .icon svg {
   display: block;
   fill: #003621;
@@ -46,8 +50,16 @@
   /*background: white;*/
   border-radius: 10px;
   text-align: center;
-  background-color: #f4e8d2;
+  /*background-color: #f4e8d2;*/
+  background-image: linear-gradient(
+      to right,
+      rgba(212, 212, 171, 0.73),
+      rgba(54, 78, 71, 0.445)
+    ),
+    url("../../imgs/porclientc.jpg");
+  background-size: cover;
 }
+
 .content {
   max-height: 400px;
   justify-content: center;
@@ -65,12 +77,19 @@
   font-size: 25px;
   color: #303235;
   margin-bottom: 5px;
+  text-shadow: 1px 1px 2px rgb(247, 247, 247);
+}
+.content p {
+  font-size: 19px;
+  color: #303235;
+  margin-bottom: 5px;
+  text-shadow: 1px 1px 2px rgb(0, 0, 0);
 }
 .but {
   font-weight: 1000;
   color: #003621;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 .butx {
   color: #222;
@@ -78,12 +97,19 @@
   border: 2px solid #222;
   padding: 0px 0px 0px 0px;
   border-radius: 22px;
+  background-color: #003621;
 }
 .butx:hover {
   background: #003621;
   color: #fff;
 }
-
+.buttonlogin {
+  display: flex;
+  justify-content: flex-end;
+}
+.buttonlogin button {
+  background-color: #003621;
+}
 /*
 .subtitle {
   color: #303235;

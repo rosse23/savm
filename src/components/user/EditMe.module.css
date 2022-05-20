@@ -1,0 +1,23 @@
+.EditMe {
+  background-color: rgba(31, 29, 29, 0.658);
+  padding: 20px;
+  color: rgb(247, 251, 253);
+  height: max-content;
+  border-radius: 15px;
+}
+.edittitle {
+  display: flex;
+  gap: 15px;
+}
+.edittitle h2 {
+  margin-bottom: 16px;
+}
+.EditMe input {
+  color: rgb(247, 251, 253);
+}
+
+.Butacept {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 30px;
+}

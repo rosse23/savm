@@ -1,0 +1,18 @@
+.Client {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 120vh;
+}
+.Portc {
+  /* margin-left: 8%; */
+  display: flex;
+  background-image: linear-gradient(
+      to right,
+      rgba(12, 6, 10, 0.73),
+      rgba(19, 54, 44, 0.445)
+    ),
+    url("../imgs/porclient.jpg");
+  background-size: cover;
+  background-position: center;
+}

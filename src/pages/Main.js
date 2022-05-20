@@ -4,7 +4,6 @@ import classes from "./Main.module.css";
 import g1 from "../imgs/grid2cols1.jpg";
 import g2 from "../imgs/grid2cols2.jpg";
 import logo from "../imgs/logo.png";
-import logoi from "../imgs/paw.png";
 const Main = () => {
   return (
     <div className={classes.Main}>

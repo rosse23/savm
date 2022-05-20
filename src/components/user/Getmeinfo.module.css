@@ -1,0 +1,37 @@
+.Getmeinfo {
+  /*background-color: rgba(66, 66, 66, 0.658);*/
+  background-color: rgba(31, 29, 29, 0.658);
+  padding: 20px;
+  color: aliceblue;
+  height: max-content;
+  font-size: large;
+  border-radius: 15px;
+}
+.title {
+  margin-bottom: 16px;
+}
+input {
+  color: aliceblue;
+}
+
+.formsection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.formtitle {
+  display: flex;
+  justify-content: flex-end;
+}
+.formtitle p {
+  font-weight: 400;
+  color: rgb(245, 187, 153);
+  text-shadow: 1px 1px 2px rgb(0, 0, 0);
+}
+.formresp {
+  display: flex;
+  justify-content: flex-start;
+  text-shadow: 1px 1px 2px rgb(0, 0, 0);
+}

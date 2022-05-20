@@ -1,0 +1,32 @@
+.NewClient {
+  width: 100%;
+  text-align: center;
+  padding: 1% 5% 5% 5%;
+}
+.NewClient h2 {
+  margin: 10px 0;
+  padding-bottom: 10px;
+  color: rgb(243, 214, 198);
+  text-shadow: 1px 1px 2px rgb(0, 0, 0);
+  border-bottom: 3px solid rgb(243, 214, 198);
+}
+
+.formusercontainer {
+  border-radius: 15px;
+  background-color: #90be971f;
+  text-align: center;
+  padding: 8% 1% 1% 1%;
+}
+
+.crearbut {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 35px;
+  padding: 10px 30px 10px 10px;
+}
+
+@media screen and (max-width: 690px) {
+  .createusercontainer {
+    grid-template-columns: 1fr;
+  }
+}

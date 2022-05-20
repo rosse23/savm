@@ -1,0 +1,36 @@
+.contenidoperfil {
+  width: 100%;
+  height: 100%;
+}
+.portp {
+  background-image: linear-gradient(
+      to right,
+      rgba(12, 6, 10, 0.73),
+      rgba(19, 54, 44, 0.445)
+    ),
+    url("../../imgs/Poruser.jpg");
+  background-size: cover;
+  background-position: center;
+}
+.Getme {
+  /*background-color: rgb(15, 80, 31);*/
+  background-image: linear-gradient(
+      to right,
+      rgba(231, 170, 39, 0.171),
+      rgba(27, 54, 19, 0.308)
+    ),
+    url("../../imgs/Poruser.jpg");
+  background-size: cover;
+  background-position: center;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 20px;
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+}
+@media screen and (max-width: 690px) {
+  .Getme {
+    grid-template-columns: 1fr;
+  }
+}

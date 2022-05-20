@@ -1,14 +1,25 @@
-import { Fragment, React } from "react";
+import { useEffect, React, useState } from "react";
 import classes from "./Usercontainer.module.css";
 import Button from "../UI/Button";
 import { NavLink, useNavigate } from "react-router-dom";
 import { MdPermContactCalendar } from "react-icons/md";
-
 import { useDispatch } from "react-redux";
+import { AuthRequests } from "../../lib/api";
 import { authActions } from "../../store/auth";
-const Usercontainer = () => {
+
+const Usercontainer = (props) => {
+  const isOpenCU = props;
+  const [user, setUser] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(async () => {
+    const result = await AuthRequests.getMe(localStorage.getItem("userToken"));
+    setUser(result.data.data);
+    if (result.status === "fail") {
+      return;
+    }
+  }, []);
 
   const actionHandler = () => {
     dispatch(authActions.setLogout());
@@ -19,25 +30,26 @@ const Usercontainer = () => {
     <div className={classes.Usercontainer}>
       <div className={classes.datosuser}>
         <div>
-          <img
-            src="https://images.unsplash.com/photo-1621784564114-6eea05b89863?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=87&q=80"
-            alt=""
-          />
+          <img src={"http://localhost:8000/img/users/" + user.photo} alt="" />
         </div>
         <div>
-          <p>Meyko Janko</p>
-          <p>12345678</p>
-          <p>meyko@gmail.com</p>
+          <p>{user.name}</p>
+          <p>{user.ci}</p>
+          <p>{user.email}</p>
         </div>
       </div>
       <div className={classes.info}>
-        <div className={classes.linkinfo}>
+        <NavLink
+          to="/app/user/getme"
+          className={classes.Navinfo}
+          onClick={() => isOpenCU(false)}
+        >
           <MdPermContactCalendar />
-          <NavLink to="/main" className={classes.Navinfo}>
+          <div className={classes.linkinfo}>
             <p>Mi cuenta</p>
             <p>Información personal</p>
-          </NavLink>
-        </div>
+          </div>
+        </NavLink>
         <div className={classes.butoninfo}>
           <Button onClick={actionHandler}>Cerrar sesión</Button>
         </div>

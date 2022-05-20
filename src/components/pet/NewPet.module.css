@@ -1,0 +1,97 @@
+.NewPet {
+  width: 100%;
+  text-align: center;
+  padding: 1% 5% 5% 5%;
+}
+.NewPet h2 {
+  margin: 10px 0;
+  padding-bottom: 10px;
+  color: rgb(243, 214, 198);
+  text-shadow: 1px 1px 2px rgb(0, 0, 0);
+  border-bottom: 3px solid rgb(243, 214, 198);
+}
+
+.formusercontainer {
+  border-radius: 15px;
+  background-color: #90be971f;
+  text-align: center;
+  padding: 8% 1% 1% 1%;
+}
+
+.photocontainer {
+  /*width: 50%;*/
+  align-items: center;
+  padding: 8% 1% 1% 1%;
+}
+.photocontainer button {
+  border-radius: 19px;
+}
+
+.photou svg {
+  border: 5px solid #222;
+  border-radius: 7px;
+  width: 50%;
+  height: 50%;
+}
+svg {
+  width: 30px;
+  height: 30px;
+}
+.crearbut {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 35px;
+  padding: 10px 30px 10px 10px;
+  color: #222;
+}
+.search-section {
+  position: absolute;
+  width: 90%;
+}
+.search-section input,
+textarea,
+select {
+  width: 100%;
+  padding: 6px 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  display: block;
+
+  border-radius: 7px;
+}
+.search-section input:focus {
+  border: 1px solid rgb(48, 99, 48);
+}
+
+.search-section ul {
+  background-color: rgb(156, 201, 163);
+  position: absolute;
+  left: 0;
+  /*  top: auto;*/
+
+  list-style: none;
+  max-height: 7rem;
+  width: 100%;
+  overflow-y: scroll;
+}
+.search-section li {
+  display: flex;
+  padding: 0px;
+}
+.search-section li:hover {
+  border-right: 4px solid #957c5c;
+  background: #003621;
+  transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+.search-section p {
+  /* background-color: #222;*/
+  font-size: medium;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+}
+@media screen and (max-width: 690px) {
+  .createusercontainer {
+    grid-template-columns: 1fr;
+  }
+}

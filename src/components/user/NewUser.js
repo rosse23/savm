@@ -1,20 +1,25 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { Form } from "../UI/Form";
 import classes from "./NewUser.module.css";
-import UserRequests from "../../lib/api/user-requests";
+import { UserRequests } from "../../lib/api/";
 import { useNavigate } from "react-router-dom";
+import { MdAddPhotoAlternate } from "react-icons/md";
+import { HiUser } from "react-icons/hi";
+import Button from "../UI/Button";
+import { errorActions } from "../../store/error";
 import { useDispatch } from "react-redux";
-
+import Container from "../UI/Container";
 const NewUser = (props) => {
-  const [errors, setErrors] = useState(null);
   const [credentials, setCredentials] = useState({
     name: "",
     email: "",
+    ci: "",
     password: "",
-    confirmpassword: "",
+    passwordConfirm: "",
+    role: "user",
   });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const changeInputHandler = (e) => {
     setCredentials((prev) => ({
@@ -24,71 +29,91 @@ const NewUser = (props) => {
   };
   const actionButton = async (e) => {
     e.preventDefault();
-    const result = await UserRequests.createOne(
-      credentials,
-      localStorage.getItem("userToken")
-    );
 
+    const result = await UserRequests.createOne(
+      localStorage.getItem("userToken"),
+      credentials
+    );
+    console.log(result.data.user._id);
     if (result.status === "fail") {
-      setErrors(result.message);
-      console.log(errors);
+      dispatch(
+        errorActions.setError(Object.values(JSON.parse(result.message)))
+      );
+
       return;
     }
-
-    /* dispatch(
-      authActions.setLogin({
-        token: result.token,
-        name: result.data.user.name,
-      })
-    );*/
-    // setTimeout(() => {
-    // }, 2000);
-    navigate({ pathname: "/index" }, { replace: true });
+    navigate(
+      { pathname: `/app/user/newuserphoto?id=${result.data.user._id}` },
+      { replace: true }
+    );
   };
 
   return (
-    <div className={classes.NewUser}>
-      <Form>
+    <Container>
+      <div className={classes.NewUser}>
         <h2>Nuevo Usuario</h2>
-        <p type="Name:">
-          <input
-            placeholder="Ingrese su nombre.."
-            id="email"
-            name="name"
-            value={credentials.name}
-            onChange={changeInputHandler}
-          ></input>
-        </p>
-        <p type="Email:">
-          <input
-            placeholder="Ingrese su email.."
-            id="email"
-            name="email"
-            value={credentials.email}
-            onChange={changeInputHandler}
-          ></input>
-        </p>
-        <p type="Password:">
-          <input
-            placeholder="Ingrese su contraseña.."
-            id="email"
-            name="password"
-            value={credentials.password}
-            onChange={changeInputHandler}
-          ></input>
-        </p>
-        <p type="ConfirmPassword:">
-          <input
-            placeholder="Vuelva a ingresar su contraseña.."
-            id="email"
-            name="confirmpassword"
-            value={credentials.confirmpassword}
-            onChange={changeInputHandler}
-          ></input>
-        </p>
-        <button onClick={actionButton}>Crear</button>
-      </Form>
-    </div>
+        <div className={classes.formusercontainer}>
+          <Form>
+            <p type="Nombre:">
+              <input
+                placeholder="Ingrese su nombre.."
+                id="name"
+                name="name"
+                value={credentials.name}
+                onChange={changeInputHandler}
+              ></input>
+            </p>
+            <p type="Email:">
+              <input
+                placeholder="Ingrese su email.."
+                id="email"
+                name="email"
+                value={credentials.email}
+                onChange={changeInputHandler}
+              ></input>
+            </p>
+            <p type="Ci:">
+              <input
+                placeholder="Ingrese su ci.."
+                id="ci"
+                name="ci"
+                value={credentials.ci}
+                onChange={changeInputHandler}
+              ></input>
+            </p>
+            <p type="Rol:">
+              <select id="role" name="role" onChange={changeInputHandler}>
+                <option value={"user"}>Usuario</option>
+                <option value={"admin"}>Administrador</option>
+              </select>
+            </p>
+            <p type="Contraseña:">
+              <input
+                type="password"
+                placeholder="Ingrese su contraseña.."
+                id="password"
+                name="password"
+                value={credentials.password}
+                onChange={changeInputHandler}
+              ></input>
+            </p>
+            <p type="Confirme su contraseña:">
+              <input
+                type="password"
+                placeholder="Vuelva a ingresar su contraseña.."
+                id="passwordConfirm"
+                name="passwordConfirm"
+                value={credentials.passwordConfirm}
+                onChange={changeInputHandler}
+              ></input>
+            </p>
+          </Form>
+          <div className={classes.crearbut}>
+            <Button onClick={actionButton}>Crear</Button>
+          </div>
+        </div>
+      </div>
+    </Container>
   );
 };
 

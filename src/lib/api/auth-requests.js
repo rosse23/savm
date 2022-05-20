@@ -57,7 +57,7 @@ class AuthRequests {
   async updatePassword(token, data) {
     let response;
     try {
-      response = await axios.post(`${this.uri}/updateMyPassword`, data, {
+      response = await axios.patch(`${this.uri}/updateMyPassword`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -96,10 +96,10 @@ class AuthRequests {
     }
   }
 
-  async deleteMe(token, data) {
+  async deleteMe(token) {
     let response;
     try {
-      response = await axios.delete(`${this.uri}/deleteMe`, data, {
+      response = await axios.delete(`${this.uri}/deleteMe`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

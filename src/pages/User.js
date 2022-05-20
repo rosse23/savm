@@ -1,21 +1,38 @@
 import React from "react";
-import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import Portada from "../components/UI/Portada";
 import ListUser from "../components/user/ListUser";
 import NewUser from "../components/user/NewUser";
-import { HiUsers } from "react-icons/hi";
+import { BsPersonFill } from "react-icons/bs";
 import classes from "./User.module.css";
+import { Route, Routes } from "react-router-dom";
+import UpdateUser from "../components/user/UpdateUser";
+import GetUser from "../components/user/GetUser";
+import Addphoto from "../components/user/Addphoto";
 const User = (props) => {
   return (
     <div className={classes.User}>
       <div className={classes.Port}>
         <Portada>
-          <HiUsers />
+          <BsPersonFill />
           <h1>Usuarios</h1>
         </Portada>
       </div>
-
-      <ListUser />
+      <Routes>
+        <Route path="/" element={<ListUser />} />
+        <Route path="newuser" element={<NewUser />} />
+        <Route path="newuserphoto" element={<Addphoto />} />
+        <Route path="viewuser" element={<GetUser />} />
+        <Route path="edituser" element={<UpdateUser />} />
+      </Routes>
+      {/*   <FiltersContainer>
+        <label>Nombre</label>
+        <input></input>
+        <label>CI</label>
+        <input></input>
+        <label>email</label>
+        <input></input>
+     </FiltersContainer>
+      <ListUser />*/}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import classes from "./Header.module.css";
 import Button from "../UI/Button";
 import { MdOutlineLocalGroceryStore, MdArrowDropDown } from "react-icons/md";
@@ -6,6 +6,7 @@ import { RiUser3Line } from "react-icons/ri";
 import { IoPaw } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 import Usercontainer from "./Usercontainer";
+import { AuthRequests } from "../../lib/api";
 import { AnimatePresence, motion } from "framer-motion";
 const backdrop = {
   visible: { opacity: 1 },
@@ -27,9 +28,17 @@ const showAnimation = {
     },
   },
 };
-const Header = () => {
+const Header = (props) => {
   const [isOpenCU, setIsOpenCU] = useState(false);
+  const [user, setUser] = useState({});
   const handleModalContainerClick = (e) => e.stopPropagation();
+  useEffect(async () => {
+    const result = await AuthRequests.getMe(localStorage.getItem("userToken"));
+    setUser(result.data.data);
+    if (result.status === "fail") {
+      return;
+    }
+  }, []);
   return (
     <div className={classes.header}>
       <div className={classes.header__inner}>
@@ -44,11 +53,11 @@ const Header = () => {
             <MdOutlineLocalGroceryStore />
             <span className={classes.tooltiptext}>+ venta</span>
           </NavLink>
-          <NavLink to="/index" className={classes.Navicon}>
+          <NavLink to="/app/user/newuser" className={classes.Navicon}>
             <RiUser3Line />
             <span className={classes.tooltiptext}>+ usuario</span>
           </NavLink>
-          <NavLink to="/main" className={classes.Navicon}>
+          <NavLink to="/app/pet/newpet" className={classes.Navicon}>
             <IoPaw />
             <span className={classes.tooltiptext}>+ paciente</span>
           </NavLink>
@@ -58,11 +67,8 @@ const Header = () => {
             className={classes.Navavatar}
             onClick={() => setIsOpenCU(!isOpenCU)}
           >
-            <p>Hola Meyko</p>
-            <img
-              src="https://images.unsplash.com/photo-1621784564114-6eea05b89863?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=87&q=80"
-              alt=""
-            />
+            <p>Hola {user.name}</p>
+            <img src={"http://localhost:8000/img/users/" + user.photo} alt="" />
           </button>
         </div>
         {isOpenCU && (
@@ -92,7 +98,7 @@ const Header = () => {
                       <Button>X</Button>
                     </div>
                   </div>
-                  <Usercontainer />
+                  <Usercontainer isOpenCU={isOpenCU} />
                 </motion.div>
               </motion.div>
             </AnimatePresence>

@@ -2,7 +2,13 @@
   display: flex;
 }
 .SideBar {
-  background-color: #222;
+  background-image: linear-gradient(
+      to right,
+      rgba(12, 6, 10, 0.73),
+      rgba(19, 54, 44, 0.445)
+    ),
+    url("../../imgs/Poruser.jpg");
+  background-size: cover;
   color: white;
   height: 100vh;
   overflow-y: auto;
@@ -35,7 +41,9 @@
 }
 .link {
   display: flex;
-  color: white;
+  font-weight: 500;
+  color: rgb(240, 220, 208);
+  text-shadow: 1px 1px 2px rgb(0, 0, 0);
   gap: 15px;
   padding: 5px 10px;
   border-right: 4px solid transparent;
@@ -60,4 +68,5 @@
 .icon svg {
   width: 25px;
   height: 25px;
+  fill: rgb(233, 161, 120);
 }

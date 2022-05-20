@@ -1,0 +1,48 @@
+.ico1,
+.ico2 {
+  border-radius: 4px;
+}
+
+.ico1 :hover {
+  background: #818181;
+  color: rgb(71, 70, 70);
+}
+.ico2 :hover {
+  background: #818181;
+  color: rgb(90, 87, 87);
+}
+.iconos {
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  gap: 1.5rem;
+}
+.ico1,
+.ico2 {
+  position: relative;
+}
+.tooltiptext {
+  position: absolute;
+  visibility: hidden;
+  background-color: black;
+  color: aliceblue;
+  text-align: center;
+  text-decoration: none;
+  padding: 5px;
+  border-radius: 5px;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -20px;
+  transition: 0.1s ease-in-out;
+}
+
+.ico2:hover .tooltiptext {
+  visibility: visible;
+  transition: 2s ease-in-out;
+}
+.ico1:hover .tooltiptext {
+  visibility: visible;
+  transition: 2s ease-in-out;
+}

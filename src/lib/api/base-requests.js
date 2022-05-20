@@ -12,10 +12,12 @@ class BaseRequests {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        /*   active: true,*/
       });
       return response.data;
     } catch (err) {
-      throw new Error(err.message || "No se pudo obtener la lista");
+      // throw new Error(err.message  "No se pudo obtener la lista");
+      return err.response.data;
     }
   };
 
@@ -29,7 +31,8 @@ class BaseRequests {
       });
       return response.data;
     } catch (err) {
-      throw new Error(err.message || "No se pudo crear el documento");
+      // throw new Error(err.message  "No se pudo crear el documento");
+      return err.response.data;
     }
   };
 
@@ -43,9 +46,10 @@ class BaseRequests {
       });
       return response.data;
     } catch (err) {
-      throw new Error(
-        err.message || "No se pudo obtener los datos del documento solicitado"
-      );
+      // throw new Error(
+      //   err.message  "No se pudo obtener los datos del documento solicitado"
+      //   );
+      return err.response.data;
     }
   };
 
@@ -59,23 +63,25 @@ class BaseRequests {
       });
       return response.data;
     } catch (err) {
-      throw new Error(err.message || "No se pudo actualizar el documento");
+      // throw new Error(err.message  "No se pudo actualizar el documento");
+      return err.response.data;
     }
   };
 
   deleteOne = async (idUser, token) => {
     let response;
     try {
-      response = await axios.get(`${this.uri}/${idUser}`, {
+      response = await axios.delete(`${this.uri}/${idUser}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       return response.data;
     } catch (err) {
-      throw new Error(
-        err.message || "No se pudo eliminar al documento solicitado"
-      );
+      // throw new Error(
+      //   err.message || "No se pudo eliminar al documento solicitado"
+      // );
+      return err.response.data;
     }
   };
 }

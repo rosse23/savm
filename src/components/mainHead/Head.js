@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 import classes from "./Head.module.css";
 import Button from "../UI/Button";
 import logo from "../../imgs/logo.png";
@@ -11,6 +11,7 @@ import { AuthRequests } from "../../lib/api";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { authActions } from "../../store/auth";
+import CardForm from "../UI/CardForm";
 const backdrop = {
   visible: { opacity: 1 },
   hidden: { opacity: 0 },
@@ -116,28 +117,27 @@ const Head = (props) => {
                 </div>
                 <img src={logo} alt="logo1" />
                 <h2 className={classes.subtitle}>Iniciar sesión</h2>
-                <Form>
-                  <p type="Email:">
-                    <input
-                      id="email"
-                      name="email"
-                      value={credentials.email}
-                      onChange={changeInputHandler}
-                      placeholder="jhon@doe.com"
-                      required
-                    ></input>
-                  </p>
-                  <p type="Password:">
-                    <input
-                      type="password"
-                      id="password"
-                      name="password"
-                      value={credentials.password}
-                      onChange={changeInputHandler}
-                      placeholder="***********"
-                      required
-                    ></input>
-                  </p>
+                <CardForm>
+                  <p>Email</p>
+                  <input
+                    id="email"
+                    name="email"
+                    value={credentials.email}
+                    onChange={changeInputHandler}
+                    placeholder="jhon@doe.com"
+                    required
+                  ></input>
+                  <p> Password:</p>
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    value={credentials.password}
+                    onChange={changeInputHandler}
+                    placeholder="***********"
+                    required
+                  ></input>
+
                   {errors ? (
                     <motion.div className={classes.alert} variants={backdrop}>
                       <IoWarning />
@@ -148,8 +148,10 @@ const Head = (props) => {
                   ) : (
                     <div></div>
                   )}
-                  <Button onClick={actionButton}>Login</Button>
-                </Form>
+                  <div className={classes.buttonlogin}>
+                    <Button onClick={actionButton}>Login</Button>
+                  </div>
+                </CardForm>
               </motion.div>
             </motion.div>
           </motion.div>

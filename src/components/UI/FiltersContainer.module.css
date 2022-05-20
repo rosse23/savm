@@ -1,0 +1,28 @@
+.Filtercontainer {
+  padding: 0;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  gap: 7%;
+  color: rgb(243, 214, 198);
+  text-shadow: 1px 1px 2px rgb(0, 0, 0);
+}
+.Filter {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.Filter label {
+  width: 70%;
+}
+.busqueda {
+  padding: 0;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  gap: 7%;
+  color: rgb(243, 214, 198);
+  text-shadow: 1px 1px 2px rgb(0, 0, 0);
+}

@@ -1,0 +1,46 @@
+.card {
+  background-color: rgb(230, 84, 84);
+  position: absolute;
+
+  min-width: 25rem;
+  min-height: 4rem;
+
+  left: 0;
+  padding: 1.3rem;
+  color: #fff;
+  font-weight: 500;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  transition: all 1s;
+
+  animation-name: moveInLeft;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-out;
+}
+.card button {
+  background-color: #222;
+  border: none;
+  padding: 0.7rem;
+  border-radius: 0.6rem;
+  margin-top: 1rem;
+  color: #fff;
+  font-size: 14px;
+}
+
+.card button:hover {
+  cursor: pointer;
+  background-color: rgb(107, 28, 28);
+}
+
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+
+  100% {
+    opacity: 1;
+    /* This makes look as the initial state */
+    transform: translate(0);
+  }
+}

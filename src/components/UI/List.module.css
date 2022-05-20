@@ -1,9 +1,8 @@
 .List {
-  background-color: rgb(255, 255, 255);
-
   align-items: center;
   justify-content: center;
   height: 50vh;
+  margin: 20px;
 }
 
 .filaFoto {
@@ -14,8 +13,8 @@
   display: block;
   margin: 0 auto;
   fill: rgb(32, 32, 32);
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
 }
 
 .List img {
@@ -26,8 +25,10 @@
 }
 .List h2 {
   display: inline;
+  color: #f4e8d2;
 }
 .List table {
+  border-radius: 15px;
   color: #3f4042;
   width: 100%;
 }
@@ -42,7 +43,7 @@ table td {
   background-color: #f4e8d2;
 }
 .List table tr:hover {
-  background-color: #68686646;
+  background-color: #c4d8c7a1;
 }
 
 .List table tr td button {

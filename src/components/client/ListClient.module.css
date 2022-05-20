@@ -1,0 +1,63 @@
+.ListClient {
+  overflow: scroll;
+  height: 100%;
+  width: 98%;
+  margin: 0 auto;
+  /* background-color: aqua;*/
+  border-radius: 15px;
+}
+
+.cabecera {
+  padding-bottom: 30px;
+  display: grid;
+  grid-template-columns: 9fr 1fr;
+  align-items: center;
+}
+.new {
+  background-color: rgb(235, 168, 129);
+  border-radius: 20px;
+}
+.new svg {
+  width: 25px;
+  height: 25px;
+  fill: rgb(0, 0, 0);
+}
+
+.new {
+  position: relative;
+}
+.cuerpotabla th {
+  background-color: rgb(235, 168, 129);
+}
+.tooltiptext {
+  position: absolute;
+  visibility: hidden;
+  background-color: black;
+  color: aliceblue;
+  text-align: center;
+  text-decoration: none;
+  padding: 5px;
+  border-radius: 5px;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -20px;
+  transition: 0.1s ease-in-out;
+}
+.Filter {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.Filter label {
+  width: 70%;
+}
+.Filterbutton {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 30px;
+}
+.new:hover .tooltiptext {
+  visibility: visible;
+  transition: 2s ease-in-out;
+}
