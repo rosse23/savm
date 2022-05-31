@@ -10,7 +10,9 @@ import Dashboard from "./Dashboard";
 import Client from "./Client";
 import Pet from "./Pet";
 import Sale from "./Sale";
-import Service from "./Service";
+import Visit from "./Visit";
+import Product from "./Product";
+import Esthetic from "./Esthetic";
 const Layout = () => {
   return (
     <div className={classes.main}>
@@ -25,7 +27,9 @@ const Layout = () => {
           <Route path="/client/*" element={<Client />} />
           <Route path="/pet/*" element={<Pet />} />
           <Route path="/sale/*" element={<Sale />} />
-          <Route path="/service/*" element={<Service />} />
+          <Route path="/product/*" element={<Product />} />
+          <Route path="/visit/*" element={<Visit />} />
+          <Route path="/esthetic/*" element={<Esthetic />} />
         </Routes>
       </div>
     </div>

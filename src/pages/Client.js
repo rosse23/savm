@@ -24,7 +24,7 @@ const Client = () => {
       <Routes>
         <Route path="/" element={<ListClient />} />
         <Route path="newclient" element={<NewClient />} />
-        <Route path="viewclient" element={<GetClient />} />
+        <Route path="viewclient/*" element={<GetClient />} />
         <Route path="editclient" element={<UpdateClient />} />
       </Routes>
     </div>

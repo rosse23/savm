@@ -19,19 +19,36 @@
   text-align: center;
   padding: 2% 1% 1% 1%;
 }
-
+.photocontainer {
+  display: grid;
+  justify-content: center;
+}
 .photocontainer > input {
   display: none;
 }
+
 .photocontainer button {
-  border-radius: 19px;
+  color: white;
+  font-size: 12px;
+  margin-bottom: -33px;
 }
 
+.photou {
+  max-width: 150px;
+  display: flex;
+  justify-content: center;
+}
 .photou svg {
   border: 5px solid #222;
   border-radius: 7px;
-  width: 50%;
-  height: 50%;
+  width: 100%;
+  height: 100%;
+}
+.photou img {
+  border: 3px solid rgb(241, 196, 171);
+  border-radius: 7px;
+  width: 100%;
+  height: 100%;
 }
 
 .crearbut {

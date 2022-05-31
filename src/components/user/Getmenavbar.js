@@ -11,6 +11,7 @@ import Modal from "../UI/Modal";
 import { errorActions } from "../../store/error";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
+import Navbar from "../UI/Navbar";
 const routes = [
   {
     path: "/app/user/getme/",
@@ -135,27 +136,7 @@ const Getmenavbar = () => {
           <p>{localStorage.getItem("userName")}</p>
         </div>
       </section>
-      <motion.section
-        variants={showAnimation}
-        initial="hidden"
-        animate="show"
-        exit="hidden"
-        className={classes.routes}
-      >
-        {routes.map((route, index) => {
-          return (
-            <NavLink
-              to={route.path}
-              key={index}
-              className={classes.link}
-              activeClassName={classes.active}
-            >
-              <div className={classes.icon}>{route.icon}</div>
-              <motion.div className={classes.linktext}>{route.name}</motion.div>
-            </NavLink>
-          );
-        })}
-      </motion.section>
+      <Navbar routes={routes} />
       <div className={classes.buteliminar}>
         <div>
           <Button onClick={() => setShowModal(!showModal)}>

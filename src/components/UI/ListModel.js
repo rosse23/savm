@@ -39,7 +39,7 @@ const ListModel = (props) => {
               <NavLink
                 className={classes.ico1}
                 exact
-                to={`${link1}+${Object.values(data)[0]}`}
+                to={`${link1}${Object.values(data)[0]}`}
               >
                 <IoIosEye />
                 <span className={classes.tooltiptext}>Ver</span>
@@ -47,7 +47,7 @@ const ListModel = (props) => {
               <NavLink
                 className={classes.ico2}
                 exact
-                to={`${link2}+${Object.values(data)[0]}`}
+                to={`${link2}${Object.values(data)[0]}`}
               >
                 <AiTwotoneEdit />
                 <span className={classes.tooltiptext}>Editar</span>

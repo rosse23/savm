@@ -1,6 +1,5 @@
 import React from "react";
 import Portada from "../components/UI/Portada";
-import ListUser from "../components/user/ListUser";
 import NewPet from "../components/pet/NewPet";
 import { MdOutlinePets } from "react-icons/md";
 import { Route, Routes } from "react-router-dom";
@@ -26,8 +25,7 @@ const Pet = (props) => {
         <Route path="/" element={<ListPet />} />
         <Route path="newpet" element={<NewPet />} />
         <Route path="newpetadd" element={<AddinfoPet />} />
-        <Route path="viewpet" element={<GetPet />} />
-        <Route path="editpet" element={<ListUser />} />
+        <Route path="viewpet/*" element={<GetPet />} />
       </Routes>
     </div>
   );

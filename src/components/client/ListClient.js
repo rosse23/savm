@@ -6,8 +6,7 @@ import FiltersContainer from "../UI/FiltersContainer";
 import Container from "../UI/Container";
 import List from "../UI/List";
 import ListModel from "../UI/ListModel";
-import classes from "./ListClient.module.css";
-
+import classes from "../user/ListUser.module.css";
 const ListClient = () => {
   const [client, setClient] = useState([]);
   const [infoadd, setInfoadd] = useState({
@@ -35,7 +34,7 @@ const ListClient = () => {
     <section>
       <FiltersContainer></FiltersContainer>
       <Container>
-        <div className={classes.ListClient}>
+        <div className={classes.ListUser}>
           <List>
             <div className={classes.cabecera}>
               <h2>Lista de Clientes</h2>
@@ -56,7 +55,7 @@ const ListClient = () => {
                       <div>Ci</div>
                     </th>
                     <th>
-                      <div>Numero de Cel</div>
+                      <div>Numero de Celular</div>
                     </th>
                     <th>
                       <div>Dirección</div>

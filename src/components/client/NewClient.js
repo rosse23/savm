@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import classes from "./NewClient.module.css";
+import classes from "../user/NewUser.module.css";
 import { Form } from "../UI/Form";
 import Button from "../UI/Button";
 import { ClientRequests } from "../../lib/api/";
@@ -40,7 +40,7 @@ const NewClient = () => {
   };
   return (
     <Container>
-      <div className={classes.NewClient}>
+      <div className={classes.NewUser}>
         <h2>Nuevo Cliente</h2>
         <div className={classes.formusercontainer}>
           <Form>

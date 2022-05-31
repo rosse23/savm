@@ -25,23 +25,26 @@ const UpdateUser = () => {
   let query = new URLSearchParams(search);
   let id = query.get("id");
 
-  useEffect(async () => {
-    const result = await UserRequests.getOne(
-      id,
-      localStorage.getItem("userToken")
-    );
-    setCredentials(result.data.data);
-    if (result.status === "fail") {
-      dispatch(
-        errorActions.setError(Object.values(JSON.parse(result.message)))
+  useEffect(() => {
+    const getuser = async () => {
+      const result = await UserRequests.getOne(
+        id,
+        localStorage.getItem("userToken")
       );
-      return;
-    }
-    if (result.data.data.role === "admin") {
-      setUser({ rol: "Administrador" });
-    } else {
-      setUser({ rol: "Usuario" });
-    }
+      setCredentials(result.data.data);
+      if (result.status === "fail") {
+        dispatch(
+          errorActions.setError(Object.values(JSON.parse(result.message)))
+        );
+        return;
+      }
+      if (result.data.data.role === "admin") {
+        setUser({ rol: "Administrador" });
+      } else {
+        setUser({ rol: "Usuario" });
+      }
+    };
+    getuser();
   }, []);
 
   const changeInputHandler = (e) => {
@@ -68,6 +71,7 @@ const UpdateUser = () => {
       );
       return;
     }
+    navigate({ pathname: `/app/user/` }, { replace: true });
   };
 
   return (

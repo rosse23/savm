@@ -54,7 +54,7 @@ const routes = [
         icon: <MdAttachMoney />,
       },
       {
-        path: "/app/sale/stock",
+        path: "/app/product",
         name: "Inventario",
         icon: <MdInventory />,
       },
@@ -66,12 +66,12 @@ const routes = [
     icon: <FaHandHoldingMedical />,
     subRoutes: [
       {
-        path: "/app/service",
+        path: "/app/visit",
         name: "Visita ",
         icon: <FaDog />,
       },
       {
-        path: "/app/service/esthetic",
+        path: "/app/esthetic",
         name: "Estetica y Baños",
         icon: <FaBath />,
       },

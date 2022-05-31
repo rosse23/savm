@@ -8,7 +8,11 @@ import { HiUser } from "react-icons/hi";
 import Button from "../UI/Button";
 import Container from "../UI/Container";
 import { Form } from "../UI/Form";
+const formData = new FormData();
 const Addphoto = () => {
+  const [selectedFile, setSelectedFile] = useState();
+  const [preview, setPreview] = useState();
+
   const [user, setUser] = useState({});
   let { search } = useLocation();
   const dispatch = useDispatch();
@@ -35,6 +39,44 @@ const Addphoto = () => {
     e.preventDefault();
     navigate({ pathname: `/app/user/` }, { replace: true });
   };
+
+  const updatePhoto = async (e) => {
+    const result = await UserRequests.updateOne(
+      id,
+      formData,
+      localStorage.getItem("userToken")
+    );
+    console.log(result);
+    if (result.status === "fail") {
+      dispatch(
+        errorActions.setError(Object.values(JSON.parse(result.message)))
+      );
+
+      console.log(result.message);
+      return;
+    }
+    navigate("/app/user/");
+  };
+  //mostrar imagen previa
+  useEffect(() => {
+    if (!selectedFile) {
+      setPreview(undefined);
+      return;
+    }
+    const objectUrl = URL.createObjectURL(selectedFile);
+    setPreview(objectUrl);
+
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFile]);
+
+  const onSelectFile = (e) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      setSelectedFile(undefined);
+      return;
+    }
+    formData.append("photo", e.target.files[0]);
+    setSelectedFile(e.target.files[0]);
+  };
   return (
     <Container>
       <div className={classes.NewUser}>
@@ -52,17 +94,22 @@ const Addphoto = () => {
 
             <div className={classes.photocontainer}>
               <div className={classes.photou}>
-                <HiUser />
+                {selectedFile ? <img src={preview} /> : <HiUser />}
               </div>
               <button>
-                <input type="file" id="archivo" />
-                <label for="archivo" className={classes.inputfile}></label>
+                <label for="archivo">Añadir foto de perfil</label>
               </button>
+              <input
+                type="file"
+                id="archivo"
+                name="archivo"
+                onChange={onSelectFile}
+              />
             </div>
           </Form>
           <div className={classes.crearbut}>
             <Button onClick={actionbutton1}>Omitir</Button>
-            <Button onClick={actionbutton1}>Guardar</Button>
+            <Button onClick={updatePhoto}>Guardar</Button>
           </div>
         </div>
       </div>

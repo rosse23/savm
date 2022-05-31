@@ -11,7 +11,7 @@ const ListPet = () => {
   const [pet, setPet] = useState([]);
   const [infoadd, setInfoadd] = useState({
     link1: "/app/pet/viewpet?id=",
-    link2: "/app/pet/editpet?id=",
+    link2: "/app/pet/viewpet/editpet?id=",
     obj: "owner",
   });
   const navigate = useNavigate();

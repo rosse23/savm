@@ -34,7 +34,7 @@ const NewUser = (props) => {
       localStorage.getItem("userToken"),
       credentials
     );
-    console.log(result.data.user._id);
+
     if (result.status === "fail") {
       dispatch(
         errorActions.setError(Object.values(JSON.parse(result.message)))
@@ -42,6 +42,7 @@ const NewUser = (props) => {
 
       return;
     }
+    console.log(result.data.user._id);
     navigate(
       { pathname: `/app/user/newuserphoto?id=${result.data.user._id}` },
       { replace: true }

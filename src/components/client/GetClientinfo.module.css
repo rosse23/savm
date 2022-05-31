@@ -1,0 +1,146 @@
+.GetClient {
+  width: 100%;
+  text-align: center;
+}
+.GetClientinfo {
+  width: 100%;
+  text-align: center;
+  padding: 1% 5% 5% 5%;
+}
+.title {
+  margin: 10px 0;
+  padding-bottom: 10px;
+  color: rgb(243, 214, 198);
+  text-shadow: 1px 1px 2px rgb(0, 0, 0);
+  border-bottom: 3px solid rgb(243, 214, 198);
+}
+.port {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.info {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 3%;
+}
+.info svg {
+  fill: rgb(245, 187, 153);
+}
+.info h3 {
+  font-size: 1.5em;
+  border-bottom: 2px solid rgb(245, 187, 153);
+  color: aliceblue;
+  text-shadow: 1px 1px 2px rgb(0, 0, 0);
+}
+.cols2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5%;
+}
+
+.formsection {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 0;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-left: 3px solid rgb(243, 214, 198);
+  border-radius: 15px;
+  padding-left: 13px;
+}
+.formtitle {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: -10px;
+}
+.formtitle p {
+  font-weight: 400;
+  color: rgb(245, 187, 153);
+  text-shadow: 1px 1px 2px rgb(0, 0, 0);
+  padding-top: 0px;
+}
+
+.formresp {
+  display: flex;
+  justify-content: flex-start;
+  text-shadow: 1px 1px 2px rgb(0, 0, 0);
+  margin-top: -10px;
+  position: relative;
+}
+.formresp p {
+  color: white;
+  text-shadow: 1px 1px 2px rgb(0, 0, 0);
+}
+/* botones */
+.Navop {
+  display: flex;
+}
+.Navop svg {
+  width: 25px;
+  height: 25px;
+  fill: rgb(233, 158, 115);
+}
+.Navop button {
+  border-radius: 10px;
+  border: 1px solid rgb(235, 168, 129);
+  background: rgba(0, 0, 0, 0.575);
+  margin: -8% 2% 2% 2%;
+}
+.Navop button:hover {
+  background: rgba(235, 168, 129, 0.26);
+  color: rgb(15, 15, 15);
+}
+
+.ico1,
+.ico2 {
+  position: relative;
+}
+.tooltiptext {
+  position: absolute;
+  visibility: hidden;
+  background-color: black;
+  color: aliceblue;
+  text-align: center;
+  text-decoration: none;
+  padding: 5px;
+  border-radius: 5px;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -20px;
+  transition: 0.1s ease-in-out;
+}
+
+.ico2:hover .tooltiptext {
+  visibility: visible;
+  transition: 2s ease-in-out;
+}
+.ico1:hover .tooltiptext {
+  visibility: visible;
+  transition: 2s ease-in-out;
+}
+.buttons {
+  padding: 4% 5% 2% 5%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 35px;
+}
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 5%;
+  background-color: rgba(235, 168, 129, 0.39);
+}
+.Navaccesos {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: rgba(6, 32, 4, 0.918);
+  transition: all 0.2s;
+  font-weight: 500;
+  font-size: 15px;
+}
+.Navaccesos:hover {
+  opacity: 0.5;
+}

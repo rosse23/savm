@@ -13,7 +13,7 @@
 
 .formusercontainer {
   border-radius: 15px;
-  background-color: #90be971f;
+  background-color: #0000002f;
   text-align: center;
   padding: 8% 1% 1% 1%;
 }
@@ -89,9 +89,4 @@ select {
   font-size: medium;
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
-}
-@media screen and (max-width: 690px) {
-  .createusercontainer {
-    grid-template-columns: 1fr;
-  }
 }
