@@ -18,9 +18,9 @@ const backdrop = {
 };
 
 const modal = {
-  hidden: { y: "-100vh", opacity: 0 },
+  hidden: { y: '-100vh', opacity: 0 },
   visible: {
-    y: "200px",
+    y: '105px',
     opacity: 1,
     transition: { delay: 0.5 },
   },
@@ -39,8 +39,8 @@ const Head = (props) => {
   const [errors, setErrors] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [credentials, setCredentials] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -55,7 +55,7 @@ const Head = (props) => {
     e.preventDefault();
     const result = await AuthRequests.logIn(credentials);
 
-    if (result.status === "fail") {
+    if (result.status === 'fail') {
       setErrors(result.message);
       console.log(errors);
       return;
@@ -69,7 +69,7 @@ const Head = (props) => {
     );
     // setTimeout(() => {
     // }, 2000);
-    navigate({ pathname: "/menu" }, { replace: true });
+    navigate({ pathname: '/menu' }, { replace: true });
   };
   const handleModalContainerClick = (e) => e.stopPropagation();
   console.log(showModal);
@@ -91,9 +91,9 @@ const Head = (props) => {
           <motion.div
             className={classes.backdrop}
             variants={backdrop}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
+            initial='hidden'
+            animate='visible'
+            exit='hidden'
             onClick={() => setShowModal(false)}
           >
             <motion.div
@@ -103,8 +103,8 @@ const Head = (props) => {
             >
               <motion.div
                 variants={contentmodal}
-                initial="hidden"
-                animate="visible"
+                initial='hidden'
+                animate='visible'
                 className={classes.content}
               >
                 <div className={classes.but}>
@@ -115,7 +115,7 @@ const Head = (props) => {
                     <Button>X</Button>
                   </div>
                 </div>
-                <img src={logo} alt="logo1" />
+                <img src={logo} alt='logo1' />
                 <h2 className={classes.subtitle}>Iniciar sesión</h2>
                 <CardForm>
                   <p>Email</p>
