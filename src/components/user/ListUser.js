@@ -1,23 +1,23 @@
-import { React, useEffect, useState } from "react";
-import classes from "./ListUser.module.css";
-import List from "../UI/List";
-import { IoIosEye } from "react-icons/io";
-import { AiTwotoneEdit } from "react-icons/ai";
-import { MdOutlineAddCircle } from "react-icons/md";
-import { NavLink, useNavigate } from "react-router-dom";
-import { UserRequests } from "../../lib/api/";
-import Container from "../UI/Container";
-import FiltersContainer from "../UI/FiltersContainer";
-import Button from "../UI/Button";
+import { React, useEffect, useState } from 'react';
+import classes from './ListUser.module.css';
+import List from '../UI/List';
+import { IoIosEye } from 'react-icons/io';
+import { AiTwotoneEdit } from 'react-icons/ai';
+import { MdOutlineAddCircle } from 'react-icons/md';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { UserRequests } from '../../lib/api/';
+import Container from '../UI/Container';
+import FiltersContainer from '../UI/FiltersContainer';
+import Button from '../UI/Button';
 const ListUser = () => {
   const [user, setUser] = useState([]);
 
   const navigate = useNavigate();
 
   useEffect(async () => {
-    const result = await UserRequests.getAll(localStorage.getItem("userToken"));
+    const result = await UserRequests.getAll(localStorage.getItem('userToken'));
 
-    if (result.status === "fail") {
+    if (result.status === 'fail') {
       console.log(result.message);
       return;
     } else {
@@ -26,35 +26,18 @@ const ListUser = () => {
     }
   }, []);
   const actionHandler = () => {
-    navigate({ pathname: "/app/user/newuser" }, { replace: true });
+    navigate({ pathname: '/app/user/newuser' }, { replace: true });
   };
 
   return (
     <section>
-      <FiltersContainer>
-        <div className={classes.Filter}>
-          <label>Nombre</label>
-          <input></input>
-        </div>
-        <div className={classes.Filter}>
-          <label>CI</label>
-          <input></input>
-        </div>
-        <div className={classes.Filter}>
-          <label>Email</label>
-          <input></input>
-        </div>
-        <div></div> <div></div>
-        <div className={classes.Filterbutton}>
-          <Button>Buscar</Button>
-        </div>
-      </FiltersContainer>
+      <FiltersContainer></FiltersContainer>
       <Container>
         <div className={classes.ListUser}>
           <List>
             <div className={classes.cabecera}>
               <h2>Lista de Usuarios</h2>
-              <NavLink exact to="/app/user/newuser" className={classes.new}>
+              <NavLink exact to='/app/user/newuser' className={classes.new}>
                 <MdOutlineAddCircle />
                 <span className={classes.tooltiptext}>Nuevo</span>
               </NavLink>
@@ -87,9 +70,9 @@ const ListUser = () => {
                         <div>
                           <img
                             src={
-                              "http://localhost:8000/img/users/" + users.photo
+                              'http://localhost:8000/img/users/' + users.photo
                             }
-                            alt="user"
+                            alt='user'
                           />
                         </div>
                         <div>{users.name}</div>

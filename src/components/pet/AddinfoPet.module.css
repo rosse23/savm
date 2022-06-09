@@ -31,3 +31,8 @@
   font-size: 35px;
   padding: 10px 30px 10px 10px;
 }
+.cols2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5%;
+}

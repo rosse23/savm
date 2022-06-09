@@ -1,47 +1,47 @@
-import { React, useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { FaUserEdit } from "react-icons/fa";
-import { UserRequests } from "../../lib/api/";
-import { errorActions } from "../../store/error";
-import Container from "../UI/Container";
-import classes from "./UpdateUser.module.css";
-import { useDispatch } from "react-redux";
-import Button from "../UI/Button";
-import { Form } from "../UI/Form";
+import { React, useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { FaUserEdit } from 'react-icons/fa';
+import { UserRequests } from '../../lib/api/';
+import { errorActions } from '../../store/error';
+import Container from '../UI/Container';
+import classes from './UpdateUser.module.css';
+import { useDispatch } from 'react-redux';
+import Button from '../UI/Button';
+import { Form } from '../UI/Form';
 const UpdateUser = () => {
   const [user, setUser] = useState({});
   const [credentials, setCredentials] = useState({
-    name: "",
-    email: "",
-    ci: "",
-    role: "",
-    createdAt: "",
-    updatedAt: "",
-    passwordChangedAt: "",
+    name: '',
+    email: '',
+    ci: '',
+    role: '',
+    createdAt: '',
+    updatedAt: '',
+    passwordChangedAt: '',
   });
   let { search } = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let query = new URLSearchParams(search);
-  let id = query.get("id");
+  let id = query.get('id');
 
   useEffect(() => {
     const getuser = async () => {
       const result = await UserRequests.getOne(
         id,
-        localStorage.getItem("userToken")
+        localStorage.getItem('userToken')
       );
       setCredentials(result.data.data);
-      if (result.status === "fail") {
+      if (result.status === 'fail') {
         dispatch(
           errorActions.setError(Object.values(JSON.parse(result.message)))
         );
         return;
       }
-      if (result.data.data.role === "admin") {
-        setUser({ rol: "Administrador" });
+      if (result.data.data.role === 'admin') {
+        setUser({ rol: 'Administrador' });
       } else {
-        setUser({ rol: "Usuario" });
+        setUser({ rol: 'Usuario' });
       }
     };
     getuser();
@@ -60,12 +60,12 @@ const UpdateUser = () => {
     const result = await UserRequests.updateOne(
       id,
       credentials,
-      localStorage.getItem("userToken")
+      localStorage.getItem('userToken')
     );
     console.log(credentials);
     console.log(result);
 
-    if (result.status === "fail") {
+    if (result.status === 'fail') {
       dispatch(
         errorActions.setError(Object.values(JSON.parse(result.message)))
       );
@@ -82,34 +82,37 @@ const UpdateUser = () => {
 
       <section>
         <Form>
-          <p type="Nombre:">
-            <input
-              value={credentials.name}
-              id="name"
-              name="name"
-              onChange={changeInputHandler}
-            ></input>
-          </p>
-          <p type="Email:">
+          <div className={classes.cols2}>
+            <p type='Nombre:'>
+              <input
+                value={credentials.name}
+                id='name'
+                name='name'
+                onChange={changeInputHandler}
+              ></input>
+            </p>
+            <p type='Ci:'>
+              <input
+                value={credentials.ci}
+                id='ci'
+                name='ci'
+                onChange={changeInputHandler}
+              ></input>
+            </p>
+          </div>
+          <p type='Email:'>
             <input
               value={credentials.email}
-              id="email"
-              name="email"
+              id='email'
+              name='email'
               onChange={changeInputHandler}
             ></input>
           </p>
-          <p type="Ci:">
-            <input
-              value={credentials.ci}
-              id="ci"
-              name="ci"
-              onChange={changeInputHandler}
-            ></input>
-          </p>
-          <p type="Rol:">{user.rol}</p>
-          <p type="Fecha de registro:"> {credentials.createdAt}</p>
-          <p type="Fecha de modificación:"> {credentials.updatedAt}</p>
-          <p type="Fecha de modificación de contraseña:">
+
+          <p type='Rol:'>{user.rol}</p>
+          <p type='Fecha de registro:'> {credentials.createdAt}</p>
+          <p type='Fecha de modificación:'> {credentials.updatedAt}</p>
+          <p type='Fecha de modificación de contraseña:'>
             {credentials.passwordChangedAt}
           </p>
         </Form>

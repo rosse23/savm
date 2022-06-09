@@ -1,14 +1,14 @@
-import { React, useState, useEffect } from "react";
-import classes from "./NewPet.module.css";
-import { Form } from "../UI/Form";
-import Button from "../UI/Button";
-import { motion } from "framer-motion";
-import { PetRequests } from "../../lib/api/";
-import { ClientRequests } from "../../lib/api/";
-import { useNavigate } from "react-router-dom";
-import Container from "../UI/Container";
-import { errorActions } from "../../store/error";
-import { useDispatch } from "react-redux";
+import { React, useState, useEffect } from 'react';
+import classes from './NewPet.module.css';
+import { Form } from '../UI/Form';
+import Button from '../UI/Button';
+import { motion } from 'framer-motion';
+import { PetRequests } from '../../lib/api/';
+import { ClientRequests } from '../../lib/api/';
+import { useNavigate } from 'react-router-dom';
+import Container from '../UI/Container';
+import { errorActions } from '../../store/error';
+import { useDispatch } from 'react-redux';
 const backdrop = {
   visible: { opacity: 1 },
   hidden: { opacity: 0 },
@@ -17,12 +17,12 @@ const NewPet = () => {
   const [opensearch, setOpensearch] = useState(false);
   const [ownername, setOwnername] = useState(null);
   const [clients, setClients] = useState([]);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [credentials, setCredentials] = useState({
-    name: "",
-    kind: "Canino",
-    sex: "Macho",
-    owner: "",
+    name: '',
+    kind: 'Canino',
+    sex: 'Macho',
+    owner: '',
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -38,11 +38,11 @@ const NewPet = () => {
     e.preventDefault();
     console.log(credentials);
     const result = await PetRequests.createOne(
-      localStorage.getItem("userToken"),
+      localStorage.getItem('userToken'),
       credentials
     );
     console.log(credentials);
-    if (result.status === "fail") {
+    if (result.status === 'fail') {
       dispatch(
         errorActions.setError(Object.values(JSON.parse(result.message)))
       );
@@ -57,7 +57,9 @@ const NewPet = () => {
   };
   useEffect(() => {
     const getAllClients = async () => {
-      const result = await ClientRequests.getAll(null);
+      const result = await ClientRequests.getAll(
+        localStorage.getItem('userToken')
+      );
       console.log(result);
       console.log(opensearch);
       setClients(
@@ -67,7 +69,7 @@ const NewPet = () => {
       );
     };
     const fetchClients = setTimeout(() => {
-      console.log("fetching");
+      console.log('fetching');
       getAllClients();
     }, 1000);
 
@@ -84,28 +86,29 @@ const NewPet = () => {
         <h2>Nuevo Paciente</h2>
         <div className={classes.formusercontainer}>
           <Form>
-            <p type="Nombre:">
+            <p type='Nombre:'>
               <input
-                placeholder="Ingrese nombre del paciente.."
-                id="name"
-                name="name"
+                placeholder='Ingrese nombre del paciente..'
+                id='name'
+                name='name'
                 value={credentials.name}
                 onChange={changeInputHandler}
               ></input>
             </p>
-            <p type="Especie:">
-              <select id="kind" name="kind" onChange={changeInputHandler}>
-                <option value={"Canino"}>Canino</option>
-                <option value={"Felino"}>Felino</option>
-                <option value={"Ave"}>Ave</option>
-                <option value={"Bovino"}>Bovino</option>
-                <option value={"Caprino"}>Caprino</option>
-                <option value={"Porcino"}>Porcino</option>
-                <option value={"Ovino"}>Ovino</option>
-              </select>
-            </p>
-            <p type="Sexo">
-              {/* input type="checkbox" name="sex" value="Macho" onChange={changeInputHandler}>
+            <div className={classes.cols2}>
+              <p type='Especie:'>
+                <select id='kind' name='kind' onChange={changeInputHandler}>
+                  <option value={'Canino'}>Canino</option>
+                  <option value={'Felino'}>Felino</option>
+                  <option value={'Ave'}>Ave</option>
+                  <option value={'Bovino'}>Bovino</option>
+                  <option value={'Caprino'}>Caprino</option>
+                  <option value={'Porcino'}>Porcino</option>
+                  <option value={'Ovino'}>Ovino</option>
+                </select>
+              </p>
+              <p type='Sexo'>
+                {/* input type="checkbox" name="sex" value="Macho" onChange={changeInputHandler}>
                 Macho
               </input>
 
@@ -113,31 +116,32 @@ const NewPet = () => {
                 Hembra
   </input>*/}
 
-              <select id="sex" name="sex" onChange={changeInputHandler}>
-                <option value={"macho"}>Macho</option>
-                <option value={"Hembra"}>Hembra</option>
-              </select>
-            </p>
+                <select id='sex' name='sex' onChange={changeInputHandler}>
+                  <option value={'macho'}>Macho</option>
+                  <option value={'Hembra'}>Hembra</option>
+                </select>
+              </p>
+            </div>
             <div>
-              <p type="Dueño:">
+              <p type='Dueño:'>
                 <input
                   onClick={() => setOpensearch(!opensearch)}
-                  type="text"
-                  placeholder="Ingrese el dueño del paciente"
-                  id="owner"
-                  name="owner"
+                  type='text'
+                  placeholder='Ingrese el dueño del paciente'
+                  id='owner'
+                  name='owner'
                   value={ownername}
                 ></input>
                 {opensearch ? (
                   <motion.div
-                    className={classes["search-section"]}
+                    className={classes['search-section']}
                     variants={backdrop}
                   >
                     <input
-                      type="text"
-                      placeholder="Por favor, ingrese una letra.."
-                      id="owner"
-                      name="owner"
+                      type='text'
+                      placeholder='Por favor, ingrese una letra..'
+                      id='owner'
+                      name='owner'
                       onChange={onSearchHandler}
                     ></input>
                     <ul>

@@ -16,7 +16,7 @@
   -moz-border-radius: 5px;
   border-radius: 5px;
   margin-bottom: 0px;
-  height: 7vh;
+  height: 8.5vh;
 }
 
 .header__inner {
@@ -24,7 +24,7 @@
   display: grid;
   padding: 0vh 0vh 0vh 3%;
   /* grid-template-columns: 60% 20% 20%; */
-  grid-template-columns: 7fr 2fr 1fr;
+  grid-template-columns: 7fr 2fr 2fr;
   align-content: center;
   gap: 4vw;
 }
@@ -215,7 +215,7 @@
       rgba(12, 6, 10, 0.73),
       rgba(19, 54, 44, 0.445)
     ),
-    url("../../imgs/Poruser.jpg");
+    url('../../imgs/Poruser.jpg');
   background-size: cover;
   /*background-position: center;*/
 }

@@ -1,45 +1,45 @@
-import { React, useEffect, useState } from "react";
-import Navbar from "../UI/Navbar";
-import { errorActions } from "../../store/error";
-import { useDispatch } from "react-redux";
-import { PetRequests } from "../../lib/api/";
-import { BsJournalText } from "react-icons/bs";
-import { MdOutlinePets } from "react-icons/md";
-import { RiDeleteBin5Fill, RiEdit2Fill } from "react-icons/ri";
-import { useNavigate, useLocation } from "react-router-dom";
-import { FaFileArchive, FaBath, FaSyringe } from "react-icons/fa";
-import classes from "./NavPet.module.css";
-import Button from "../UI/Button";
-import Modal from "../UI/Modal";
+import { React, useEffect, useState } from 'react';
+import Navbar from '../UI/Navbar';
+import { errorActions } from '../../store/error';
+import { useDispatch } from 'react-redux';
+import { PetRequests } from '../../lib/api/';
+import { BsJournalText } from 'react-icons/bs';
+import { MdOutlinePets } from 'react-icons/md';
+import { RiDeleteBin5Fill, RiEdit2Fill } from 'react-icons/ri';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { FaFileArchive, FaBath, FaSyringe } from 'react-icons/fa';
+import classes from './NavPet.module.css';
+import Button from '../UI/Button';
+import Modal from '../UI/Modal';
 
 const NavPet = (props) => {
   const idPet = props.idPet;
   const [pet, setPet] = useState({});
   let { search } = useLocation();
   let query = new URLSearchParams(search);
-  let id = query.get("id");
+  let id = query.get('id');
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const routes = [
     {
       path: `/app/pet/viewpet?id=${id}`,
-      name: "Datos del Paciente",
+      name: 'Datos del Paciente',
       icon: <BsJournalText />,
     },
     {
       path: `/app/pet/viewpet/visits?id=${id}`,
-      name: "Historial Clinico",
+      name: 'Historial Clinico',
       icon: <FaFileArchive />,
     },
     {
       path: `/app/pet/viewpet/esthetic?id=${id}`,
-      name: "Estetica y baños",
+      name: 'Estetica y baños',
       icon: <FaBath />,
     },
     {
       path: `/app/pet/viewpet/vaccines?id=${id}`,
-      name: "Vacunas",
+      name: 'Vacunas',
       icon: <FaSyringe />,
     },
   ];
@@ -47,10 +47,10 @@ const NavPet = (props) => {
     const auxgetpet = async () => {
       const result = await PetRequests.getOne(
         idPet,
-        localStorage.getItem("userToken")
+        localStorage.getItem('userToken')
       );
       setPet(result.data.data);
-      if (result.status === "fail") {
+      if (result.status === 'fail') {
         return;
       }
     };
@@ -62,17 +62,17 @@ const NavPet = (props) => {
     setShowModal(!showModal);
     const result = await PetRequests.deleteOne(
       id,
-      localStorage.getItem("userToken")
+      localStorage.getItem('userToken')
     );
 
-    if (result.status === "fail") {
+    if (result.status === 'fail') {
       console.log(result.message);
       dispatch(
         errorActions.setError(Object.values(JSON.parse(result.message)))
       );
       return;
     }
-    navigate({ pathname: "/app/pet/" }, { replace: true });
+    navigate({ pathname: '/app/pet/' }, { replace: true });
   };
   const actionUpdate = async (e) => {
     e.preventDefault();
@@ -102,7 +102,7 @@ const NavPet = (props) => {
               </button>
             </div>
             <Modal showModal={showModal}>
-              <p>Esta seguro de eliminar este producto?</p>
+              <p>Esta seguro de eliminar este paciente?</p>
               <div className={classes.buttons}>
                 <Button onClick={() => setShowModal(!showModal)}>
                   Cancelar

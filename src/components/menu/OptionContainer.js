@@ -1,60 +1,71 @@
-import React, { Fragment, useState } from "react";
-import classes from "./OptionContainer.module.css";
-import { HiUsers, HiUserGroup } from "react-icons/hi";
-import { MdPets, MdLocalGroceryStore } from "react-icons/md";
-import { FaHandHoldingMedical } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import React, { Fragment, useState } from 'react';
+import classes from './OptionContainer.module.css';
+import { HiUsers, HiUserGroup } from 'react-icons/hi';
+import { MdPets, MdLocalGroceryStore } from 'react-icons/md';
+import { FaHandHoldingMedical } from 'react-icons/fa';
+import { FcStatistics } from 'react-icons/fc';
+import { NavLink } from 'react-router-dom';
 
 const routes = [
   {
-    path1: "/app/user/newuser",
-    path2: "/app/user/listuser",
-    path3: "/index",
-    name: "Usuarios",
+    path1: '/app/user/newuser',
+    path2: '/app/user/',
+    path3: '/app/',
+    name: 'Usuarios',
     icon: <HiUsers />,
-    op1: "Crear nuevo",
-    op2: "Lista / Búsqueda",
-    op3: "Descargar listado",
+    op1: 'Crear nuevo',
+    op2: 'Lista / Búsqueda',
+    op3: 'Descargar listado',
   },
   {
-    path1: "/client/newclient",
-    path2: "/user/listuser",
-    path3: "/index",
-    name: "Clientes",
+    path1: '/app/client/newclient',
+    path2: '/app/client',
+    path3: '/app/client',
+    name: 'Clientes',
     icon: <HiUserGroup />,
-    op1: "Crear nuevo",
-    op2: "Lista / Búsqueda",
-    op3: "Descargar listado",
+    op1: 'Crear nuevo',
+    op2: 'Lista / Búsqueda',
+    op3: 'Descargar listado',
   },
   {
-    path1: "/pet/newpet",
-    path2: "/user/listuser",
-    path3: "/index",
-    name: "Mascotas",
+    path1: '/app/pet/newpet',
+    path2: '/app/pet',
+    path3: '/app/pet',
+    name: 'Mascotas',
     icon: <MdPets />,
-    op1: "Crear nuevo",
-    op2: "Lista / Búsqueda",
-    op3: "Descargar listado",
+    op1: 'Crear nuevo',
+    op2: 'Lista / Búsqueda',
+    op3: 'Descargar listado',
   },
   {
-    path1: "/",
-    path2: "/user/listuser",
-    path3: "/index",
-    name: "Ventas",
+    path1: '/app/sale/newsale',
+    path2: '/app/sale/',
+    path3: '/app/sale/',
+    name: 'Ventas',
     icon: <MdLocalGroceryStore />,
-    op1: "Crear nuevo",
-    op2: "Lista / Búsqueda",
-    op3: "Descargar listado",
+    op1: 'Crear nuevo',
+    op2: 'Lista / Búsqueda',
+    op3: 'Descargar listado',
   },
   {
-    path1: "/",
-    path2: "/user/listuser",
-    path3: "/index",
-    name: "Servicios",
+    path1: '/app/esthetic/',
+    path2: '/app/visit/',
+    path3: '/app/esthetic/new esthetica',
+    name: 'Servicios',
     icon: <FaHandHoldingMedical />,
-    op1: "Crear nuevo",
-    op2: "Lista / Búsqueda",
-    op3: "Descargar listado",
+    op1: 'Visitas a Esthetica',
+    op2: 'Visitas',
+    op3: 'Nueva visita',
+  },
+  {
+    path1: '/app/esthetic/',
+    path2: '/app/visit/',
+    path3: '/app/esthetic/new esthetica',
+    name: 'Estadisticas',
+    icon: <FcStatistics />,
+    op1: 'Visitas a Esthetica',
+    op2: 'Visitas',
+    op3: 'Nueva visita',
   },
 ];
 
@@ -75,7 +86,7 @@ const OptionContainer = () => {
 
   const mouseLeaveHandler = (data) => {
     setIsHover((prev) => ({ ...prev, [data]: false }));
-    console.log("leave mouse");
+    console.log('leave mouse');
   };
 
   return (

@@ -1,26 +1,27 @@
-import { React, useState, useEffect } from "react";
-import { PetRequests } from "../../lib/api/";
-import { errorActions } from "../../store/error";
-import { useDispatch } from "react-redux";
-import Container from "../UI/Container";
-import { useNavigate, useLocation } from "react-router-dom";
-import classes from "./GetPetinfo.module.css";
-import { Form } from "../UI/Form";
+import { React, useState, useEffect } from 'react';
+import { PetRequests } from '../../lib/api/';
+import { errorActions } from '../../store/error';
+import { useDispatch } from 'react-redux';
+import Container from '../UI/Container';
+import { useNavigate, useLocation } from 'react-router-dom';
+import classes from './GetPetinfo.module.css';
+import { Form } from '../UI/Form';
 
 const GetPetinfo = () => {
   const [pet, setPet] = useState({});
   let { search } = useLocation();
   const dispatch = useDispatch();
   let query = new URLSearchParams(search);
-  let id = query.get("id");
+  let id = query.get('id');
   useEffect(() => {
     const getpet = async () => {
       const result = await PetRequests.getOne(
         id,
-        localStorage.getItem("userToken")
+        localStorage.getItem('userToken')
       );
+      console.log(result);
       setPet(result.data.data);
-      if (result.status === "fail") {
+      if (result.status === 'fail') {
         dispatch(
           errorActions.setError(Object.values(JSON.parse(result.message)))
         );

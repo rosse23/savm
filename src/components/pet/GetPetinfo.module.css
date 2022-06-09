@@ -110,3 +110,19 @@ select {
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
 }
+
+.buttonsedit {
+  color: rgb(243, 214, 198);
+  text-shadow: 1px 1px 2px rgb(0, 0, 0);
+  border-bottom: 3px solid rgb(243, 214, 198);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 25px;
+}
+.buttonsedit h2 {
+  color: rgb(243, 214, 198);
+  text-shadow: 1px 1px 2px rgb(0, 0, 0);
+  border-bottom: none;
+  font-size: 20px;
+}

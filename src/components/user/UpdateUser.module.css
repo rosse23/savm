@@ -21,3 +21,8 @@
   justify-content: flex-end;
   font-size: 30px;
 }
+.cols2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5%;
+}

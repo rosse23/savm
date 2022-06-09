@@ -1,13 +1,13 @@
-import { React, useState, useEffect } from "react";
-import classes from "./Header.module.css";
-import Button from "../UI/Button";
-import { MdOutlineLocalGroceryStore, MdArrowDropDown } from "react-icons/md";
-import { RiUser3Line } from "react-icons/ri";
-import { IoPaw } from "react-icons/io5";
-import { NavLink } from "react-router-dom";
-import Usercontainer from "./Usercontainer";
-import { AuthRequests } from "../../lib/api";
-import { AnimatePresence, motion } from "framer-motion";
+import { React, useState, useEffect } from 'react';
+import classes from './Header.module.css';
+import Button from '../UI/Button';
+import { MdOutlineLocalGroceryStore, MdArrowDropDown } from 'react-icons/md';
+import { RiUser3Line } from 'react-icons/ri';
+import { IoPaw } from 'react-icons/io5';
+import { NavLink } from 'react-router-dom';
+import Usercontainer from './Usercontainer';
+import { AuthRequests } from '../../lib/api';
+import { AnimatePresence, motion } from 'framer-motion';
 const backdrop = {
   visible: { opacity: 1 },
   hidden: { opacity: 0 },
@@ -33,9 +33,9 @@ const Header = (props) => {
   const [user, setUser] = useState({});
   const handleModalContainerClick = (e) => e.stopPropagation();
   useEffect(async () => {
-    const result = await AuthRequests.getMe(localStorage.getItem("userToken"));
+    const result = await AuthRequests.getMe(localStorage.getItem('userToken'));
     setUser(result.data.data);
-    if (result.status === "fail") {
+    if (result.status === 'fail') {
       return;
     }
   }, []);
@@ -43,21 +43,21 @@ const Header = (props) => {
     <div className={classes.header}>
       <div className={classes.header__inner}>
         <div className={classes.accesos}>
-          <NavLink className={classes.Navaccesos} to="/main">
+          <NavLink className={classes.Navaccesos} to='/main'>
             <p>Accesos</p>
             <MdArrowDropDown />
           </NavLink>
         </div>
         <nav className={classes.actions}>
-          <NavLink to="/main" className={classes.Navicon}>
+          <NavLink to='/app/sale/' className={classes.Navicon}>
             <MdOutlineLocalGroceryStore />
             <span className={classes.tooltiptext}>+ venta</span>
           </NavLink>
-          <NavLink to="/app/user/newuser" className={classes.Navicon}>
+          <NavLink to='/app/client/newclient' className={classes.Navicon}>
             <RiUser3Line />
-            <span className={classes.tooltiptext}>+ usuario</span>
+            <span className={classes.tooltiptext}>+ Cliente</span>
           </NavLink>
-          <NavLink to="/app/pet/newpet" className={classes.Navicon}>
+          <NavLink to='/app/pet/newpet' className={classes.Navicon}>
             <IoPaw />
             <span className={classes.tooltiptext}>+ paciente</span>
           </NavLink>
@@ -68,25 +68,25 @@ const Header = (props) => {
             onClick={() => setIsOpenCU(!isOpenCU)}
           >
             <p>Hola {user.name}</p>
-            <img src={"http://localhost:8000/img/users/" + user.photo} alt="" />
+            <img src={'http://localhost:8000/img/users/' + user.photo} alt='' />
           </button>
         </div>
         {isOpenCU && (
           <motion.div
             className={classes.backdrop}
             variants={backdrop}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
+            initial='hidden'
+            animate='visible'
+            exit='hidden'
             onClick={() => setIsOpenCU(false)}
           >
             <AnimatePresence exitBeforeEnter>
               <motion.div
                 className={classes.modal}
                 variants={showAnimation}
-                initial="hidden"
-                animate="show"
-                exit="hidden"
+                initial='hidden'
+                animate='show'
+                exit='hidden'
                 onClick={handleModalContainerClick}
               >
                 <motion.div>

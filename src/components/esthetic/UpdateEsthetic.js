@@ -1,14 +1,14 @@
-import { React, useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { EstheticRequests } from "../../lib/api/";
-import { PetRequests } from "../../lib/api/";
-import { errorActions } from "../../store/error";
-import Container from "../UI/Container";
-import classes from "./NewEsthetic.module.css";
-import { useDispatch } from "react-redux";
-import Button from "../UI/Button";
-import { motion } from "framer-motion";
-import CardForm from "../UI/CardForm";
+import { React, useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { EstheticRequests } from '../../lib/api/';
+import { PetRequests } from '../../lib/api/';
+import { errorActions } from '../../store/error';
+import Container from '../UI/Container';
+import classes from './NewEsthetic.module.css';
+import { useDispatch } from 'react-redux';
+import Button from '../UI/Button';
+import { motion } from 'framer-motion';
+import CardForm from '../UI/CardForm';
 const backdrop = {
   visible: { opacity: 1 },
   hidden: { opacity: 0 },
@@ -17,18 +17,18 @@ const UpdateEsthetic = () => {
   const [opensearch, setOpensearch] = useState(false);
   const [petname, setPetname] = useState(null);
   const [pets, setPets] = useState([]);
-  const [searchs, setSearchs] = useState("");
+  const [searchs, setSearchs] = useState('');
   const [credentials, setCredentials] = useState({
-    kind: "",
+    kind: '',
     price: 0,
-    detail: "",
-    pet: "",
+    detail: '',
+    pet: '',
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
   let { search } = useLocation();
   let query = new URLSearchParams(search);
-  let id = query.get("id");
+  let id = query.get('id');
   const changeInputHandler = (e) => {
     setCredentials((prev) => ({
       ...prev,
@@ -39,11 +39,11 @@ const UpdateEsthetic = () => {
     const getesthetic = async () => {
       const result = await EstheticRequests.getOne(
         id,
-        localStorage.getItem("userToken")
+        localStorage.getItem('userToken')
       );
       setCredentials(result.data.data);
       setPetname(result.data.data.pet?.name);
-      if (result.status === "fail") {
+      if (result.status === 'fail') {
         dispatch(
           errorActions.setError(Object.values(JSON.parse(result.message)))
         );
@@ -55,31 +55,39 @@ const UpdateEsthetic = () => {
   const actionButton = async (e) => {
     e.preventDefault();
     console.log(credentials);
-    console.log("kalesita");
-    /* const result = await EstheticRequests.updateOne(
+    console.log('kalesita');
+    const result = await EstheticRequests.updateOne(
       id,
       credentials,
-      localStorage.getItem("userToken")
+      localStorage.getItem('userToken')
     );
     console.log(credentials);
     console.log(result);
 
-    if (result.status === "fail") {
+    if (result.status === 'fail') {
       dispatch(
         errorActions.setError(Object.values(JSON.parse(result.message)))
       );
       return;
     }
-    navigate({ pathname: `/app/esthetic/` }, { replace: true });*/
+    navigate(
+      { pathname: `/app/esthetic/viewesthetic?id=${id}` },
+      { replace: true }
+    );
   };
   const actionCancel = async (e) => {
     e.preventDefault();
-    navigate({ pathname: `/app/esthetic/` }, { replace: true });
+    navigate(
+      { pathname: `/app/esthetic/viewesthetic?id=${id}` },
+      { replace: true }
+    );
   };
 
   useEffect(() => {
     const getAllPets = async () => {
-      const result = await PetRequests.getAll(null);
+      const result = await PetRequests.getAll(
+        localStorage.getItem('userToken')
+      );
       console.log(result);
       console.log(opensearch);
       setPets(
@@ -89,7 +97,7 @@ const UpdateEsthetic = () => {
       );
     };
     const fetchPets = setTimeout(() => {
-      console.log("fetching");
+      console.log('fetching');
       getAllPets();
     }, 1000);
 
@@ -104,7 +112,7 @@ const UpdateEsthetic = () => {
   return (
     <Container>
       <div className={classes.NewEsthetic}>
-        <h2>Nueva Visita de Estetica</h2>
+        <h2>Editar visita Estetica</h2>
         <div className={classes.formcontainer}>
           <CardForm>
             <div className={classes.petcontainer}>
@@ -113,22 +121,22 @@ const UpdateEsthetic = () => {
                 <div className={classes.inputpet}>
                   <input
                     onClick={() => setOpensearch(!opensearch)}
-                    type="text"
-                    placeholder="Ingrese el paciente"
-                    id="pet"
-                    name="pet"
+                    type='text'
+                    placeholder='Ingrese el paciente'
+                    id='pet'
+                    name='pet'
                     value={petname}
                   ></input>
                   {opensearch && (
                     <motion.div
-                      className={classes["search-section"]}
+                      className={classes['search-section']}
                       variants={backdrop}
                     >
                       <input
-                        type="text"
-                        placeholder="Por favor, ingrese una letra.."
-                        id="pet"
-                        name="pet"
+                        type='text'
+                        placeholder='Por favor, ingrese una letra..'
+                        id='pet'
+                        name='pet'
                         onChange={onSearchHandler}
                       ></input>
                       <ul>
@@ -156,9 +164,9 @@ const UpdateEsthetic = () => {
               <div className={classes.preciototal}>
                 <p> Precio Total: </p>
                 <input
-                  type="number"
-                  id="price"
-                  name="price"
+                  type='number'
+                  id='price'
+                  name='price'
                   value={credentials.price}
                   onChange={changeInputHandler}
                 ></input>
@@ -169,15 +177,16 @@ const UpdateEsthetic = () => {
             <div className={classes.Sale}>
               <div>
                 <p> Tipo de visita</p>
-                <select id="kind" name="kind" onChange={changeInputHandler}>
-                  <option value={"Otros"}>Otros</option>
-                  <option value={"Baño"}>Baño</option>
-                  <option value={"Corte"}>Corte</option>
-                  <option value={"Baño y Corte"}>Baño y Corte</option>
-                  <option value={"Baño Sanitario"}>Baño Sanitario</option>
-                  <option value={"Corte Sanitario"}>Corte Sanitario</option>
-                  <option value={"Limpieza Dental"}>Limpieza Dental</option>
-                  <option value={"Baño Sanitario y Corte"}>
+                <select id='kind' name='kind' onChange={changeInputHandler}>
+                  <option value={credentials.kind}>{credentials.kind}</option>
+                  <option value={'Otros'}>Otros</option>
+                  <option value={'Baño'}>Baño</option>
+                  <option value={'Corte'}>Corte</option>
+                  <option value={'Baño y Corte'}>Baño y Corte</option>
+                  <option value={'Baño Sanitario'}>Baño Sanitario</option>
+                  <option value={'Corte Sanitario'}>Corte Sanitario</option>
+                  <option value={'Limpieza Dental'}>Limpieza Dental</option>
+                  <option value={'Baño Sanitario y Corte'}>
                     Baño Sanitario y Corte
                   </option>
                 </select>
@@ -187,8 +196,8 @@ const UpdateEsthetic = () => {
                 <p>Detalle:</p>
                 <textarea
                   value={credentials.detail}
-                  id="detail"
-                  name="detail"
+                  id='detail'
+                  name='detail'
                   onChange={changeInputHandler}
                 ></textarea>
               </div>

@@ -2,7 +2,7 @@
   text-align: center;
   align-items: center;
   width: 100%;
-  padding: 1% 5% 5% 5%;
+  padding: 1% 1% 1% 1%;
 }
 .NewUser h2 {
   margin: 10px 0;
@@ -17,7 +17,7 @@
   border-radius: 15px;
   background-color: #0000002f;
   text-align: center;
-  padding: 8% 1% 1% 1%;
+  padding: 4% 1% 1% 1%;
 }
 /*
 .photocontainer {
@@ -53,4 +53,10 @@ svg {
   display: flex;
   justify-content: space-between;
   font-size: 35px;
+}
+.cols2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 5%;
 }

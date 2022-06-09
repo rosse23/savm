@@ -8,8 +8,7 @@ import { useLocation } from 'react-router-dom';
 import classes from './GetClientinfo.module.css';
 import { IoIosEye } from 'react-icons/io';
 import List from '../UI/List';
-
-const PetsClient = () => {
+const SalesClient = () => {
   const [client, setClient] = useState({});
   let { search } = useLocation();
   const dispatch = useDispatch();
@@ -35,14 +34,14 @@ const PetsClient = () => {
 
   return (
     <div className={classes.clientnav}>
-      {client.pets?.map((data) => (
+      {client.sales?.map((data) => (
         <div className={classes.sep}>
           <div className={classes.cols4}>
             <div className={classes.iconos}>
               <NavLink
                 className={classes.ico1}
                 exact
-                to={`/app/pet/viewpet?id=${data._id}`}
+                to={`/app/product/viewproduct?id=${data._id}`}
               >
                 <IoIosEye />
                 <span className={classes.tooltiptext}>Ver</span>
@@ -50,26 +49,18 @@ const PetsClient = () => {
             </div>
             <div className={classes.formsection}>
               <div className={classes.formtitle1}>
-                <p>Nombre</p>
+                <p>Fecha de compra</p>
               </div>
               <div className={classes.formresp1}>
-                <p>{data.name}</p>
+                <p>{data.saleDate}</p>
               </div>
             </div>
             <div className={classes.formsection}>
               <div className={classes.formtitle1}>
-                <p>Especie</p>
+                <p>Precio de venta</p>
               </div>
               <div className={classes.formresp1}>
-                <p>{data.kind}</p>
-              </div>
-            </div>
-            <div className={classes.formsection}>
-              <div className={classes.formtitle1}>
-                <p>Registro</p>
-              </div>
-              <div className={classes.formresp1}>
-                <p>{data.dateReg}</p>
+                <p>{data.price} Bs</p>
               </div>
             </div>
           </div>
@@ -78,5 +69,4 @@ const PetsClient = () => {
     </div>
   );
 };
-
-export default PetsClient;
+export default SalesClient;

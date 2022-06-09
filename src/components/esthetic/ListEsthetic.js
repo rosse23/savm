@@ -1,31 +1,31 @@
-import { React, useState, useEffect } from "react";
-import { EstheticRequests } from "../../lib/api/";
-import { NavLink, useNavigate } from "react-router-dom";
-import { MdOutlineAddCircle } from "react-icons/md";
-import FiltersContainer from "../UI/FiltersContainer";
-import Container from "../UI/Container";
-import List from "../UI/List";
-import ListModel from "../UI/ListModel";
-import classes from "../user/ListUser.module.css";
+import { React, useState, useEffect } from 'react';
+import { EstheticRequests } from '../../lib/api/';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { MdOutlineAddCircle } from 'react-icons/md';
+import FiltersContainer from '../UI/FiltersContainer';
+import Container from '../UI/Container';
+import List from '../UI/List';
+import ListModel from '../UI/ListModel';
+import classes from '../user/ListUser.module.css';
 const ListEsthetic = () => {
   const [esthetic, setEsthetic] = useState([]);
   const [infoadd, setInfoadd] = useState({
-    link1: "/app/esthetic/viewesthetic?id=",
-    link2: "/app/esthetic/editesthetic?id=",
-    obj: "pet",
+    link1: '/app/esthetic/viewesthetic?id=',
+    link2: '/app/esthetic/editesthetic?id=',
+    obj: 'pet',
   });
   const navigate = useNavigate();
 
   useEffect(async () => {
     const result = await EstheticRequests.getAll(
-      localStorage.getItem("userToken")
+      localStorage.getItem('userToken')
     );
-    console.log("prueba");
+    console.log('prueba');
     console.log(result.data.data);
     setEsthetic(result.data.data);
-    console.log("prueba");
+    console.log('prueba');
     console.log(esthetic);
-    if (result.status === "fail") {
+    if (result.status === 'fail') {
       console.log(result.message);
       return;
     }
@@ -41,7 +41,7 @@ const ListEsthetic = () => {
               <h2>Resultados</h2>
               <NavLink
                 exact
-                to="/app/esthetic/newesthetic"
+                to='/app/esthetic/newesthetic'
                 className={classes.new}
               >
                 <MdOutlineAddCircle />

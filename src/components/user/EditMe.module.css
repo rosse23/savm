@@ -15,6 +15,11 @@
 .EditMe input {
   color: rgb(247, 251, 253);
 }
+.cols2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
 .Butacept {
   display: flex;

@@ -1,8 +1,8 @@
-import React from "react";
-import { IoIosEye } from "react-icons/io";
-import { AiTwotoneEdit } from "react-icons/ai";
-import { NavLink } from "react-router-dom";
-import classes from "./ListModel.module.css";
+import React from 'react';
+import { IoIosEye } from 'react-icons/io';
+import { AiTwotoneEdit } from 'react-icons/ai';
+import { NavLink } from 'react-router-dom';
+import classes from './ListModel.module.css';
 
 const ListModel = (props) => {
   const info = props.info;
@@ -15,7 +15,11 @@ const ListModel = (props) => {
         <tr>
           {obj && (
             <td>
-              <div>{data[obj].name}</div>
+              {data[obj] == null ? (
+                <div>Desconocido</div>
+              ) : (
+                <div>{data[obj].name}</div>
+              )}
             </td>
           )}
 

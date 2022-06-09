@@ -10,13 +10,13 @@
   fill: #090c0a;
   width: 115px;
   height: 115px;
-  filter: drop-shadow(1px 1px 3px rgb(247, 247, 247));
+  /* filter: drop-shadow(1px 1px 3px rgb(247, 247, 247)); */
 }
 
 .Portada h1 {
   font-size: 52px;
   color: rgb(229, 238, 227);
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   text-decoration: block;
   /* display: block;*/
   pad: 10px;

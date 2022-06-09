@@ -1,37 +1,33 @@
-import React from "react";
-import Container from "./Container";
-import CardForm from "./CardForm";
-import classes from "./FiltersContainer.module.css";
-
+import React from 'react';
+import Container from './Container';
+import CardForm from './CardForm';
+import classes from './FiltersContainer.module.css';
+import { MdOutlineSearch } from 'react-icons/md';
 const FiltersContainer = (props) => {
   return (
     <Container>
-      <CardForm>
-        <div className={classes.Filtercontainer}>
-          <div className={classes.Filter}>
+      <div className={classes.Filtercontainer}>
+        <div className={classes.Filter}>
+          <div className={classes.title}>
             <label>Ordenar Por</label>
-            <select id="sort" name="sort">
-              <option value={"name"}>nombre</option>
-              <option value={"email"}>Email</option>
-              <option value={"name"}>CI</option>
-            </select>
           </div>
 
-          <div className={classes.Filter}>
-            <label>Tipo</label>
-            <select id="sort" name="sort">
-              <option value={"name"}>Ascendente</option>
-              <option value={"email"}>Descendente</option>
-            </select>
-          </div>
-          <div className={classes.Filter}>
-            <label>Fecha de registro</label>
-            <input></input>
-          </div>
+          <select id='sort' name='sort'>
+            <option value={'name'}>nombre</option>
+            <option value={'email'}>Email</option>
+            <option value={'name'}>CI</option>
+          </select>
         </div>
-
-        <div className={classes.busqueda}>{props.children}</div>
-      </CardForm>
+        <div className={classes.Filter}>
+          <div className={classes.title}>
+            <label>Buscar</label>
+          </div>
+          <span className={classes.icon}>
+            <MdOutlineSearch />
+          </span>
+          <input></input>
+        </div>
+      </div>
     </Container>
   );
 };

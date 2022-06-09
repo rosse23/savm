@@ -1,44 +1,44 @@
-import { React, useEffect, useState } from "react";
-import { errorActions } from "../../store/error";
-import { useDispatch } from "react-redux";
-import { ClientRequests } from "../../lib/api/";
-import { BsJournalText, BsDoorOpenFill } from "react-icons/bs";
-import { RiDeleteBin5Fill, RiEdit2Fill } from "react-icons/ri";
-import { useNavigate, useLocation, NavLink } from "react-router-dom";
-import { FaBath, FaDog } from "react-icons/fa";
-import { AiFillShopping } from "react-icons/ai";
-import classes from "./GetClientinfo.module.css";
-import Button from "../UI/Button";
-import Modal from "../UI/Modal";
-import { Form } from "../UI/Form";
+import { React, useEffect, useState } from 'react';
+import { errorActions } from '../../store/error';
+import { useDispatch } from 'react-redux';
+import { ClientRequests } from '../../lib/api/';
+import { BsJournalText, BsDoorOpenFill } from 'react-icons/bs';
+import { RiDeleteBin5Fill, RiEdit2Fill } from 'react-icons/ri';
+import { useNavigate, useLocation, NavLink } from 'react-router-dom';
+import { FaBath, FaDog } from 'react-icons/fa';
+import { AiFillShopping } from 'react-icons/ai';
+import classes from './GetClientinfo.module.css';
+import Button from '../UI/Button';
+import Modal from '../UI/Modal';
+import { Form } from '../UI/Form';
 
 const GetClientinfo = () => {
   const [client, setClient] = useState({});
   let { search } = useLocation();
   let query = new URLSearchParams(search);
-  let id = query.get("id");
+  let id = query.get('id');
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const routes = [
     {
       path: `/app/client/viewclient?id=${id}`,
-      name: "Pacientes",
+      name: 'Pacientes',
       icon: <FaDog />,
     },
     {
       path: `/app/client/viewclient/sale?id=${id}`,
-      name: "Compras",
+      name: 'Compras',
       icon: <AiFillShopping />,
     },
     {
       path: `/app/client/viewclient/visit?id=${id}`,
-      name: "Visitas",
+      name: 'Visitas',
       icon: <BsDoorOpenFill />,
     },
     {
       path: `/app/client/viewclient/esthetic?id=${id}`,
-      name: "Estetica",
+      name: 'Estetica',
       icon: <FaBath />,
     },
   ];
@@ -46,10 +46,10 @@ const GetClientinfo = () => {
     const auxgetclient = async () => {
       const result = await ClientRequests.getOne(
         id,
-        localStorage.getItem("userToken")
+        localStorage.getItem('userToken')
       );
       setClient(result.data.data);
-      if (result.status === "fail") {
+      if (result.status === 'fail') {
         return;
       }
     };
@@ -61,17 +61,17 @@ const GetClientinfo = () => {
     setShowModal(!showModal);
     const result = await ClientRequests.deleteOne(
       id,
-      localStorage.getItem("userToken")
+      localStorage.getItem('userToken')
     );
 
-    if (result.status === "fail") {
+    if (result.status === 'fail') {
       console.log(result.message);
       dispatch(
         errorActions.setError(Object.values(JSON.parse(result.message)))
       );
       return;
     }
-    navigate({ pathname: "/app/client/" }, { replace: true });
+    navigate({ pathname: '/app/client/' }, { replace: true });
   };
   const actionUpdate = async (e) => {
     e.preventDefault();
@@ -105,7 +105,7 @@ const GetClientinfo = () => {
             </button>
           </div>
           <Modal showModal={showModal}>
-            <p>Esta seguro de eliminar este producto?</p>
+            <p>Esta seguro de eliminar este cliente?</p>
             <div className={classes.buttons}>
               <Button onClick={() => setShowModal(!showModal)}>Cancelar</Button>
               <Button onClick={actionDelete}>Aceptar</Button>

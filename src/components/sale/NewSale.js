@@ -1,16 +1,16 @@
-import { React, useState, useEffect } from "react";
-import classes from "./NewSale.module.css";
-import { Form } from "../UI/Form";
-import Button from "../UI/Button";
-import { motion } from "framer-motion";
-import { SaleRequests } from "../../lib/api/";
-import { ProductRequests } from "../../lib/api/";
-import { ClientRequests } from "../../lib/api/";
-import { useNavigate } from "react-router-dom";
-import Container from "../UI/Container";
-import { errorActions } from "../../store/error";
-import { useDispatch } from "react-redux";
-import CardForm from "../UI/CardForm";
+import { React, useState, useEffect } from 'react';
+import classes from './NewSale.module.css';
+import { Form } from '../UI/Form';
+import Button from '../UI/Button';
+import { motion } from 'framer-motion';
+import { SaleRequests } from '../../lib/api/';
+import { ProductRequests } from '../../lib/api/';
+import { ClientRequests } from '../../lib/api/';
+import { useNavigate } from 'react-router-dom';
+import Container from '../UI/Container';
+import { errorActions } from '../../store/error';
+import { useDispatch } from 'react-redux';
+import CardForm from '../UI/CardForm';
 const backdrop = {
   visible: { opacity: 1 },
   hidden: { opacity: 0 },
@@ -23,14 +23,15 @@ const NewSale = () => {
   const [product, setProduct] = useState({});
   const [products, setProducts] = useState([]);
   const [clients, setClients] = useState([]);
-  const [searchC, setSearchC] = useState("");
-  const [searchP, setSearchP] = useState("");
+  const [searchC, setSearchC] = useState('');
+  const [searchP, setSearchP] = useState('');
   const [credentials, setCredentials] = useState({
-    quantity: 1,
+    quantity: 0,
     totalPrice: 0,
-    product: "",
-    client: "",
+    product: '',
+    client: '',
   });
+  const [data, setData] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -40,16 +41,20 @@ const NewSale = () => {
       [e.target.name]: e.target.value,
     }));
   };
-
+  const addProductHandler = (e) => {
+    console.log(e.target.value);
+    console.log('meyko');
+    setData([...data, e.target.value]);
+  };
   const actionButton = async (e) => {
     e.preventDefault();
     console.log(credentials);
     const result = await SaleRequests.createOne(
-      localStorage.getItem("userToken"),
+      localStorage.getItem('userToken'),
       credentials
     );
     console.log(credentials);
-    if (result.status === "fail") {
+    if (result.status === 'fail') {
       dispatch(
         errorActions.setError(Object.values(JSON.parse(result.message)))
       );
@@ -62,7 +67,9 @@ const NewSale = () => {
 
   useEffect(() => {
     const getAllClients = async () => {
-      const result = await ClientRequests.getAll(null);
+      const result = await ClientRequests.getAll(
+        localStorage.getItem('userToken')
+      );
       setClients(
         result.data.data.filter((client) =>
           client.name.toLowerCase().includes(searchC.toLowerCase())
@@ -70,7 +77,7 @@ const NewSale = () => {
       );
     };
     const fetchClients = setTimeout(() => {
-      console.log("fetching");
+      console.log('fetching');
       getAllClients();
     }, 1000);
 
@@ -81,7 +88,9 @@ const NewSale = () => {
 
   useEffect(() => {
     const getAllProducts = async () => {
-      const result = await ProductRequests.getAll(null);
+      const result = await ProductRequests.getAll(
+        localStorage.getItem('userToken')
+      );
       setProducts(
         result.data.data.filter((product) =>
           product.name.toLowerCase().includes(searchP.toLowerCase())
@@ -89,7 +98,7 @@ const NewSale = () => {
       );
     };
     const fetchProducts = setTimeout(() => {
-      console.log("fetching");
+      console.log('fetching');
       getAllProducts();
     }, 1000);
 
@@ -102,10 +111,10 @@ const NewSale = () => {
     const getProduct = async () => {
       const result = await ProductRequests.getOne(
         credentials.product,
-        localStorage.getItem("userToken")
+        localStorage.getItem('userToken')
       );
       setProduct(result.data.data);
-      if (result.status === "fail") {
+      if (result.status === 'fail') {
         dispatch(
           errorActions.setError(Object.values(JSON.parse(result.message)))
         );
@@ -144,22 +153,22 @@ const NewSale = () => {
                 <div className={classes.inputclient}>
                   <input
                     onClick={() => setOpensearchC(!opensearchC)}
-                    type="text"
-                    placeholder="Ingrese el cliente"
-                    id="client"
-                    name="client"
+                    type='text'
+                    placeholder='Ingrese el cliente'
+                    id='client'
+                    name='client'
                     value={clientname}
                   ></input>
                   {opensearchC && (
                     <motion.div
-                      className={classes["search-section"]}
+                      className={classes['search-section']}
                       variants={backdrop}
                     >
                       <input
-                        type="text"
-                        placeholder="Por favor, ingrese una letra.."
-                        id="client"
-                        name="client"
+                        type='text'
+                        placeholder='Por favor, ingrese una letra..'
+                        id='client'
+                        name='client'
                         onChange={onSearchHandlerC}
                       ></input>
                       <ul>
@@ -187,9 +196,9 @@ const NewSale = () => {
               <div className={classes.preciototal}>
                 <p> Precio Total: </p>
                 <input
-                  type="number"
-                  id="totalPrice"
-                  name="totalPrice"
+                  type='number'
+                  id='totalPrice'
+                  name='totalPrice'
                   value={credentials.totalPrice}
                 ></input>
               </div>
@@ -204,22 +213,22 @@ const NewSale = () => {
                     onClick={() => {
                       setOpensearchP(!opensearchP);
                     }}
-                    type="text"
-                    placeholder="Ingrese el nombre del producto"
-                    id="product"
-                    name="product"
+                    type='text'
+                    placeholder='Ingrese el nombre del producto'
+                    id='product'
+                    name='product'
                     value={product.name}
                   ></input>
                   {opensearchP && (
                     <motion.div
-                      className={classes["search-section"]}
+                      className={classes['search-section']}
                       variants={backdrop}
                     >
                       <input
-                        type="text"
-                        placeholder="Por favor, ingrese una letra.."
-                        id="product"
-                        name="product"
+                        type='text'
+                        placeholder='Por favor, ingrese una letra..'
+                        id='product'
+                        name='product'
                         onChange={onSearchHandlerP}
                       ></input>
                       <ul>
@@ -246,20 +255,20 @@ const NewSale = () => {
               <div>
                 <p>Cantidad:</p>
                 <input
-                  type="number"
+                  type='number'
                   value={credentials.quantity}
-                  id="quantity"
-                  name="quantity"
+                  id='quantity'
+                  name='quantity'
                   onChange={changeInputHandler}
                 ></input>
               </div>
               <div>
                 <p>Precio Unidad:</p>
                 <input
-                  type="number"
-                  min="0"
-                  id="precio"
-                  name="precio"
+                  type='number'
+                  min='0'
+                  id='precio'
+                  name='precio'
                   value={product.price}
                 ></input>
               </div>

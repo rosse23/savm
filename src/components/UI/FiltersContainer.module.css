@@ -1,22 +1,49 @@
 .Filtercontainer {
   padding: 0;
   display: grid;
-  width: 100%;
-  grid-template-columns: 1fr 1fr 1fr;
+  width: 78%;
+
+  grid-template-columns: 2fr 2fr;
   align-items: center;
-  gap: 7%;
+  gap: 5%;
   color: rgb(243, 214, 198);
   text-shadow: 1px 1px 2px rgb(0, 0, 0);
 }
 .Filter {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 5px;
+  gap: 0px;
+}
+.Filter input,
+select {
+  width: 100%;
+  /* padding: 6px 10px; */
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  display: block;
+  color: #222;
+  border-radius: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 25px;
 }
 .Filter label {
   width: 70%;
 }
-.busqueda {
+.title {
+  margin-right: 5px;
+}
+.icon {
+  margin-top: 7px;
+  position: absolute;
+  margin-left: 57px;
+}
+.icon svg {
+  fill: #222;
+}
+/* .busqueda {
   padding: 0;
   display: grid;
   width: 100%;
@@ -25,4 +52,4 @@
   gap: 7%;
   color: rgb(243, 214, 198);
   text-shadow: 1px 1px 2px rgb(0, 0, 0);
-}
+} */

@@ -7,12 +7,26 @@
   text-align: center;
   padding: 1% 5% 5% 5%;
 }
+.contenido {
+  overflow-y: scroll;
+  max-height: 45vh;
+}
 .title {
   margin: 10px 0;
   padding-bottom: 10px;
   color: rgb(243, 214, 198);
   text-shadow: 1px 1px 2px rgb(0, 0, 0);
   border-bottom: 3px solid rgb(243, 214, 198);
+}
+.title2 {
+  margin: 10px 0;
+  padding-bottom: 0px;
+  color: rgb(243, 214, 198);
+  text-shadow: 1px 1px 2px rgb(0, 0, 0);
+  border-bottom: 1px solid rgb(243, 214, 198);
+  font-size: large;
+  display: flex;
+  justify-content: flex-start;
 }
 .port {
   display: flex;
@@ -38,6 +52,11 @@
   grid-template-columns: 1fr 1fr;
   gap: 5%;
 }
+.cols3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 5%;
+}
 
 .formsection {
   display: grid;
@@ -48,6 +67,7 @@
   border-left: 3px solid rgb(243, 214, 198);
   border-radius: 15px;
   padding-left: 13px;
+  align-items: center;
 }
 .formtitle {
   display: flex;
@@ -143,4 +163,52 @@
 }
 .Navaccesos:hover {
   opacity: 0.5;
+}
+
+/*Paralas opciones d enavbar*/
+.cols4 {
+  display: grid;
+  grid-template-columns: 0.5fr 2fr 2fr 2fr;
+}
+.clientnav {
+  margin-top: -50px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-left: 10%;
+  margin-right: 10%;
+  overflow-y: scroll;
+}
+.sep {
+  border-bottom: 3px solid rgb(243, 214, 198);
+}
+.formtitle1 {
+  display: flex;
+  justify-content: flex-start;
+  color: rgb(245, 187, 153);
+  text-shadow: 1px 1px 2px rgb(0, 0, 0);
+}
+
+.formresp1 {
+  display: flex;
+  justify-content: flex-start;
+  text-shadow: 1px 1px 2px rgb(0, 0, 0);
+  color: white;
+  position: relative;
+}
+.iconos svg {
+  margin-top: 7px;
+  fill: antiquewhite;
+}
+
+@media screen and (max-width: 680px) {
+  .cols2 {
+    grid-template-columns: 1fr;
+  }
+  .cols3 {
+    grid-template-columns: 1fr;
+  }
+  .cols4 {
+    grid-template-columns: 1fr;
+  }
 }
