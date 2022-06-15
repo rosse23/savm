@@ -37,3 +37,23 @@
   border-right: 4px solid #957c5c;
   background: #003621;
 }
+@media screen and (max-width: 680px) {
+  .routes {
+    /* margin-top: 15px; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 7px;
+    margin-bottom: -29px;
+  }
+  .link {
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    background-color: #003621;
+    border-radius: 15px;
+  }
+  .linktext {
+    display: none;
+  }
+}

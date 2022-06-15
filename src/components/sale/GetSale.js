@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from 'react';
+import { SaleRequests, ProductRequests } from '../../lib/api/';
 import { RiDeleteBin5Fill, RiEdit2Fill } from 'react-icons/ri';
 import { BsJournalText } from 'react-icons/bs';
-import { VisitRequests } from '../../lib/api/';
 import { errorActions } from '../../store/error';
 import { useDispatch } from 'react-redux';
 import Container from '../UI/Container';
@@ -10,8 +10,9 @@ import classes from '../client/GetClientinfo.module.css';
 import { Form } from '../UI/Form';
 import Button from '../UI/Button';
 import Modal from '../UI/Modal';
-const GetVisit = () => {
-  const [visit, setVisit] = useState({});
+const GetSale = () => {
+  const [sale, setSale] = useState({});
+  const [product, setProduct] = useState([]);
   let { search } = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,12 +20,13 @@ const GetVisit = () => {
   let query = new URLSearchParams(search);
   let id = query.get('id');
   useEffect(() => {
-    const getvisit = async () => {
-      const result = await VisitRequests.getOne(
+    const getsale = async () => {
+      const result = await SaleRequests.getOne(
         id,
         localStorage.getItem('userToken')
       );
-      setVisit(result.data.data);
+      setSale(result.data.data);
+
       if (result.status === 'fail') {
         dispatch(
           errorActions.setError(Object.values(JSON.parse(result.message)))
@@ -32,16 +34,36 @@ const GetVisit = () => {
         return;
       }
     };
-    getvisit();
+    getsale();
   }, []);
+  useEffect(() => {
+    const getproduct = async () => {
+      setProduct([]);
+      {
+        sale.product &&
+          sale.product.map(async (data) => {
+            const res = await ProductRequests.getOne(
+              data.productId,
+              localStorage.getItem('userToken')
+            );
+            console.log(res.data.data);
+            console.log('nobue');
+            console.log(res);
+            setProduct((product) => [...product, res.data.data]);
+          });
+        console.log(product);
+      }
+    };
+    getproduct();
+  }, [sale]);
+
   const actionDelete = async (e) => {
     e.preventDefault();
     setShowModal(!showModal);
-    const result = await VisitRequests.deleteOne(
+    const result = await SaleRequests.deleteOne(
       id,
       localStorage.getItem('userToken')
     );
-
     if (result.status === 'fail') {
       console.log(result.message);
       dispatch(
@@ -49,11 +71,7 @@ const GetVisit = () => {
       );
       return;
     }
-    navigate({ pathname: '/app/visit/' }, { replace: true });
-  };
-  const actionUpdate = async (e) => {
-    e.preventDefault();
-    navigate({ pathname: `/app/visit/editvisit?id=${id}` }, { replace: true });
+    navigate({ pathname: '/app/sale/' }, { replace: true });
   };
   const formatDate = (rawDate) => {
     const date = new Date(rawDate);
@@ -64,13 +82,13 @@ const GetVisit = () => {
   };
   return (
     <Container>
-      <div className={classes.GetClientinfo}>
-        <h2 className={classes.title}>Datos de la Visita</h2>
+      <div className={classes.GetSaleinfo}>
+        <h2 className={classes.title}>Datos de la Venta</h2>
         <Form>
           <div className={classes.port}>
             <div className={classes.info}>
               <BsJournalText />
-              <h3>{visit.pet?.name}</h3>
+              <h3>{sale.client?.name}</h3>
             </div>
             <div className={classes.Navop}>
               <button
@@ -80,13 +98,9 @@ const GetVisit = () => {
                 <RiDeleteBin5Fill />
                 <span className={classes.tooltiptext}>Eliminar</span>
               </button>
-              <button className={classes.ico1} onClick={actionUpdate}>
-                <RiEdit2Fill />
-                <span className={classes.tooltiptext}>Editar</span>
-              </button>
             </div>
             <Modal showModal={showModal}>
-              <p>Esta seguro de eliminar esta visita?</p>
+              <p>Esta seguro de cancelar esta venta?</p>
               <div className={classes.buttons}>
                 <Button onClick={() => setShowModal(!showModal)}>
                   Cancelar
@@ -99,10 +113,10 @@ const GetVisit = () => {
             <div className={classes.cols2}>
               <div className={classes.formsection}>
                 <div className={classes.formtitle}>
-                  <p>Paciente: </p>
+                  <p>Cliente: </p>
                 </div>
                 <div className={classes.formresp}>
-                  <p>{visit.pet?.name}</p>
+                  <p>{sale.client?.name}</p>
                 </div>
               </div>
               <div className={classes.formsection}>
@@ -110,127 +124,56 @@ const GetVisit = () => {
                   <p>Fecha: </p>
                 </div>
                 <div className={classes.formresp}>
-                  <p>{formatDate(visit.fechaReg)}</p>
+                  <p>{formatDate(sale.saleDate)}</p>
                 </div>
               </div>
             </div>
             <div className={classes.cols2}>
               <div className={classes.formsection}>
                 <div className={classes.formtitle}>
-                  <p>Motivo: </p>
+                  <p>Cantidad de productos: </p>
                 </div>
                 <div className={classes.formresp}>
-                  <p>{visit.reason}</p>
+                  <p>{sale.quantityItems}</p>
                 </div>
               </div>
               <div className={classes.formsection}>
                 <div className={classes.formtitle}>
-                  <p>Precio: </p>
+                  <p>Precio total: </p>
                 </div>
                 <div className={classes.formresp}>
-                  <p>{visit.price} Bs.</p>
+                  <p>{sale.totalPrice} Bs.</p>
                 </div>
               </div>
             </div>
-            <div className={classes.formsection}>
-              <div className={classes.formtitle}>
-                <p>Diagnóstico: </p>
-              </div>
-              <div className={classes.formresp}>
-                <p>{visit.diagnosis}</p>
-              </div>
-            </div>
-            <div className={classes.formsection}>
-              <div className={classes.formtitle}>
-                <p>Tratamiento: </p>
-              </div>
-              <div className={classes.formresp}>
-                <p>{visit.treatment}</p>
-              </div>
-            </div>
+
             <div className={classes.title2}>
-              <h3>Parametros de Visita</h3>
+              <h3>Productos</h3>
             </div>
-
-            <div className={classes.cols3}>
-              <div className={classes.formsection}>
-                <div className={classes.formtitle}>
-                  <p>Peso: </p>
-                </div>
-                <div className={classes.formresp}>
-                  <p>{visit.visitParams?.weight} kilos</p>
-                </div>
-              </div>
-              <div className={classes.formsection}>
-                <div className={classes.formtitle}>
-                  <p>Temperatura:</p>
-                </div>
-                <div className={classes.formresp}>
-                  <p>{visit.visitParams?.temperature}</p>
-                </div>
-              </div>
-              <div className={classes.formsection}>
-                <div className={classes.formtitle}>
-                  <p>Pulso: </p>
-                </div>
-                <div className={classes.formresp}>
-                  <p>{visit.visitParams?.heartbeat} </p>
-                </div>
-              </div>
-            </div>
-            <div className={classes.cols3}>
-              <div className={classes.formsection}>
-                <div className={classes.formtitle}>
-                  <p>Frecuencia cardiaca: </p>
-                </div>
-                <div className={classes.formresp}>
-                  <p>{visit.visitParams?.heartRate}</p>
-                </div>
-              </div>
-              <div className={classes.formsection}>
-                <div className={classes.formtitle}>
-                  <p>Frecuencia respiratoria:</p>
-                </div>
-                <div className={classes.formresp}>
-                  <p>{visit.visitParams?.breathingFrequency}</p>
-                </div>
-              </div>
-              <div className={classes.formsection}>
-                <div className={classes.formtitle}>
-                  <p>Palpación Abdominal: </p>
-                </div>
-                <div className={classes.formresp}>
-                  <p>{visit.visitParams?.abdominalPalpation}</p>
-                </div>
-              </div>
-            </div>
-            <div className={classes.title2}>
-              <h3>Medicamentos proporcionados en la visita</h3>
-            </div>
-            {visit.medicines?.map((medicine) => (
+            {product?.map((data) => (
               <div className={classes.cols3}>
                 <div className={classes.formsection}>
                   <div className={classes.formtitle}>
                     <p>Producto: </p>
                   </div>
                   <div className={classes.formresp}>
-                    <p>{medicine.product}</p>
+                    <p>{data.name}</p>
                   </div>
                 </div>
                 <div className={classes.formsection}>
                   <div className={classes.formtitle}>
-                    <p>Marca:</p>
+                    <p>Precio:</p>
                   </div>
                   <div className={classes.formresp}>
-                    <p>{medicine.brand}</p>
+                    <p>{data.price}</p>
                   </div>
                 </div>
-                <div className={classes.formsection}>
+                <div className={classes.formsection1}>
                   <div className={classes.formtitle}>
-                    <p>Detalle:</p>
+                    <p>Categoria:</p>
                   </div>
                   <div className={classes.formresp}>
-                    <p>{medicine.kind}</p>
+                    <p>{data.category}</p>
                   </div>
                 </div>
               </div>
@@ -242,4 +185,4 @@ const GetVisit = () => {
   );
 };
 
-export default GetVisit;
+export default GetSale;

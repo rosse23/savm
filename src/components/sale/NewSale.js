@@ -1,282 +1,246 @@
-import { React, useState, useEffect } from 'react';
-import classes from './NewSale.module.css';
-import { Form } from '../UI/Form';
-import Button from '../UI/Button';
-import { motion } from 'framer-motion';
-import { SaleRequests } from '../../lib/api/';
-import { ProductRequests } from '../../lib/api/';
-import { ClientRequests } from '../../lib/api/';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import classes from './NewSale.module.css';
+import { ClientRequests, ProductRequests, SaleRequests } from '../../lib/api';
+import Search from '../serch/Search';
+import GenericList from '../lists/GenericList';
 import Container from '../UI/Container';
+import CardForm from '../UI/CardForm';
 import { errorActions } from '../../store/error';
 import { useDispatch } from 'react-redux';
-import CardForm from '../UI/CardForm';
-const backdrop = {
-  visible: { opacity: 1 },
-  hidden: { opacity: 0 },
-};
-
 const NewSale = () => {
-  const [opensearchC, setOpensearchC] = useState(false);
-  const [opensearchP, setOpensearchP] = useState(false);
-  const [clientname, setClientname] = useState(null);
-  const [product, setProduct] = useState({});
-  const [products, setProducts] = useState([]);
-  const [clients, setClients] = useState([]);
-  const [searchC, setSearchC] = useState('');
-  const [searchP, setSearchP] = useState('');
-  const [credentials, setCredentials] = useState({
-    quantity: 0,
-    totalPrice: 0,
-    product: '',
-    client: '',
-  });
-  const [data, setData] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [newSale, setNewSale] = useState({
+    quantityItems: 0,
+    totalPrice: 0,
+    product: [],
+    client: null,
+  });
+  const [auxClient, setAuxClient] = useState(null);
+  const [showClientSearcher, setShowClientSearcher] = useState(false);
 
-  const changeInputHandler = (e) => {
-    setCredentials((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-  const addProductHandler = (e) => {
-    console.log(e.target.value);
-    console.log('meyko');
-    setData([...data, e.target.value]);
-  };
-  const actionButton = async (e) => {
+  const [auxProducts, setAuxProducts] = useState([]);
+  const [showProductSearcher, setShowProductSearcher] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [tempProduct, setTempProduct] = useState(null);
+
+  const [adding, setAdding] = useState(false);
+  const [quantity, setQuantity] = useState(0);
+
+  const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(credentials);
-    const result = await SaleRequests.createOne(
+
+    const cantItems = products.reduce((acc, item) => {
+      return acc + +item.quantity;
+    }, 0);
+
+    const realSale = {
+      quantityItems: cantItems,
+      totalPrice: newSale.totalPrice,
+      product: products,
+      client: newSale.client,
+    };
+
+    const response = await SaleRequests.createOne(
       localStorage.getItem('userToken'),
-      credentials
+      realSale
     );
-    console.log(credentials);
-    if (result.status === 'fail') {
+    if (response.status === 'fail') {
       dispatch(
-        errorActions.setError(Object.values(JSON.parse(result.message)))
+        errorActions.setError(Object.values(JSON.parse(response.message)))
       );
-      console.log(result.message);
+      console.log(response.message);
       return;
     }
-    console.log(result.data.data._id);
     navigate({ pathname: `/app/sale/` }, { replace: true });
   };
 
-  useEffect(() => {
-    const getAllClients = async () => {
-      const result = await ClientRequests.getAll(
-        localStorage.getItem('userToken')
-      );
-      setClients(
-        result.data.data.filter((client) =>
-          client.name.toLowerCase().includes(searchC.toLowerCase())
-        )
-      );
-    };
-    const fetchClients = setTimeout(() => {
-      console.log('fetching');
-      getAllClients();
-    }, 1000);
-
-    return () => {
-      clearTimeout(fetchClients);
-    };
-  }, [searchC]);
-
-  useEffect(() => {
-    const getAllProducts = async () => {
-      const result = await ProductRequests.getAll(
-        localStorage.getItem('userToken')
-      );
-      setProducts(
-        result.data.data.filter((product) =>
-          product.name.toLowerCase().includes(searchP.toLowerCase())
-        )
-      );
-    };
-    const fetchProducts = setTimeout(() => {
-      console.log('fetching');
-      getAllProducts();
-    }, 1000);
-
-    return () => {
-      clearTimeout(fetchProducts);
-    };
-  }, [searchP]);
-
-  useEffect(() => {
-    const getProduct = async () => {
-      const result = await ProductRequests.getOne(
-        credentials.product,
-        localStorage.getItem('userToken')
-      );
-      setProduct(result.data.data);
-      if (result.status === 'fail') {
-        dispatch(
-          errorActions.setError(Object.values(JSON.parse(result.message)))
-        );
-        console.log(result.message);
-        return;
-      }
-    };
-    getProduct();
-  }, [credentials.product]);
-
-  useEffect(() => {
-    const precioT = async () => {
-      setCredentials((prevstate) => ({
-        ...prevstate,
-        totalPrice: credentials.quantity * product.price,
-      }));
-    };
-    precioT();
-  }, [credentials]);
-  const onSearchHandlerC = async (e) => {
-    setSearchC(e.target.value);
+  const selectClientHandler = (item) => {
+    setNewSale((prev) => ({ ...prev, client: item._id }));
+    setAuxClient(item);
+    setShowClientSearcher(false);
   };
-  const onSearchHandlerP = async (e) => {
-    setSearchP(e.target.value);
+
+  const cancelClientHandler = () => {
+    setShowClientSearcher(false);
   };
+
+  const cancelProductHandler = () => {
+    setShowProductSearcher(false);
+  };
+
+  const addProductHandler = () => {
+    // const existProduct = products.find((prItem) => {
+    //   return prItem.productId === tempProduct._id;
+    // });
+
+    // if (existProduct) {
+    // } else {
+
+    // }
+    console.log(quantity);
+    setProducts((prev) => [
+      ...prev,
+      {
+        productId: tempProduct._id,
+        quantity,
+      },
+    ]);
+
+    setAuxProducts((prev) => [
+      ...prev,
+      {
+        name: tempProduct.name,
+        quantity,
+      },
+    ]);
+
+    setNewSale((prev) => {
+      return {
+        ...prev,
+        totalPrice: prev.totalPrice + +tempProduct.price * +quantity,
+      };
+    });
+    setTempProduct(null);
+    setShowProductSearcher(false);
+    setAdding(false);
+    setQuantity(0);
+  };
+
+  const selectProductHandler = (item) => {
+    setTempProduct(item);
+  };
+
+  const showClientSearcherHandler = () => {
+    setShowClientSearcher(true);
+  };
+
+  const showProductSearcherHandler = () => {
+    setShowProductSearcher(true);
+    setAdding(true);
+  };
+
+  // function deleteproduct(data) {
+  //   auxProducts.splice(
+  //     auxProducts.findIndex((element) => element.name == data.name),
+  //     1
+  //   );
+  // }
 
   return (
     <Container>
       <div className={classes.NewSale}>
-        <h2>Nueva Venta</h2>
+        <h2 className={classes.title}>Nueva Venta</h2>
         <div className={classes.formcontainer}>
-          <CardForm>
-            <div className={classes.clientcontainer}>
-              <div className={classes.client}>
-                <p>Cliente (Opcional): </p>
-                <div className={classes.inputclient}>
-                  <input
-                    onClick={() => setOpensearchC(!opensearchC)}
-                    type='text'
-                    placeholder='Ingrese el cliente'
-                    id='client'
-                    name='client'
-                    value={clientname}
-                  ></input>
-                  {opensearchC && (
-                    <motion.div
-                      className={classes['search-section']}
-                      variants={backdrop}
-                    >
-                      <input
-                        type='text'
-                        placeholder='Por favor, ingrese una letra..'
-                        id='client'
-                        name='client'
-                        onChange={onSearchHandlerC}
-                      ></input>
-                      <ul>
-                        {clients.map((client) => (
-                          <li
-                            key={client._id}
-                            onClick={() => {
-                              setClientname(client.name);
-                              setCredentials((prevstate) => ({
-                                ...prevstate,
-                                client: client._id,
-                              }));
-                              setOpensearchC(!opensearchC);
-                            }}
-                          >
-                            <p>{client.name} </p>
-                            <p>CI: {client.ci}</p>
-                          </li>
-                        ))}
-                      </ul>
-                    </motion.div>
-                  )}
-                </div>
-              </div>
-              <div className={classes.preciototal}>
-                <p> Precio Total: </p>
-                <input
-                  type='number'
-                  id='totalPrice'
-                  name='totalPrice'
-                  value={credentials.totalPrice}
-                ></input>
-              </div>
-            </div>
-          </CardForm>
-          <CardForm>
-            <div className={classes.Sale}>
-              <div>
-                <p>Producto:</p>
-                <div className={classes.inputclient}>
-                  <input
+          {/* <CardForm> */}
+          <form onSubmit={submitHandler} className={classes['sale-form']}>
+            <div>
+              <label className={classes.subtitle}>Elegir un cliente</label>
+              <br />
+              {showClientSearcher ? (
+                <Search
+                  TargetRequests={ClientRequests}
+                  onAccept={selectClientHandler}
+                  onCancel={cancelClientHandler}
+                  fieldToShow={'name'}
+                />
+              ) : (
+                !auxClient && (
+                  <>
+                    <em>No se seleccionó ningun cliente</em>
+                    <br />
+                    <button type='button' onClick={showClientSearcherHandler}>
+                      Seleccionar Cliente
+                    </button>
+                  </>
+                )
+              )}
+              {auxClient && (
+                <>
+                  <div className={classes['item-client']}>
+                    <h4>{auxClient?.name}</h4>
+                    <p>CI: {auxClient?.ci}</p>
+                    <p>Dirección: {auxClient?.address}</p>
+                  </div>
+                  <button
+                    type='button'
                     onClick={() => {
-                      setOpensearchP(!opensearchP);
+                      setAuxClient(null);
                     }}
-                    type='text'
-                    placeholder='Ingrese el nombre del producto'
-                    id='product'
-                    name='product'
-                    value={product.name}
-                  ></input>
-                  {opensearchP && (
-                    <motion.div
-                      className={classes['search-section']}
-                      variants={backdrop}
-                    >
-                      <input
-                        type='text'
-                        placeholder='Por favor, ingrese una letra..'
-                        id='product'
-                        name='product'
-                        onChange={onSearchHandlerP}
-                      ></input>
-                      <ul>
-                        {products.map((product) => (
-                          <li
-                            key={product._id}
-                            onClick={() => {
-                              /*setClientname(client.name);*/
-                              setCredentials((prevstate) => ({
-                                ...prevstate,
-                                product: product._id,
-                              }));
-                              setOpensearchP(!opensearchP);
-                            }}
-                          >
-                            <p>{product.name} </p>
-                          </li>
-                        ))}
-                      </ul>
-                    </motion.div>
-                  )}
-                </div>
-              </div>
-              <div>
-                <p>Cantidad:</p>
-                <input
-                  type='number'
-                  value={credentials.quantity}
-                  id='quantity'
-                  name='quantity'
-                  onChange={changeInputHandler}
-                ></input>
-              </div>
-              <div>
-                <p>Precio Unidad:</p>
-                <input
-                  type='number'
-                  min='0'
-                  id='precio'
-                  name='precio'
-                  value={product.price}
-                ></input>
-              </div>
+                  >
+                    Borrar
+                  </button>
+                </>
+              )}
             </div>
-          </CardForm>
-          <div className={classes.crearbut}>
-            <Button onClick={actionButton}>Crear</Button>
-          </div>
+            <div>
+              <label className={classes.subtitle}>Productos</label>
+              <GenericList data={auxProducts} />
+              <br />
+              {showProductSearcher ? (
+                <>
+                  {!tempProduct && (
+                    <Search
+                      TargetRequests={ProductRequests}
+                      onAccept={selectProductHandler}
+                      onCancel={cancelProductHandler}
+                      fieldToShow={'name'}
+                    />
+                  )}
+
+                  {tempProduct && (
+                    <>
+                      <h5>{tempProduct.name}</h5>
+                      <p>{tempProduct.price}</p>
+                    </>
+                  )}
+                  <br />
+                  <label>Elegir la cantidad</label>
+                  <input
+                    type='number'
+                    min='1'
+                    max={tempProduct?.stock}
+                    value={quantity}
+                    disabled={!tempProduct}
+                    onChange={(e) => {
+                      setQuantity(e.target.value);
+                    }}
+                  />
+                </>
+              ) : (
+                products.length === 0 && (
+                  <p>
+                    <em>No se seleccionó ningun producto</em>
+                  </p>
+                )
+              )}
+              {!adding ? (
+                <button type='button' onClick={showProductSearcherHandler}>
+                  Agregar producto
+                </button>
+              ) : (
+                <div className={classes.actions}>
+                  <button
+                    type='button'
+                    onClick={addProductHandler}
+                    disabled={quantity === 0 || !tempProduct}
+                  >
+                    Confirmar
+                  </button>
+                  <button type='button'>Cancelar</button>
+                </div>
+              )}
+            </div>
+
+            <label className={classes.subtitle}>
+              El importe total es de: {newSale.totalPrice}
+            </label>
+            <button type='submit' className={classes.button}>
+              Crear Venta
+            </button>
+          </form>
+          {/* </CardForm> */}
         </div>
       </div>
     </Container>

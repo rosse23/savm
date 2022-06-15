@@ -39,7 +39,7 @@ const NavPet = (props) => {
     },
     {
       path: `/app/pet/viewpet/vaccines?id=${id}`,
-      name: 'Vacunas',
+      name: 'Medicamentos',
       icon: <FaSyringe />,
     },
   ];

@@ -123,3 +123,18 @@ select {
   grid-template-columns: 1fr 1fr 1fr;
   gap: 5%;
 }
+
+.opmedicine {
+  background-color: #003621;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 390px;
+  padding-left: 1rem;
+}
+.ejem {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

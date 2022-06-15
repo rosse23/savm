@@ -60,6 +60,13 @@ const UpdatePet = () => {
     };
     getpet();
   }, []);
+  const formatDate = (rawDate) => {
+    const date = new Date(rawDate);
+    const result = `${date.getDate()}/${
+      date.getMonth() + 1
+    }/${date.getFullYear()}`;
+    return result;
+  };
   const actionButton = async (e) => {
     e.preventDefault();
     console.log(credentials);
@@ -249,7 +256,7 @@ const UpdatePet = () => {
                 <p>Fecha de registro: </p>
               </div>
               <div className={classes.formresp}>
-                <p>{credentials.dateReg}</p>
+                <p>{formatDate(credentials.dateReg)}</p>
               </div>
             </div>
             <div className={classes.formsection}>
@@ -257,7 +264,7 @@ const UpdatePet = () => {
                 <p>Fecha de ultima modificacion: </p>
               </div>
               <div className={classes.formresp}>
-                <p>{credentials.lastUpdated}</p>
+                <p>{formatDate(credentials.lastUpdated)}</p>
               </div>
             </div>
           </div>

@@ -3,31 +3,99 @@ import { VisitRequests } from '../../lib/api/';
 import { NavLink } from 'react-router-dom';
 import { IoIosEye } from 'react-icons/io';
 import { AiTwotoneEdit } from 'react-icons/ai';
-import { MdOutlineAddCircle } from 'react-icons/md';
+import { MdOutlineAddCircle, MdOutlineSearch } from 'react-icons/md';
 import FiltersContainer from '../UI/FiltersContainer';
 import Container from '../UI/Container';
 import List from '../UI/List';
 import ListModel from '../UI/ListModel';
 import classes from '../user/ListUser.module.css';
 const ListVisit = () => {
+  const [search, setSearch] = useState('');
+  const [opensearch, setOpensearch] = useState(false);
   const [visit, setVisit] = useState([]);
+  const [filter, setFilter] = useState({
+    sort: '-createdAt',
+  });
+  const changeInputHandler = (e) => {
+    setFilter((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+  useEffect(() => {
+    const getvisit = async () => {
+      const result = await VisitRequests.getAll(
+        localStorage.getItem('userToken'),
+        filter
+      );
+      console.log(result.data.data);
+      if (result.status === 'fail') {
+        console.log(result.message);
+        return;
+      } else {
+        setVisit(result.data.data);
+      }
+    };
+    getvisit();
+  }, [filter]);
+  useEffect(() => {
+    const getAllVisits = async () => {
+      const result = await VisitRequests.getAll(
+        localStorage.getItem('userToken'),
+        filter
+      );
+      console.log(result);
+      console.log(opensearch);
+      setVisit(
+        result.data.data.filter((visit) =>
+          visit.reason.toLowerCase().includes(search.toLowerCase())
+        )
+      );
+    };
+    const fetchVisits = setTimeout(() => {
+      console.log('fetching');
+      getAllVisits();
+    }, 1000);
 
-  useEffect(async () => {
-    const result = await VisitRequests.getAll(
-      localStorage.getItem('userToken')
-    );
-    console.log(result.data.data);
-    if (result.status === 'fail') {
-      console.log(result.message);
-      return;
-    } else {
-      setVisit(result.data.data);
-    }
-  }, []);
+    return () => {
+      clearTimeout(fetchVisits);
+    };
+  }, [search]);
 
+  const onSearchHandler = async (e) => {
+    setSearch(e.target.value);
+  };
+
+  const formatDate = (rawDate) => {
+    const date = new Date(rawDate);
+    const result = `${date.getDate()}/${
+      date.getMonth() + 1
+    }/${date.getFullYear()}`;
+    return result;
+  };
   return (
     <section>
-      <FiltersContainer></FiltersContainer>
+      <FiltersContainer>
+        <div className={classes.Filter}>
+          <div className={classes.title}>
+            <label>Ordenar Por</label>
+          </div>
+
+          <select id='sort' name='sort' onChange={changeInputHandler}>
+            <option value={'-fechaReg'}>Fecha</option>
+            <option value={'reason'}>Motivo</option>
+          </select>
+        </div>
+        <div className={classes.Filter}>
+          <div className={classes.title}>
+            <label>Buscar</label>
+          </div>
+          <span className={classes.icon}>
+            <MdOutlineSearch />
+          </span>
+          <input placeholder='search.....' onChange={onSearchHandler}></input>
+        </div>
+      </FiltersContainer>
       <Container>
         <div className={classes.ListUser}>
           <List>
@@ -73,7 +141,7 @@ const ListVisit = () => {
                         <div>{data.diagnosis}</div>
                       </td>
                       <td>
-                        <div>{data.fechaReg}</div>
+                        <div>{formatDate(data.fechaReg)}</div>
                       </td>
 
                       <td>

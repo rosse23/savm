@@ -4,6 +4,7 @@ import Button from '../UI/Button';
 import { motion } from 'framer-motion';
 import CardForm from '../UI/CardForm';
 import { EstheticRequests } from '../../lib/api/';
+import { ClientRequests } from '../../lib/api/';
 import { PetRequests } from '../../lib/api/';
 import { useNavigate } from 'react-router-dom';
 import Container from '../UI/Container';
@@ -15,13 +16,15 @@ const backdrop = {
 };
 const NewEsthetic = () => {
   const [opensearch, setOpensearch] = useState(false);
-  const [petname, setPetname] = useState(null);
-  const [pets, setPets] = useState([]);
+  const [pets, setPets] = useState([{}]);
+  const [clientname, setClientname] = useState(null);
+  const [clients, setClients] = useState([]);
   const [search, setSearch] = useState('');
   const [credentials, setCredentials] = useState({
     kind: 'otros',
     price: 0,
     detail: '',
+    client: '',
     pet: '',
   });
   const navigate = useNavigate();
@@ -51,31 +54,60 @@ const NewEsthetic = () => {
     navigate({ pathname: `/app/esthetic/` }, { replace: true });
   };
   useEffect(() => {
-    const getAllPets = async () => {
-      const result = await PetRequests.getAll(
+    const getAllClients = async () => {
+      const result = await ClientRequests.getAll(
         localStorage.getItem('userToken')
       );
       console.log(result);
       console.log(opensearch);
-      setPets(
-        result.data.data.filter((pet) =>
-          pet.name.toLowerCase().includes(search.toLowerCase())
+      setClients(
+        result.data.data.filter((client) =>
+          client.name.toLowerCase().includes(search.toLowerCase())
         )
       );
     };
-    const fetchPets = setTimeout(() => {
+    const fetchClients = setTimeout(() => {
       console.log('fetching');
-      getAllPets();
+      getAllClients();
     }, 1000);
 
     return () => {
-      clearTimeout(fetchPets);
+      clearTimeout(fetchClients);
     };
   }, [search]);
   const onSearchHandler = async (e) => {
     setSearch(e.target.value);
   };
 
+  useEffect(() => {
+    console.log('meykitobonita');
+    console.log(credentials.client);
+    const getpetsClients = async () => {
+      const result = await ClientRequests.getOne(
+        credentials.client,
+        localStorage.getItem('userToken')
+      );
+      console.log(result.data.data.pets);
+      console.log('jaja');
+      setPets(result.data.data.pets);
+      if (result.data.data.pets?.length > 0) {
+        setCredentials((prevstate) => ({
+          ...prevstate,
+          pet: result.data.data.pets[0]._id,
+        }));
+        console.log(result.data.data.pets[0]._id);
+        console.log('nobue');
+      }
+      if (result.status === 'fail') {
+        dispatch(
+          errorActions.setError(Object.values(JSON.parse(result.message)))
+        );
+        console.log(result.message);
+        return;
+      }
+    };
+    getpetsClients();
+  }, [credentials.client]);
   return (
     <Container>
       <div className={classes.NewEsthetic}>
@@ -83,50 +115,78 @@ const NewEsthetic = () => {
         <div className={classes.formcontainer}>
           <CardForm>
             <div className={classes.petcontainer}>
-              <div className={classes.pet}>
-                <p>Paciente: </p>
-                <div className={classes.inputpet}>
-                  <input
-                    onClick={() => setOpensearch(!opensearch)}
-                    type='text'
-                    placeholder='Ingrese el paciente'
-                    id='pet'
-                    name='pet'
-                    value={petname}
-                  ></input>
-                  {opensearch && (
-                    <motion.div
-                      className={classes['search-section']}
-                      variants={backdrop}
-                    >
-                      <input
-                        type='text'
-                        placeholder='Por favor, ingrese una letra..'
-                        id='pet'
-                        name='pet'
-                        onChange={onSearchHandler}
-                      ></input>
-                      <ul>
-                        {pets.map((data) => (
-                          <li
-                            key={data._id}
-                            onClick={() => {
-                              setPetname(data.name);
-                              setCredentials((prevstate) => ({
-                                ...prevstate,
-                                pet: data._id,
-                              }));
-                              setOpensearch(!opensearch);
-                            }}
-                          >
-                            <p>{data.name} </p>
-                            <p>Dueño: {data.owner.name}</p>
-                          </li>
-                        ))}
-                      </ul>
-                    </motion.div>
-                  )}
+              <div>
+                <div className={classes.pet}>
+                  <p>Cliente: </p>
+                  <div className={classes.inputpet}>
+                    <input
+                      onClick={() => setOpensearch(!opensearch)}
+                      type='text'
+                      placeholder='Ingrese el cliente'
+                      id='client'
+                      name='client'
+                      value={clientname}
+                    ></input>
+                    {opensearch && (
+                      <motion.div
+                        className={classes['search-section']}
+                        variants={backdrop}
+                      >
+                        <input
+                          type='text'
+                          placeholder='Por favor, ingrese una letra..'
+                          id='client'
+                          name='client'
+                          onChange={onSearchHandler}
+                        ></input>
+                        <ul>
+                          {clients.map((data) => (
+                            <li
+                              key={data._id}
+                              onClick={() => {
+                                setClientname(data.name);
+                                setCredentials((prevstate) => ({
+                                  ...prevstate,
+                                  client: data._id,
+                                }));
+                                setOpensearch(!opensearch);
+                              }}
+                            >
+                              <p>{data.name} </p>
+                              <p> Ci: {data.ci}</p>
+                            </li>
+                          ))}
+                        </ul>
+                      </motion.div>
+                    )}
+                  </div>
                 </div>
+                {credentials.client && (
+                  <div className={classes.pet}>
+                    <p>Paciente: </p>
+                    <select id='pet' name='pet' onChange={changeInputHandler}>
+                      {pets?.map((data) => {
+                        return <option value={data._id}>{data.name}</option>;
+                      })}
+                    </select>
+                    {/* <select id='pet' name='pet' onChange={changeInputHandler}> */}
+                    {/* {pets.forEach((data, index) => {
+                        console.log(data);
+                        return (
+                          <option key={index} value={data._id}>
+                            {data.name}
+                          </option>
+                        );
+                      })} */}
+                    {/* <option>hlolo</option> */}
+                    {/* <select> */}
+                    {/* {pets.map((data) => {
+                      <p>{data.name}</p>;
+                    })} */}
+                    {/*  */}
+                    {/* </select> */}
+                  </div>
+                )}
               </div>
               <div className={classes.preciototal}>
                 <p> Precio Total: </p>

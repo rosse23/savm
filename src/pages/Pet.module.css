@@ -11,7 +11,7 @@
       rgba(12, 6, 10, 0.73),
       rgba(19, 54, 44, 0.445)
     ),
-    url("../imgs/Poruser1.jpg");
+    url('../imgs/Poruser1.jpg');
   background-size: cover;
   background-position: center;
 }

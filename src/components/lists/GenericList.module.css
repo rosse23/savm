@@ -1,0 +1,17 @@
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.list li {
+  background-color: rgb(243, 214, 198);
+  border-radius: 1rem;
+  padding: 0.2rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 15rem;
+  color: #222;
+}

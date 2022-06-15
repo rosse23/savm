@@ -1,44 +1,105 @@
-import { React, useEffect, useState } from "react";
-import { ClientRequests } from "../../lib/api/";
-import { MdOutlineAddCircle } from "react-icons/md";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import FiltersContainer from "../UI/FiltersContainer";
-import Container from "../UI/Container";
-import List from "../UI/List";
-import ListModel from "../UI/ListModel";
-import classes from "../user/ListUser.module.css";
+import { React, useEffect, useState } from 'react';
+import { ClientRequests } from '../../lib/api/';
+import { MdOutlineAddCircle, MdOutlineSearch } from 'react-icons/md';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import FiltersContainer from '../UI/FiltersContainer';
+import Container from '../UI/Container';
+import List from '../UI/List';
+import ListModel from '../UI/ListModel';
+import classes from '../user/ListUser.module.css';
 const ListClient = () => {
+  const [search, setSearch] = useState('');
+  const [opensearch, setOpensearch] = useState(false);
   const [client, setClient] = useState([]);
   const [infoadd, setInfoadd] = useState({
-    link1: "/app/client/viewclient?id=",
-    link2: "/app/client/editclient?id=",
+    link1: '/app/client/viewclient?id=',
+    link2: '/app/client/editclient?id=',
     obj: false,
   });
   const navigate = useNavigate();
+  const [filter, setFilter] = useState({
+    sort: '-dateReg',
+  });
+  const changeInputHandler = (e) => {
+    setFilter((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+  useEffect(() => {
+    const getclient = async () => {
+      const result = await ClientRequests.getAll(
+        localStorage.getItem('userToken'),
+        filter
+      );
+      console.log(result.data.data);
+      if (result.status === 'fail') {
+        console.log(result.message);
+        return;
+      } else {
+        setClient(result.data.data);
+        console.log(client);
+      }
+    };
+    getclient();
+  }, [filter]);
+  useEffect(() => {
+    const getAllClients = async () => {
+      const result = await ClientRequests.getAll(
+        localStorage.getItem('userToken'),
+        filter
+      );
+      console.log(result);
+      console.log(opensearch);
+      setClient(
+        result.data.data.filter((client) =>
+          client.name.toLowerCase().includes(search.toLowerCase())
+        )
+      );
+    };
+    const fetchClients = setTimeout(() => {
+      console.log('fetching');
+      getAllClients();
+    }, 1000);
 
-  useEffect(async () => {
-    const result = await ClientRequests.getAll(
-      localStorage.getItem("userToken")
-    );
-    console.log(result.data.data);
-    if (result.status === "fail") {
-      console.log(result.message);
-      return;
-    } else {
-      setClient(result.data.data);
-      console.log(client);
-    }
-  }, []);
+    return () => {
+      clearTimeout(fetchClients);
+    };
+  }, [search]);
 
+  const onSearchHandler = async (e) => {
+    setSearch(e.target.value);
+  };
   return (
     <section>
-      <FiltersContainer></FiltersContainer>
+      <FiltersContainer>
+        <div className={classes.Filter}>
+          <div className={classes.title}>
+            <label>Ordenar Por</label>
+          </div>
+
+          <select id='sort' name='sort' onChange={changeInputHandler}>
+            <option value={'-dateReg'}>fecha</option>
+            <option value={'name'}>nombre</option>
+            <option value={'ci'}>Ci</option>
+          </select>
+        </div>
+        <div className={classes.Filter}>
+          <div className={classes.title}>
+            <label>Buscar</label>
+          </div>
+          <span className={classes.icon}>
+            <MdOutlineSearch />
+          </span>
+          <input placeholder='search.....' onChange={onSearchHandler}></input>
+        </div>
+      </FiltersContainer>
       <Container>
         <div className={classes.ListUser}>
           <List>
             <div className={classes.cabecera}>
               <h2>Lista de Clientes</h2>
-              <NavLink exact to="/app/client/newclient" className={classes.new}>
+              <NavLink exact to='/app/client/newclient' className={classes.new}>
                 <MdOutlineAddCircle />
                 <span className={classes.tooltiptext}>Nuevo</span>
               </NavLink>

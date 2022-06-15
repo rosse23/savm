@@ -55,21 +55,24 @@ const UpdateProduct = () => {
     e.preventDefault();
     console.log(credentials);
     console.log('kalesita');
-    /* const result = await ProductRequests.updateOne(
+    const result = await ProductRequests.updateOne(
       id,
       credentials,
-      localStorage.getItem("userToken")
+      localStorage.getItem('userToken')
     );
     console.log(credentials);
     console.log(result);
 
-    if (result.status === "fail") {
+    if (result.status === 'fail') {
       dispatch(
         errorActions.setError(Object.values(JSON.parse(result.message)))
       );
       return;
     }
-    navigate({ pathname: `/app/product/` }, { replace: true });*/
+    navigate(
+      { pathname: `/app/product/viewproduct?id=${id}` },
+      { replace: true }
+    );
   };
   const actionCancel = async (e) => {
     e.preventDefault();

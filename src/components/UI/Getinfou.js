@@ -3,6 +3,13 @@ import { Form } from './Form';
 import classes from './Getinfou.module.css';
 export const Getinfou = (props) => {
   const user = props.user;
+  const formatDate = (rawDate) => {
+    const date = new Date(rawDate);
+    const result = `${date.getDate()}/${
+      date.getMonth() + 1
+    }/${date.getFullYear()}`;
+    return result;
+  };
   return (
     <div className={classes.Getmeinfo}>
       <h2 className={classes.title}>Datos del Usuario</h2>
@@ -51,7 +58,7 @@ export const Getinfou = (props) => {
                 <p>Fecha de registro:</p>
               </div>
               <div className={classes.formresp}>
-                <p>{user.createdAt}</p>
+                <p>{formatDate(user.createdAt)}</p>
               </div>
             </div>
             <div className={classes.formsection}>
@@ -59,7 +66,7 @@ export const Getinfou = (props) => {
                 <p>Fecha de modificación:</p>
               </div>
               <div className={classes.formresp}>
-                <p>{user.updatedAt}</p>
+                <p>{formatDate(user.updatedAt)}</p>
               </div>
             </div>
           </div>
@@ -68,7 +75,9 @@ export const Getinfou = (props) => {
               <p>Fecha de modificación de la contraseña:</p>
             </div>
             <div className={classes.formresp}>
-              <p> {user.passwordChangedAt}</p>
+              {user.passwordChangedAt && (
+                <p> {formatDate(user.passwordChangedAt)}</p>
+              )}
             </div>
           </div>
         </Form>

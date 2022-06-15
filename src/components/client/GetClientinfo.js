@@ -80,71 +80,81 @@ const GetClientinfo = () => {
       { replace: true }
     );
   };
-
+  const formatDate = (rawDate) => {
+    const date = new Date(rawDate);
+    const result = `${date.getDate()}/${
+      date.getMonth() + 1
+    }/${date.getFullYear()}`;
+    return result;
+  };
   return (
     <div className={classes.GetClientinfo}>
       <h2 className={classes.title}>Datos de Cliente</h2>
 
       <Form>
-        <div className={classes.port}>
-          <div className={classes.info}>
-            <BsJournalText />
-            <h3>{client.name}</h3>
+        <div>
+          <div className={classes.port}>
+            <div className={classes.info}>
+              <BsJournalText />
+              <h3>{client.name}</h3>
+            </div>
+            <div className={classes.Navop}>
+              <button
+                className={classes.ico1}
+                onClick={() => setShowModal(!showModal)}
+              >
+                <RiDeleteBin5Fill />
+                <span className={classes.tooltiptext}>Eliminar</span>
+              </button>
+              <button className={classes.ico1} onClick={actionUpdate}>
+                <RiEdit2Fill />
+                <span className={classes.tooltiptext}>Editar</span>
+              </button>
+            </div>
+            <Modal showModal={showModal}>
+              <p>Esta seguro de eliminar este cliente?</p>
+              <div className={classes.buttons}>
+                <Button onClick={() => setShowModal(!showModal)}>
+                  Cancelar
+                </Button>
+                <Button onClick={actionDelete}>Aceptar</Button>
+              </div>
+            </Modal>
           </div>
-          <div className={classes.Navop}>
-            <button
-              className={classes.ico1}
-              onClick={() => setShowModal(!showModal)}
-            >
-              <RiDeleteBin5Fill />
-              <span className={classes.tooltiptext}>Eliminar</span>
-            </button>
-            <button className={classes.ico1} onClick={actionUpdate}>
-              <RiEdit2Fill />
-              <span className={classes.tooltiptext}>Editar</span>
-            </button>
-          </div>
-          <Modal showModal={showModal}>
-            <p>Esta seguro de eliminar este cliente?</p>
-            <div className={classes.buttons}>
-              <Button onClick={() => setShowModal(!showModal)}>Cancelar</Button>
-              <Button onClick={actionDelete}>Aceptar</Button>
+          <div className={classes.cols2}>
+            <div className={classes.formsection}>
+              <div className={classes.formtitle}>
+                <p>Ci: </p>
+              </div>
+              <div className={classes.formresp}>
+                <p>{client.ci}</p>
+              </div>
             </div>
-          </Modal>
-        </div>
-        <div className={classes.cols2}>
-          <div className={classes.formsection}>
-            <div className={classes.formtitle}>
-              <p>Ci: </p>
-            </div>
-            <div className={classes.formresp}>
-              <p>{client.ci}</p>
-            </div>
-          </div>
-          <div className={classes.formsection}>
-            <div className={classes.formtitle}>
-              <p>Nro de Celular </p>
-            </div>
-            <div className={classes.formresp}>
-              <p>{client.phoneNumber}</p>
-            </div>
-          </div>
-        </div>
-        <div className={classes.cols2}>
-          <div className={classes.formsection}>
-            <div className={classes.formtitle}>
-              <p>Dirección: </p>
-            </div>
-            <div className={classes.formresp}>
-              <p>{client.address}</p>
+            <div className={classes.formsection}>
+              <div className={classes.formtitle}>
+                <p>Nro de Celular </p>
+              </div>
+              <div className={classes.formresp}>
+                <p>{client.phoneNumber}</p>
+              </div>
             </div>
           </div>
-          <div className={classes.formsection}>
-            <div className={classes.formtitle}>
-              <p>Fecha de registro </p>
+          <div className={classes.cols2}>
+            <div className={classes.formsection}>
+              <div className={classes.formtitle}>
+                <p>Dirección: </p>
+              </div>
+              <div className={classes.formresp}>
+                <p>{client.address}</p>
+              </div>
             </div>
-            <div className={classes.formresp}>
-              <p>{client.dateReg}</p>
+            <div className={classes.formsection}>
+              <div className={classes.formtitle}>
+                <p>Fecha de registro </p>
+              </div>
+              <div className={classes.formresp}>
+                <p>{formatDate(client.dateReg)}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -153,7 +163,7 @@ const GetClientinfo = () => {
         {routes.map((data) => (
           <NavLink className={classes.Navaccesos} to={data.path}>
             <p>{data.icon}</p>
-            <p>{data.name}</p>
+            <p className={classes.opnavbar}>{data.name}</p>
           </NavLink>
         ))}
       </div>

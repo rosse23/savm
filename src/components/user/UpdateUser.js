@@ -73,7 +73,13 @@ const UpdateUser = () => {
     }
     navigate({ pathname: `/app/user/` }, { replace: true });
   };
-
+  const formatDate = (rawDate) => {
+    const date = new Date(rawDate);
+    const result = `${date.getDate()}/${
+      date.getMonth() + 1
+    }/${date.getFullYear()}`;
+    return result;
+  };
   return (
     <div className={classes.EditMe}>
       <section className={classes.edittitle}>
@@ -110,10 +116,14 @@ const UpdateUser = () => {
           </p>
 
           <p type='Rol:'>{user.rol}</p>
-          <p type='Fecha de registro:'> {credentials.createdAt}</p>
-          <p type='Fecha de modificación:'> {credentials.updatedAt}</p>
+          <p type='Fecha de registro:'> {formatDate(credentials.createdAt)}</p>
+          <p type='Fecha de modificación:'>
+            {' '}
+            {formatDate(credentials.updatedAt)}
+          </p>
           <p type='Fecha de modificación de contraseña:'>
-            {credentials.passwordChangedAt}
+            {credentials.passwordChangedAt &&
+              formatDate(credentials.passwordChangedAt)}
           </p>
         </Form>
         <div className={classes.Butacept}>

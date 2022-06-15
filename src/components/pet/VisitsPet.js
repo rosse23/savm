@@ -32,6 +32,14 @@ const VisitsPet = () => {
     };
     getpet();
   }, []);
+
+  const formatDate = (rawDate) => {
+    const date = new Date(rawDate);
+    const result = `${date.getDate()}/${
+      date.getMonth() + 1
+    }/${date.getFullYear()}`;
+    return result;
+  };
   return (
     <Container>
       <div className={classes.ListUser}>
@@ -67,7 +75,7 @@ const VisitsPet = () => {
                       <div>{data.diagnosis}</div>
                     </td>
                     <td>
-                      <div>{data.fechaReg}</div>
+                      <div>{formatDate(data.fechaReg)}</div>
                     </td>
 
                     <td>

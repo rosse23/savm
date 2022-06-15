@@ -30,7 +30,13 @@ const GetPetinfo = () => {
     };
     getpet();
   }, []);
-
+  const formatDate = (rawDate) => {
+    const date = new Date(rawDate);
+    const result = `${date.getDate()}/${
+      date.getMonth() + 1
+    }/${date.getFullYear()}`;
+    return result;
+  };
   return (
     <Container>
       <div className={classes.GetPetinfo}>
@@ -96,7 +102,7 @@ const GetPetinfo = () => {
                 <p>Cumpleaños: </p>
               </div>
               <div className={classes.formresp}>
-                <p>{pet.birthday} </p>
+                <p>{formatDate(pet.birthday)} </p>
               </div>
             </div>
             <div className={classes.formsection}>
@@ -104,7 +110,7 @@ const GetPetinfo = () => {
                 <p>Fecha de ultimo celo: </p>
               </div>
               <div className={classes.formresp}>
-                <p>{pet.lastHeat}</p>
+                <p>{formatDate(pet.lastHeat)}</p>
               </div>
             </div>
           </div>
@@ -115,7 +121,7 @@ const GetPetinfo = () => {
                 <p>Fecha de registro: </p>
               </div>
               <div className={classes.formresp}>
-                <p>{pet.dateReg}</p>
+                <p>{formatDate(pet.dateReg)}</p>
               </div>
             </div>
             <div className={classes.formsection}>
@@ -123,7 +129,7 @@ const GetPetinfo = () => {
                 <p>Fecha de ultima modificacion: </p>
               </div>
               <div className={classes.formresp}>
-                <p>{pet.lastUpdate}</p>
+                <p>{formatDate(pet.lastUpdate)}</p>
               </div>
             </div>
           </div>

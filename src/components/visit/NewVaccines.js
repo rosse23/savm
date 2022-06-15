@@ -8,6 +8,7 @@ import Container from '../UI/Container';
 import CardForm from '../UI/CardForm';
 import Button from '../UI/Button';
 import classes from './NewVisit.module.css';
+import { FiX } from 'react-icons/fi';
 const infomed = [
   {
     id: '1',
@@ -138,9 +139,12 @@ const NewVaccines = () => {
                     return (
                       <div
                         onClick={deleteMedicineHandler.bind(null, medicine.id)}
+                        className={classes.opmedicine}
                       >
                         <strong>{medicine.kind}</strong>
+                        <em>{medicine.product}</em>
                         <em>{medicine.brand}</em>
+                        <FiX />
                         {/* <button onClick={deleteMedicineHandler(medicine.id)}>
                           Quitar
                         </button> */}
@@ -148,20 +152,22 @@ const NewVaccines = () => {
                     );
                   })}
                   <select name='vaccine' onChange={addMedicineHandler}>
-                    {/* {infomed.map((data, index) => {
-                      <option
-                        key={index}
-                        value={JSON.stringify({
-                          id: `${data.id}`,
-                          kind: `${data.kind}`,
-                          brand: `${data.brand}`,
-                          product: `${data.product}`,
-                        })}
-                      >
-                        {data.product}
-                      </option>;
-                    })} */}
-                    <option
+                    {infomed.map((data, index) => {
+                      return (
+                        <option
+                          key={index}
+                          value={JSON.stringify({
+                            id: `${data.id}`,
+                            kind: `${data.kind}`,
+                            brand: `${data.brand}`,
+                            product: `${data.product}`,
+                          })}
+                        >
+                          {data.product}
+                        </option>
+                      );
+                    })}
+                    {/* <option
                       value={JSON.stringify({
                         id: '1',
                         kind: 'Antiinflamatorio',
@@ -190,7 +196,7 @@ const NewVaccines = () => {
                       })}
                     >
                       BIOMISOL
-                    </option>
+                    </option> */}
                   </select>
                 </div>
               </div>

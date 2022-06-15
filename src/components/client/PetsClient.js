@@ -1,38 +1,16 @@
-import { React, useState, useEffect } from 'react';
-import { ClientRequests } from '../../lib/api/';
-import { errorActions } from '../../store/error';
 import { NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import Container from '../UI/Container';
-import { useLocation } from 'react-router-dom';
-import classes from './GetClientinfo.module.css';
+import classes from './PetsClient.module.css';
 import { IoIosEye } from 'react-icons/io';
-import List from '../UI/List';
 
-const PetsClient = () => {
-  const [client, setClient] = useState({});
-  let { search } = useLocation();
-  const dispatch = useDispatch();
-  let query = new URLSearchParams(search);
-  let id = query.get('id');
-  useEffect(() => {
-    const getclient = async () => {
-      const result = await ClientRequests.getOne(
-        id,
-        localStorage.getItem('userToken')
-      );
-      console.log(result);
-      setClient(result.data.data);
-      if (result.status === 'fail') {
-        dispatch(
-          errorActions.setError(Object.values(JSON.parse(result.message)))
-        );
-        return;
-      }
-    };
-    getclient();
-  }, []);
-
+const PetsClient = (props) => {
+  const client = props.client;
+  const formatDate = (rawDate) => {
+    const date = new Date(rawDate);
+    const result = `${date.getDate()}/${
+      date.getMonth() + 1
+    }/${date.getFullYear()}`;
+    return result;
+  };
   return (
     <div className={classes.clientnav}>
       {client.pets?.map((data) => (
@@ -56,7 +34,7 @@ const PetsClient = () => {
                 <p>{data.name}</p>
               </div>
             </div>
-            <div className={classes.formsection}>
+            <div className={classes.formsection1}>
               <div className={classes.formtitle1}>
                 <p>Especie</p>
               </div>
@@ -64,12 +42,12 @@ const PetsClient = () => {
                 <p>{data.kind}</p>
               </div>
             </div>
-            <div className={classes.formsection}>
+            <div className={classes.formsection1}>
               <div className={classes.formtitle1}>
                 <p>Registro</p>
               </div>
               <div className={classes.formresp1}>
-                <p>{data.dateReg}</p>
+                <p>{formatDate(data.dateReg)}</p>
               </div>
             </div>
           </div>

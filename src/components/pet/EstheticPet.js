@@ -31,6 +31,13 @@ const EstheticPet = () => {
     };
     getpet();
   }, []);
+  const formatDate = (rawDate) => {
+    const date = new Date(rawDate);
+    const result = `${date.getDate()}/${
+      date.getMonth() + 1
+    }/${date.getFullYear()}`;
+    return result;
+  };
   return (
     <Container>
       <div className={classes.ListUser}>
@@ -66,7 +73,7 @@ const EstheticPet = () => {
                       <div>{data.detail}</div>
                     </td>
                     <td>
-                      <div>{data.dateReg}</div>
+                      <div>{formatDate(data.dateReg)}</div>
                     </td>
 
                     <td>

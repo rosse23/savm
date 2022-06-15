@@ -1,13 +1,13 @@
-import { React, useState, useEffect } from "react";
-import { EstheticRequests } from "../../lib/api/";
-import { errorActions } from "../../store/error";
-import { useDispatch } from "react-redux";
-import Container from "../UI/Container";
-import { useNavigate, useLocation } from "react-router-dom";
-import Button from "../UI/Button";
-import Modal from "../UI/Modal";
-import classes from "./GetEsthetic.module.css";
-import { Form } from "../UI/Form";
+import { React, useState, useEffect } from 'react';
+import { EstheticRequests } from '../../lib/api/';
+import { errorActions } from '../../store/error';
+import { useDispatch } from 'react-redux';
+import Container from '../UI/Container';
+import { useNavigate, useLocation } from 'react-router-dom';
+import Button from '../UI/Button';
+import Modal from '../UI/Modal';
+import classes from './GetEsthetic.module.css';
+import { Form } from '../UI/Form';
 
 const GetEsthetic = () => {
   const [esthetic, setEsthetic] = useState({});
@@ -16,15 +16,15 @@ const GetEsthetic = () => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   let query = new URLSearchParams(search);
-  let id = query.get("id");
+  let id = query.get('id');
 
   useEffect(async () => {
     const result = await EstheticRequests.getOne(
       id,
-      localStorage.getItem("userToken")
+      localStorage.getItem('userToken')
     );
     setEsthetic(result.data.data);
-    if (result.status === "fail") {
+    if (result.status === 'fail') {
       dispatch(
         errorActions.setError(Object.values(JSON.parse(result.message)))
       );
@@ -37,17 +37,17 @@ const GetEsthetic = () => {
     setShowModal(!showModal);
     const result = await EstheticRequests.deleteOne(
       id,
-      localStorage.getItem("userToken")
+      localStorage.getItem('userToken')
     );
 
-    if (result.status === "fail") {
+    if (result.status === 'fail') {
       console.log(result.message);
       dispatch(
         errorActions.setError(Object.values(JSON.parse(result.message)))
       );
       return;
     }
-    navigate({ pathname: "/app/esthetic/" }, { replace: true });
+    navigate({ pathname: '/app/esthetic/' }, { replace: true });
   };
   const actionUpdate = async (e) => {
     e.preventDefault();
@@ -55,6 +55,13 @@ const GetEsthetic = () => {
       { pathname: `/app/esthetic/editesthetic?id=${esthetic._id}` },
       { replace: true }
     );
+  };
+  const formatDate = (rawDate) => {
+    const date = new Date(rawDate);
+    const result = `${date.getDate()}/${
+      date.getMonth() + 1
+    }/${date.getFullYear()}`;
+    return result;
   };
   return (
     <Container>
@@ -90,7 +97,7 @@ const GetEsthetic = () => {
               <p>Fecha de visita: </p>
             </div>
             <div className={classes.formresp}>
-              <p>{esthetic.dateReg}</p>
+              <p>{formatDate(esthetic.dateReg)}</p>
             </div>
           </div>
           <div className={classes.formsection}>
@@ -104,7 +111,7 @@ const GetEsthetic = () => {
         </Form>
 
         <div className={classes.buttons}>
-          <Button onClick={() => setShowModal(!showModal)}>Eliminar</Button>{" "}
+          <Button onClick={() => setShowModal(!showModal)}>Eliminar</Button>{' '}
           <Button onClick={actionUpdate}>Editar</Button>
           <Modal showModal={showModal}>
             <p>Esta seguro de eliminar esta visita de estética?</p>

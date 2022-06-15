@@ -1,78 +1,92 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from 'framer-motion';
 
-import { React, useState } from "react";
-import { useSelector } from "react-redux";
+import { React, useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
   FaHome,
   FaUser,
   FaDog,
   FaBath,
   FaHandHoldingMedical,
-} from "react-icons/fa";
-import { HiUsers } from "react-icons/hi";
+} from 'react-icons/fa';
+import { HiUsers } from 'react-icons/hi';
 import {
   MdAttachMoney,
   MdPets,
   MdLocalGroceryStore,
   MdInventory,
-} from "react-icons/md";
-import { VscMenu } from "react-icons/vsc";
-import classes from "./SideBar.module.css";
-import logo from "../../imgs/nombre.png";
-import { NavLink } from "react-router-dom";
-import ErrorCard from "../UI/ErrorCard";
-import SidebarMenu from "./SidebarMenu";
+} from 'react-icons/md';
+import { VscMenu } from 'react-icons/vsc';
+import { CgUserList } from 'react-icons/cg';
+import { GrDocumentStore } from 'react-icons/gr';
+import classes from './SideBar.module.css';
+import logo from '../../imgs/nombre.png';
+import { NavLink } from 'react-router-dom';
+import ErrorCard from '../UI/ErrorCard';
+import SidebarMenu from './SidebarMenu';
 const routes = [
   {
-    path: "/app",
-    name: "Dashboard",
+    path: '/app',
+    name: 'Dashboard',
     icon: <FaHome />,
   },
   {
-    path: "/app/user",
-    name: "Usuarios",
+    path: '/app/user',
+    name: 'Usuarios',
     icon: <FaUser />,
+    subRoutes: [
+      {
+        path: '/app/user',
+        name: ' Listado de usuario',
+        icon: <CgUserList />,
+      },
+      {
+        path: '/app/user/activites',
+        name: 'Listado de actividades',
+        icon: <GrDocumentStore />,
+      },
+    ],
   },
   {
-    path: "/app/client",
-    name: "Clientes",
+    path: '/app/client',
+    name: 'Clientes',
     icon: <HiUsers />,
   },
   {
-    path: "/app/pet",
-    name: "Pacientes",
+    path: '/app/pet',
+    name: 'Pacientes',
     icon: <MdPets />,
   },
   {
-    path: "/app/sale",
-    name: "Ventas y Stock",
+    path: '/app/sale',
+    name: 'Ventas y Stock',
     icon: <MdLocalGroceryStore />,
     subRoutes: [
       {
-        path: "/app/sale",
-        name: "Ventas ",
+        path: '/app/sale',
+        name: 'Ventas ',
         icon: <MdAttachMoney />,
       },
       {
-        path: "/app/product",
-        name: "Inventario",
+        path: '/app/product',
+        name: 'Inventario',
         icon: <MdInventory />,
       },
     ],
   },
   {
-    path: "/app/service",
-    name: "Servicios",
+    path: '/app/service',
+    name: 'Servicios',
     icon: <FaHandHoldingMedical />,
     subRoutes: [
       {
-        path: "/app/visit",
-        name: "Visita ",
+        path: '/app/visit',
+        name: 'Visita ',
         icon: <FaDog />,
       },
       {
-        path: "/app/esthetic",
-        name: "Estetica y Baños",
+        path: '/app/esthetic',
+        name: 'Estetica y Baños',
         icon: <FaBath />,
       },
     ],
@@ -94,7 +108,7 @@ const SideBar = () => {
     },
     show: {
       opacity: 1,
-      width: "auto",
+      width: 'auto',
       transition: {
         duration: 0.5,
       },
@@ -102,14 +116,14 @@ const SideBar = () => {
   };
 
   return (
-    <div className={classes["main-container"]}>
+    <div className={classes['main-container']}>
       {isError && <ErrorCard>{errMessage}</ErrorCard>}
       <motion.div
         animate={{
-          width: isOpen ? "250px" : "45px",
+          width: isOpen ? '250px' : '45px',
           transition: {
             duration: 0.5,
-            type: "spring",
+            type: 'spring',
             damping: 10,
           },
         }}
@@ -120,11 +134,11 @@ const SideBar = () => {
             {isOpen && (
               <motion.img
                 variants={showAnimation}
-                initial="hidden"
-                animate="show"
-                exit="hidden"
+                initial='hidden'
+                animate='show'
+                exit='hidden'
                 src={logo}
-                alt="logo"
+                alt='logo'
               />
             )}
           </AnimatePresence>
@@ -157,9 +171,9 @@ const SideBar = () => {
                   {isOpen && (
                     <motion.div
                       variants={showAnimation}
-                      initial="hidden"
-                      animate="show"
-                      exit="hidden"
+                      initial='hidden'
+                      animate='show'
+                      exit='hidden'
                       className={classes.linktext}
                     >
                       {route.name}

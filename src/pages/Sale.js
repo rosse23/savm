@@ -1,10 +1,11 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
-import Portada from "../components/UI/Portada";
-import { MdPointOfSale } from "react-icons/md";
-import classes from "./Sale.module.css";
-import ListSale from "../components/sale/ListSale";
-import NewSale from "../components/sale/NewSale";
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Portada from '../components/UI/Portada';
+import { MdPointOfSale } from 'react-icons/md';
+import classes from './Sale.module.css';
+import ListSale from '../components/sale/ListSale';
+import NewSale from '../components/sale/NewSale';
+import GetSale from '../components/sale/GetSale';
 const Sale = () => {
   return (
     <div className={classes.Sale}>
@@ -15,10 +16,10 @@ const Sale = () => {
         </Portada>
       </div>
       <Routes>
-        <Route path="/" element={<ListSale />} />
-        <Route path="newsale" element={<NewSale />} />
-        <Route path="viewsale" element={<ListSale />} />
-        <Route path="editsale" element={<ListSale />} />
+        <Route path='/' element={<ListSale />} />
+        <Route path='newsale' element={<NewSale />} />
+        <Route path='viewsale' element={<GetSale />} />
+        <Route path='editsale' element={<ListSale />} />
       </Routes>
     </div>
   );

@@ -1,11 +1,23 @@
 .GetClient {
   width: 100%;
   text-align: center;
+  height: 69vh;
 }
 .GetClientinfo {
   width: 100%;
   text-align: center;
-  padding: 1% 5% 5% 5%;
+  padding: 0% 5% 0% 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.GetSaleinfo {
+  width: 100%;
+  text-align: center;
+  padding: 0% 5% 0% 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .contenido {
   overflow-y: scroll;
@@ -58,7 +70,8 @@
   gap: 5%;
 }
 
-.formsection {
+.formsection,
+.formsection1 {
   display: grid;
   grid-template-columns: 1fr;
   padding: 0;
@@ -149,8 +162,12 @@
 .navbar {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 5%;
   background-color: rgba(235, 168, 129, 0.39);
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 10%;
 }
 .Navaccesos {
   display: flex;
@@ -170,14 +187,22 @@
   display: grid;
   grid-template-columns: 0.5fr 2fr 2fr 2fr;
 }
+.cols3nav {
+  display: grid;
+  grid-template-columns: 0.5fr 3fr 2fr;
+  gap: 5%;
+}
 .clientnav {
-  margin-top: -50px;
   display: flex;
   justify-content: center;
   flex-direction: column;
   margin-left: 10%;
   margin-right: 10%;
+  margin-top: 0;
+  margin-bottom: 0;
   overflow-y: scroll;
+  max-height: 200px;
+  background-color: aqua;
 }
 .sep {
   border-bottom: 3px solid rgb(243, 214, 198);
@@ -202,13 +227,31 @@
 }
 
 @media screen and (max-width: 680px) {
-  .cols2 {
-    grid-template-columns: 1fr;
-  }
+  .cols2 p {
+    font-size: 14px;
+  } /*
   .cols3 {
     grid-template-columns: 1fr;
   }
   .cols4 {
     grid-template-columns: 1fr;
+  } */
+  .formsection1 {
+    display: none;
+  }
+  .opnavbar {
+    display: none;
+  }
+  .cols3nav {
+    display: grid;
+    grid-template-columns: 0.5fr 5fr;
+  }
+  .info svg {
+    fill: rgb(245, 187, 153);
+    width: 17px;
+    height: 17px;
+  }
+  .info h3 {
+    font-size: 1em;
   }
 }

@@ -7,10 +7,10 @@
   margin-left: auto;
   margin-right: auto;
   /*margin: calc(50vh - 220px) auto;*/
-  padding: 10px 30px 50px;
+  padding: 10px 30px 5px;
   max-width: calc(100vw - 40px);
   box-sizing: border-box;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   position: relative;
 }
 .Form h2 {
@@ -54,7 +54,7 @@
   float: right;
   padding: 5px 12px;
   margin: 6px 0 0;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   border: 2px solid #222;
   background: 0;
   color: #222;

@@ -1,18 +1,18 @@
-import axios from "axios";
+import axios from 'axios';
 
 class BaseRequests {
   constructor(uri) {
     this.uri = uri;
   }
 
-  getAll = async (token) => {
+  getAll = async (token, params) => {
     let response;
     try {
       response = await axios.get(`${this.uri}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        /*   active: true,*/
+        params,
       });
       return response.data;
     } catch (err) {
