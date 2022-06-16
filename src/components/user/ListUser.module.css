@@ -1,13 +1,36 @@
 .ListUser {
-  height: 45vh;
+  height: 50vh;
   width: 98%;
   margin: 0 auto;
   /* background-color: aqua;*/
   border-radius: 15px;
 }
+.ListUser1 {
+  height: 60vh;
+  width: 98%;
+  margin: 0 auto;
+  /* background-color: aqua;*/
+  border-radius: 15px;
+  text-align: center;
+}
+/* paginacion */
+.botones {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+.botones button {
+  padding: 0px;
+  border-radius: 10px;
+}
+
+.tabla1 {
+  overflow: scroll;
+  height: 45vh;
+}
 .tabla {
   overflow: scroll;
-  height: 30vh;
+  height: 35vh;
 }
 
 .filaFoto {

@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
   FaHome,
@@ -27,7 +27,7 @@ import SidebarMenu from './SidebarMenu';
 const routes = [
   {
     path: '/app',
-    name: 'Dashboard',
+    name: 'Inicio',
     icon: <FaHome />,
   },
   {
@@ -92,9 +92,61 @@ const routes = [
     ],
   },
 ];
+const routes1 = [
+  {
+    path: '/app',
+    name: 'Inicio',
+    icon: <FaHome />,
+  },
+  {
+    path: '/app/client',
+    name: 'Clientes',
+    icon: <HiUsers />,
+  },
+  {
+    path: '/app/pet',
+    name: 'Pacientes',
+    icon: <MdPets />,
+  },
+  {
+    path: '/app/sale',
+    name: 'Ventas y Stock',
+    icon: <MdLocalGroceryStore />,
+    subRoutes: [
+      {
+        path: '/app/sale',
+        name: 'Ventas ',
+        icon: <MdAttachMoney />,
+      },
+      {
+        path: '/app/product',
+        name: 'Inventario',
+        icon: <MdInventory />,
+      },
+    ],
+  },
+  {
+    path: '/app/service',
+    name: 'Servicios',
+    icon: <FaHandHoldingMedical />,
+    subRoutes: [
+      {
+        path: '/app/visit',
+        name: 'Visita ',
+        icon: <FaDog />,
+      },
+      {
+        path: '/app/esthetic',
+        name: 'Estetica y Baños',
+        icon: <FaBath />,
+      },
+    ],
+  },
+];
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [data, setData] = useState([]);
   const toggle = () => setIsOpen(!isOpen);
   const isError = useSelector((state) => state.error.isError);
   const errMessage = useSelector((state) => state.error.errorMessage);
@@ -114,6 +166,13 @@ const SideBar = () => {
       },
     },
   };
+  useEffect(() => {
+    if (localStorage.getItem('userRole') == 'admin') {
+      setData(routes);
+    } else {
+      setData(routes1);
+    }
+  }, []);
 
   return (
     <div className={classes['main-container']}>
@@ -147,7 +206,7 @@ const SideBar = () => {
           </div>
         </div>
         <section className={classes.routes}>
-          {routes.map((route, index) => {
+          {data?.map((route, index) => {
             if (route.subRoutes) {
               return (
                 <SidebarMenu

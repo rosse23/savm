@@ -4,6 +4,7 @@
   color: rgb(247, 251, 253);
   height: max-content;
   border-radius: 15px;
+  width: 100%;
 }
 .edittitle {
   display: flex;
@@ -18,7 +19,7 @@
 
 .Butacept {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   font-size: 30px;
 }
 .cols2 {

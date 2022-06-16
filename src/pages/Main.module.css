@@ -13,7 +13,7 @@ GREY COLOR 2: #ced4da       #003621;
       rgba(245, 246, 252, 0),
       rgba(12, 6, 10, 0.73)
     ),
-    url("../imgs/main1.2.jpg");
+    url('../imgs/main1.2.jpg');
   /*background-image: url("main1.jpg");*/
 
   background-size: cover;
@@ -121,6 +121,15 @@ GREY COLOR 2: #ced4da       #003621;
   color: #232425;
   letter-spacing: -1px;
   text-align: center;
+}
+.footer {
+  background-color: black;
+  width: 100%;
+  height: 50px;
+  color: rgb(161, 159, 159);
+  font-size: small;
+  text-align: center;
+  padding-top: 15px;
 }
 @media screen and (max-width: 680px) {
   .grid2cols {

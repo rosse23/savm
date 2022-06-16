@@ -4,6 +4,7 @@ import Button from '../UI/Button';
 import { MdOutlineLocalGroceryStore, MdArrowDropDown } from 'react-icons/md';
 import { RiUser3Line } from 'react-icons/ri';
 import { IoPaw } from 'react-icons/io5';
+import { CgMenuGridR } from 'react-icons/cg';
 import { NavLink } from 'react-router-dom';
 import Usercontainer from './Usercontainer';
 import { AuthRequests } from '../../lib/api';
@@ -43,13 +44,14 @@ const Header = (props) => {
     <div className={classes.header}>
       <div className={classes.header__inner}>
         <div className={classes.accesos}>
-          <NavLink className={classes.Navaccesos} to='/main'>
-            <p>Accesos</p>
-            <MdArrowDropDown />
+          <NavLink className={classes.Navaccesos} to='/menu'>
+            <p>Menú</p>
+            <CgMenuGridR />
+            {/* <MdArrowDropDown /> */}
           </NavLink>
         </div>
         <nav className={classes.actions}>
-          <NavLink to='/app/sale/' className={classes.Navicon}>
+          <NavLink to='/app/sale/newsale' className={classes.Navicon}>
             <MdOutlineLocalGroceryStore />
             <span className={classes.tooltiptext}>+ venta</span>
           </NavLink>

@@ -1,17 +1,17 @@
-import { React, useState } from "react";
-import classes from "./Head.module.css";
-import Button from "../UI/Button";
-import logo from "../../imgs/logo.png";
-import { IoPawSharp, IoWarning } from "react-icons/io5";
-import { BiLogIn } from "react-icons/bi";
-import { AnimatePresence, motion } from "framer-motion";
-import { Form } from "../UI/Form";
+import { React, useState } from 'react';
+import classes from './Head.module.css';
+import Button from '../UI/Button';
+import logo from '../../imgs/logo.png';
+import { IoPawSharp, IoWarning } from 'react-icons/io5';
+import { BiLogIn } from 'react-icons/bi';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Form } from '../UI/Form';
 
-import { AuthRequests } from "../../lib/api";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { authActions } from "../../store/auth";
-import CardForm from "../UI/CardForm";
+import { AuthRequests } from '../../lib/api';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { authActions } from '../../store/auth';
+import CardForm from '../UI/CardForm';
 const backdrop = {
   visible: { opacity: 1 },
   hidden: { opacity: 0 },
@@ -65,6 +65,7 @@ const Head = (props) => {
       authActions.setLogin({
         token: result.token,
         name: result.data.user.name,
+        role: result.data.user.role,
       })
     );
     // setTimeout(() => {
@@ -120,21 +121,21 @@ const Head = (props) => {
                 <CardForm>
                   <p>Email</p>
                   <input
-                    id="email"
-                    name="email"
+                    id='email'
+                    name='email'
                     value={credentials.email}
                     onChange={changeInputHandler}
-                    placeholder="jhon@doe.com"
+                    placeholder='jhon@doe.com'
                     required
                   ></input>
                   <p> Password:</p>
                   <input
-                    type="password"
-                    id="password"
-                    name="password"
+                    type='password'
+                    id='password'
+                    name='password'
                     value={credentials.password}
                     onChange={changeInputHandler}
-                    placeholder="***********"
+                    placeholder='***********'
                     required
                   ></input>
 

@@ -1,7 +1,8 @@
 import { React, useState, useEffect } from 'react';
 import { RiDeleteBin5Fill, RiEdit2Fill } from 'react-icons/ri';
+import { SiDocusign } from 'react-icons/si';
 import { BsJournalText } from 'react-icons/bs';
-import { VisitRequests } from '../../lib/api/';
+import { VisitRequests, ClientRequests } from '../../lib/api/';
 import { errorActions } from '../../store/error';
 import { useDispatch } from 'react-redux';
 import Container from '../UI/Container';
@@ -10,8 +11,11 @@ import classes from '../client/GetClientinfo.module.css';
 import { Form } from '../UI/Form';
 import Button from '../UI/Button';
 import Modal from '../UI/Modal';
+import SampleReport from '../reports/AnimalReport';
+import { PDFDownloadLink } from '@react-pdf/renderer';
 const GetVisit = () => {
   const [visit, setVisit] = useState({});
+  const [owner, setOwner] = useState({});
   let { search } = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,6 +29,11 @@ const GetVisit = () => {
         localStorage.getItem('userToken')
       );
       setVisit(result.data.data);
+      const res = await ClientRequests.getOne(
+        result.data.data.client,
+        localStorage.getItem('userToken')
+      );
+      setOwner(res.data.data);
       if (result.status === 'fail') {
         dispatch(
           errorActions.setError(Object.values(JSON.parse(result.message)))
@@ -84,6 +93,15 @@ const GetVisit = () => {
                 <RiEdit2Fill />
                 <span className={classes.tooltiptext}>Editar</span>
               </button>
+              <button className={classes.ico1}>
+                <PDFDownloadLink
+                  document={<SampleReport owner={owner} visit={visit} />}
+                  fileName={`reporte-visita`}
+                >
+                  <SiDocusign />
+                </PDFDownloadLink>
+                <span className={classes.tooltiptext}>PDf</span>
+              </button>
             </div>
             <Modal showModal={showModal}>
               <p>Esta seguro de eliminar esta visita?</p>
@@ -99,10 +117,10 @@ const GetVisit = () => {
             <div className={classes.cols2}>
               <div className={classes.formsection}>
                 <div className={classes.formtitle}>
-                  <p>Paciente: </p>
+                  <p>Cliente: </p>
                 </div>
                 <div className={classes.formresp}>
-                  <p>{visit.pet?.name}</p>
+                  <p>{owner.name}</p>
                 </div>
               </div>
               <div className={classes.formsection}>

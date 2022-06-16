@@ -6,13 +6,7 @@ import Menu from './pages/Menu';
 import Main from './pages/Main';
 import Layout from './pages/Layout';
 import SideBar from './components/sidebar/SideBar';
-const formatDate = (rawDate) => {
-  const date = new Date(rawDate);
-  const result = `${date.getDate()}/${
-    date.getMonth() + 1
-  }/${date.getFullYear()}`;
-  return result;
-};
+
 function App() {
   const token = useSelector((state) => state.auth.token);
   if (token) {

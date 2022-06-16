@@ -24,6 +24,23 @@ class VisitRequests extends BaseRequests {
       return err.response.data;
     }
   };
+
+  showMostAttendantKind = async (token) => {
+    let response;
+    try {
+      response = await axios.get(`${this.uri}/showMostAttendantKind`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
+    } catch (err) {
+      // throw new Error(
+      //   err.message  "No se pudo obtener los datos del documento solicitado"
+      //   );
+      return err.response.data;
+    }
+  };
 }
 
 export default VisitRequests;

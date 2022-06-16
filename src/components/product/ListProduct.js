@@ -2,6 +2,7 @@ import { React, useState, useEffect } from 'react';
 import { ProductRequests } from '../../lib/api/';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { MdOutlineAddCircle, MdOutlineSearch } from 'react-icons/md';
+import { MdOutlineNavigateNext, MdKeyboardArrowLeft } from 'react-icons/md';
 import FiltersContainer from '../UI/FiltersContainer';
 import Container from '../UI/Container';
 import List from '../UI/List';
@@ -9,6 +10,7 @@ import ListModel from '../UI/ListModel';
 import classes from '../user/ListUser.module.css';
 const ListProduct = () => {
   const [search, setSearch] = useState('');
+  const [todo, setTodo] = useState(0);
   const [opensearch, setOpensearch] = useState(false);
   const [product, setProduct] = useState([]);
   const [infoadd, setInfoadd] = useState({
@@ -18,6 +20,8 @@ const ListProduct = () => {
   });
   const [filter, setFilter] = useState({
     sort: 'name',
+    page: 1,
+    limit: 5,
   });
   const changeInputHandler = (e) => {
     setFilter((prev) => ({
@@ -25,6 +29,17 @@ const ListProduct = () => {
       [e.target.name]: e.target.value,
     }));
   };
+  useEffect(() => {
+    const getnumber = async () => {
+      const result = await ProductRequests.getAll(
+        localStorage.getItem('userToken')
+      );
+      setTodo(parseInt((result.data.data.length + parseInt(4)) / parseInt(5)));
+      console.log((result.data.data.length + parseInt(4)) / parseInt(5));
+      console.log('nobue');
+    };
+    getnumber();
+  }, []);
   useEffect(() => {
     const getproduct = async () => {
       const result = await ProductRequests.getAll(
@@ -66,7 +81,20 @@ const ListProduct = () => {
   const onSearchHandler = async (e) => {
     setSearch(e.target.value);
   };
-
+  const handlenext = (e) => {
+    setFilter((prevstate) => ({
+      ...prevstate,
+      page: filter.page + 1,
+    }));
+    console.log(filter.page);
+  };
+  const handleprev = (e) => {
+    setFilter((prevstate) => ({
+      ...prevstate,
+      page: filter.page - 1,
+    }));
+    console.log(filter.page);
+  };
   return (
     <section>
       <FiltersContainer>
@@ -135,6 +163,18 @@ const ListProduct = () => {
           </List>
         </div>
       </Container>
+      <div className={classes.botones}>
+        {filter.page > 1 && (
+          <button onClick={handleprev}>
+            <MdKeyboardArrowLeft />
+          </button>
+        )}
+        {filter.page < todo && (
+          <button onClick={handlenext}>
+            <MdOutlineNavigateNext />
+          </button>
+        )}
+      </div>
     </section>
   );
 };

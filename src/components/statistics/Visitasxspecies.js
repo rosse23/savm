@@ -1,42 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { ProductRequests } from '../../lib/api/';
-import {
-  Chart as ChartJS,
-  RadialLinearScale,
-  ArcElement,
-  Tooltip,
-  Legend,
-} from 'chart.js';
-import { PolarArea } from 'react-chartjs-2';
-
-ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
-
-const Productsxcate = () => {
-  const [cate, setCate] = useState([]);
+import { React, useEffect, useState } from 'react';
+import { VisitRequests } from '../../lib/api';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Doughnut } from 'react-chartjs-2';
+ChartJS.register(ArcElement, Tooltip, Legend);
+const Visitasxspecies = () => {
+  const [especie, setEspecie] = useState([]);
   const [cant, setCant] = useState([]);
   useEffect(() => {
     const getdatos = async () => {
-      const result = await ProductRequests.mostDemandProductsCategory(
+      const result = await VisitRequests.showMostAttendantKind(
         localStorage.getItem('userToken')
       );
       {
-        var auxproduct = [],
+        var auxespecie = [],
           auxcant = [];
-        result.data.rawResult?.map((elemento) => {
-          auxproduct.push(elemento._id);
-          auxcant.push(elemento.numItemsSold);
+        result.data?.map((elemento) => {
+          auxespecie.push(elemento._id);
+          auxcant.push(elemento.totalVisits);
         });
-        setCate(auxproduct);
+        setEspecie(auxespecie);
         setCant(auxcant);
       }
 
-      console.log(auxproduct);
+      console.log(auxespecie);
       console.log(auxcant);
     };
     getdatos();
   }, []);
+
   const data = {
-    labels: cate,
+    labels: especie,
     datasets: [
       {
         label: '# of Votes',
@@ -61,13 +54,12 @@ const Productsxcate = () => {
       },
     ],
   };
-
   return (
     <div>
-      <h2>Ventas por categoria</h2>
-      <PolarArea data={data} />
+      <h2>visitas por especies</h2>
+      <Doughnut data={data} />
     </div>
   );
 };
 
-export default Productsxcate;
+export default Visitasxspecies;

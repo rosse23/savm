@@ -4,14 +4,18 @@ import { IoIosEye } from 'react-icons/io';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { MdOutlineAddCircle } from 'react-icons/md';
 import FiltersContainer from '../UI/FiltersContainer';
+import { MdOutlineNavigateNext, MdKeyboardArrowLeft } from 'react-icons/md';
 import Container from '../UI/Container';
 import List from '../UI/List';
 import classes from '../user/ListUser.module.css';
 const ListSale = () => {
   const [sale, setSale] = useState([]);
+  const [todo, setTodo] = useState(0);
   const [filter, setFilter] = useState({
     'saleDate[gte]': '2022-01-01T19:42:51.955Z',
     'saleDate[lte]': '2023-01-01T19:42:51.955Z',
+    page: 1,
+    limit: 5,
   });
   const changeInputHandler = (e) => {
     setFilter((prev) => ({
@@ -19,6 +23,17 @@ const ListSale = () => {
       [e.target.name]: e.target.value,
     }));
   };
+  useEffect(() => {
+    const getnumber = async () => {
+      const result = await SaleRequests.getAll(
+        localStorage.getItem('userToken')
+      );
+      setTodo(parseInt((result.data.data.length + parseInt(4)) / parseInt(5)));
+      console.log((result.data.data.length + parseInt(4)) / parseInt(5));
+      console.log('nobue');
+    };
+    getnumber();
+  }, []);
   useEffect(() => {
     const getAllSales = async () => {
       const result = await SaleRequests.getAll(
@@ -42,6 +57,20 @@ const ListSale = () => {
     }/${date.getFullYear()}`;
     return result;
   };
+  const handlenext = (e) => {
+    setFilter((prevstate) => ({
+      ...prevstate,
+      page: filter.page + 1,
+    }));
+    console.log(filter.page);
+  };
+  const handleprev = (e) => {
+    setFilter((prevstate) => ({
+      ...prevstate,
+      page: filter.page - 1,
+    }));
+    console.log(filter.page);
+  };
   return (
     <section>
       <FiltersContainer>
@@ -50,7 +79,7 @@ const ListSale = () => {
             <label>desde:</label>
           </div>
           <input
-            type='date'
+            type='datetime-local'
             id='saleDate[gte]'
             name='saleDate[gte]'
             onChange={changeInputHandler}
@@ -61,7 +90,7 @@ const ListSale = () => {
             <label>Hasta:</label>
           </div>
           <input
-            type='date'
+            type='datetime-local'
             id='saleDate[lte]'
             name='saleDate[lte]'
             onChange={changeInputHandler}
@@ -135,6 +164,18 @@ const ListSale = () => {
           </List>
         </div>
       </Container>
+      <div className={classes.botones}>
+        {filter.page > 1 && (
+          <button onClick={handleprev}>
+            <MdKeyboardArrowLeft />
+          </button>
+        )}
+        {filter.page < todo && (
+          <button onClick={handlenext}>
+            <MdOutlineNavigateNext />
+          </button>
+        )}
+      </div>
     </section>
   );
 };

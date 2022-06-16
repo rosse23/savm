@@ -73,6 +73,10 @@ const UpdateUser = () => {
     }
     navigate({ pathname: `/app/user/` }, { replace: true });
   };
+  const actionCancel = async (e) => {
+    e.preventDefault();
+    navigate({ pathname: `/app/user/viewuser?id=${id}` }, { replace: true });
+  };
   const formatDate = (rawDate) => {
     const date = new Date(rawDate);
     const result = `${date.getDate()}/${
@@ -81,56 +85,79 @@ const UpdateUser = () => {
     return result;
   };
   return (
-    <div className={classes.EditMe}>
-      <section className={classes.edittitle}>
-        <h2>Editar Informacion de Usuario</h2> <FaUserEdit />
-      </section>
+    <Container>
+      <div className={classes.EditMe}>
+        <section className={classes.edittitle}>
+          <h2>Editar Informacion de Usuario</h2> <FaUserEdit />
+        </section>
 
-      <section>
-        <Form>
-          <div className={classes.cols2}>
-            <p type='Nombre:'>
+        <section>
+          <Form>
+            <div className={classes.cols2}>
+              <p type='Nombre:'>
+                <input
+                  value={credentials.name}
+                  id='name'
+                  name='name'
+                  onChange={changeInputHandler}
+                ></input>
+              </p>
+              <p type='Ci:'>
+                <input
+                  value={credentials.ci}
+                  id='ci'
+                  name='ci'
+                  onChange={changeInputHandler}
+                ></input>
+              </p>
+            </div>
+            <p type='Email:'>
               <input
-                value={credentials.name}
-                id='name'
-                name='name'
+                value={credentials.email}
+                id='email'
+                name='email'
                 onChange={changeInputHandler}
               ></input>
             </p>
-            <p type='Ci:'>
-              <input
-                value={credentials.ci}
-                id='ci'
-                name='ci'
-                onChange={changeInputHandler}
-              ></input>
+
+            <p type='Rol:'>
+              {credentials.role == 'user' && (
+                <div>
+                  <select id='role' name='role' onChange={changeInputHandler}>
+                    <option value={credentials.role}>Usuario</option>
+                    <option value={'admin'}>Administrador</option>}
+                  </select>
+                </div>
+              )}
+              {credentials.role == 'admin' && (
+                <div>
+                  <select id='role' name='role' onChange={changeInputHandler}>
+                    <option value={credentials.role}>Administrador</option>
+                    <option value={'user'}>Usuario</option>
+                  </select>
+                </div>
+              )}
             </p>
+            <p type='Fecha de registro:'>
+              {' '}
+              {formatDate(credentials.createdAt)}
+            </p>
+            <p type='Fecha de modificación:'>
+              {' '}
+              {formatDate(credentials.updatedAt)}
+            </p>
+            <p type='Fecha de modificación de contraseña:'>
+              {credentials.passwordChangedAt &&
+                formatDate(credentials.passwordChangedAt)}
+            </p>
+          </Form>
+          <div className={classes.Butacept}>
+            <Button onClick={actionCancel}>Cancelar</Button>
+            <Button onClick={actionButton}>Aceptar</Button>
           </div>
-          <p type='Email:'>
-            <input
-              value={credentials.email}
-              id='email'
-              name='email'
-              onChange={changeInputHandler}
-            ></input>
-          </p>
-
-          <p type='Rol:'>{user.rol}</p>
-          <p type='Fecha de registro:'> {formatDate(credentials.createdAt)}</p>
-          <p type='Fecha de modificación:'>
-            {' '}
-            {formatDate(credentials.updatedAt)}
-          </p>
-          <p type='Fecha de modificación de contraseña:'>
-            {credentials.passwordChangedAt &&
-              formatDate(credentials.passwordChangedAt)}
-          </p>
-        </Form>
-        <div className={classes.Butacept}>
-          <Button onClick={actionButton}>Aceptar</Button>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
+    </Container>
   );
 };
 

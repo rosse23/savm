@@ -3,6 +3,7 @@ import { VisitRequests } from '../../lib/api/';
 import { NavLink } from 'react-router-dom';
 import { IoIosEye } from 'react-icons/io';
 import { AiTwotoneEdit } from 'react-icons/ai';
+import { MdOutlineNavigateNext, MdKeyboardArrowLeft } from 'react-icons/md';
 import { MdOutlineAddCircle, MdOutlineSearch } from 'react-icons/md';
 import FiltersContainer from '../UI/FiltersContainer';
 import Container from '../UI/Container';
@@ -11,10 +12,13 @@ import ListModel from '../UI/ListModel';
 import classes from '../user/ListUser.module.css';
 const ListVisit = () => {
   const [search, setSearch] = useState('');
+  const [todo, setTodo] = useState(0);
   const [opensearch, setOpensearch] = useState(false);
   const [visit, setVisit] = useState([]);
   const [filter, setFilter] = useState({
     sort: '-createdAt',
+    page: 1,
+    limit: 5,
   });
   const changeInputHandler = (e) => {
     setFilter((prev) => ({
@@ -22,6 +26,17 @@ const ListVisit = () => {
       [e.target.name]: e.target.value,
     }));
   };
+  useEffect(() => {
+    const getnumber = async () => {
+      const result = await VisitRequests.getAll(
+        localStorage.getItem('userToken')
+      );
+      setTodo(parseInt((result.data.data.length + parseInt(4)) / parseInt(5)));
+      console.log((result.data.data.length + parseInt(4)) / parseInt(5));
+      console.log('nobue');
+    };
+    getnumber();
+  }, []);
   useEffect(() => {
     const getvisit = async () => {
       const result = await VisitRequests.getAll(
@@ -72,6 +87,20 @@ const ListVisit = () => {
       date.getMonth() + 1
     }/${date.getFullYear()}`;
     return result;
+  };
+  const handlenext = (e) => {
+    setFilter((prevstate) => ({
+      ...prevstate,
+      page: filter.page + 1,
+    }));
+    console.log(filter.page);
+  };
+  const handleprev = (e) => {
+    setFilter((prevstate) => ({
+      ...prevstate,
+      page: filter.page - 1,
+    }));
+    console.log(filter.page);
   };
   return (
     <section>
@@ -172,6 +201,18 @@ const ListVisit = () => {
           </List>
         </div>
       </Container>
+      <div className={classes.botones}>
+        {filter.page > 1 && (
+          <button onClick={handleprev}>
+            <MdKeyboardArrowLeft />
+          </button>
+        )}
+        {filter.page < todo && (
+          <button onClick={handlenext}>
+            <MdOutlineNavigateNext />
+          </button>
+        )}
+      </div>
     </section>
   );
 };

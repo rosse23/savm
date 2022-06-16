@@ -8,13 +8,17 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { UserRequests } from '../../lib/api/';
 import Container from '../UI/Container';
 import FiltersContainer from '../UI/FiltersContainer';
+import { MdOutlineNavigateNext, MdKeyboardArrowLeft } from 'react-icons/md';
 import Button from '../UI/Button';
 const ListUser = () => {
   const [search, setSearch] = useState('');
   const [opensearch, setOpensearch] = useState(false);
+  const [todo, setTodo] = useState(0);
   const [user, setUser] = useState([]);
   const [filter, setFilter] = useState({
     sort: '-createdAt',
+    page: 1,
+    limit: 5,
   });
   const changeInputHandler = (e) => {
     setFilter((prev) => ({
@@ -22,6 +26,17 @@ const ListUser = () => {
       [e.target.name]: e.target.value,
     }));
   };
+  useEffect(() => {
+    const getnumber = async () => {
+      const result = await UserRequests.getAll(
+        localStorage.getItem('userToken')
+      );
+      setTodo(parseInt((result.data.data.length + parseInt(4)) / parseInt(5)));
+      console.log((result.data.data.length + parseInt(4)) / parseInt(5));
+      console.log('nobue');
+    };
+    getnumber();
+  }, []);
   useEffect(() => {
     console.log(filter);
     const getuser = async () => {
@@ -63,7 +78,20 @@ const ListUser = () => {
       clearTimeout(fetchClients);
     };
   }, [search]);
-
+  const handlenext = (e) => {
+    setFilter((prevstate) => ({
+      ...prevstate,
+      page: filter.page + 1,
+    }));
+    console.log(filter.page);
+  };
+  const handleprev = (e) => {
+    setFilter((prevstate) => ({
+      ...prevstate,
+      page: filter.page - 1,
+    }));
+    console.log(filter.page);
+  };
   const onSearchHandler = async (e) => {
     setSearch(e.target.value);
   };
@@ -174,6 +202,18 @@ const ListUser = () => {
           </List>
         </div>
       </Container>
+      <div className={classes.botones}>
+        {filter.page > 1 && (
+          <button onClick={handleprev}>
+            <MdKeyboardArrowLeft />
+          </button>
+        )}
+        {filter.page < todo && (
+          <button onClick={handlenext}>
+            <MdOutlineNavigateNext />
+          </button>
+        )}
+      </div>
     </section>
   );
 };
