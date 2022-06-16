@@ -76,7 +76,7 @@ const UpdateProduct = () => {
   };
   const actionCancel = async (e) => {
     e.preventDefault();
-    navigate({ pathname: `/app/product/` }, { replace: true });
+    navigate({ pathname: `/app/product/viewproduct?id=${id}` }, { replace: true });
   };
 
   return (
