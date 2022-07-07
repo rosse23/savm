@@ -14,6 +14,16 @@ const backdrop = {
   visible: { opacity: 1 },
   hidden: { opacity: 0 },
 };
+const opciones = [
+  'Otros',
+  'Baño',
+  'Corte',
+  'Baño y Corte',
+  'Baño Sanitario',
+  'Corte Sanitario',
+  'Limpieza Dental',
+  'Baño Sanitario y Corte',
+];
 const NewEsthetic = () => {
   const [opensearch, setOpensearch] = useState(false);
   const [pets, setPets] = useState([{}]);
@@ -21,7 +31,7 @@ const NewEsthetic = () => {
   const [clients, setClients] = useState([]);
   const [search, setSearch] = useState('');
   const [credentials, setCredentials] = useState({
-    kind: 'otros',
+    kind: 'Otros',
     price: 0,
     detail: '',
     client: '',
@@ -169,22 +179,6 @@ const NewEsthetic = () => {
                         return <option value={data._id}>{data.name}</option>;
                       })}
                     </select>
-                    {/* <select id='pet' name='pet' onChange={changeInputHandler}> */}
-                    {/* {pets.forEach((data, index) => {
-                        console.log(data);
-                        return (
-                          <option key={index} value={data._id}>
-                            {data.name}
-                          </option>
-                        );
-                      })} */}
-                    {/* <option>hlolo</option> */}
-                    {/* <select> */}
-                    {/* {pets.map((data) => {
-                      <p>{data.name}</p>;
-                    })} */}
-                    {/*  */}
-                    {/* </select> */}
                   </div>
                 )}
               </div>
@@ -205,16 +199,9 @@ const NewEsthetic = () => {
               <div>
                 <p> Tipo de visita</p>
                 <select id='kind' name='kind' onChange={changeInputHandler}>
-                  <option value={'Otros'}>Otros</option>
-                  <option value={'Baño'}>Baño</option>
-                  <option value={'Corte'}>Corte</option>
-                  <option value={'Baño y Corte'}>Baño y Corte</option>
-                  <option value={'Baño Sanitario'}>Baño Sanitario</option>
-                  <option value={'Corte Sanitario'}>Corte Sanitario</option>
-                  <option value={'Limpieza Dental'}>Limpieza Dental</option>
-                  <option value={'Baño Sanitario y Corte'}>
-                    Baño Sanitario y Corte
-                  </option>
+                  {opciones?.map((data) => {
+                    return <option value={data}>{data}</option>;
+                  })}
                 </select>
               </div>
 

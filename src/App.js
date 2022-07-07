@@ -6,6 +6,8 @@ import Menu from './pages/Menu';
 import Main from './pages/Main';
 import Layout from './pages/Layout';
 import SideBar from './components/sidebar/SideBar';
+import ResetPassword from './pages/ResetPassword';
+import ForgotPassword from './pages/ForgotPassword';
 
 function App() {
   const token = useSelector((state) => state.auth.token);
@@ -23,6 +25,8 @@ function App() {
   return (
     <Routes>
       <Route path='/' element={<Main />} />
+      <Route path='/forgotpassword' element={<ForgotPassword />} />
+      <Route path='/resetpassword' element={<ResetPassword />} />
     </Routes>
   );
 }

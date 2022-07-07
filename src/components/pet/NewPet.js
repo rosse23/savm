@@ -26,7 +26,15 @@ const NewPet = () => {
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const opciones = [
+    'Canino',
+    'Felino',
+    'Ave',
+    'Bovino',
+    'Caprino',
+    'Porcino',
+    'Ovino',
+  ];
   const changeInputHandler = (e) => {
     setCredentials((prev) => ({
       ...prev,
@@ -98,13 +106,9 @@ const NewPet = () => {
             <div className={classes.cols2}>
               <p type='Especie:'>
                 <select id='kind' name='kind' onChange={changeInputHandler}>
-                  <option value={'Canino'}>Canino</option>
-                  <option value={'Felino'}>Felino</option>
-                  <option value={'Ave'}>Ave</option>
-                  <option value={'Bovino'}>Bovino</option>
-                  <option value={'Caprino'}>Caprino</option>
-                  <option value={'Porcino'}>Porcino</option>
-                  <option value={'Ovino'}>Ovino</option>
+                  {opciones?.map((data) => {
+                    return <option value={data}>{data}</option>;
+                  })}
                 </select>
               </p>
               <p type='Sexo'>
@@ -117,7 +121,7 @@ const NewPet = () => {
   </input>*/}
 
                 <select id='sex' name='sex' onChange={changeInputHandler}>
-                  <option value={'macho'}>Macho</option>
+                  <option value={'Macho'}>Macho</option>
                   <option value={'Hembra'}>Hembra</option>
                 </select>
               </p>

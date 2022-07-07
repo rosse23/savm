@@ -226,7 +226,7 @@ const GetVisit = () => {
               <h3>Medicamentos proporcionados en la visita</h3>
             </div>
             {visit.medicines?.map((medicine) => (
-              <div className={classes.cols3}>
+              <div className={classes.cols4}>
                 <div className={classes.formsection}>
                   <div className={classes.formtitle}>
                     <p>Producto: </p>
@@ -249,6 +249,14 @@ const GetVisit = () => {
                   </div>
                   <div className={classes.formresp}>
                     <p>{medicine.kind}</p>
+                  </div>
+                </div>
+                <div className={classes.formsection}>
+                  <div className={classes.formtitle}>
+                    <p>Dosis:</p>
+                  </div>
+                  <div className={classes.formresp}>
+                    <p>{medicine.dose}</p>
                   </div>
                 </div>
               </div>

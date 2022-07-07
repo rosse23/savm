@@ -341,6 +341,9 @@ export default function SampleReport(props) {
               <View style={styles.summary.column}>
                 <Text style={styles.title}>Detalle</Text>
               </View>
+              <View style={styles.summary.column}>
+                <Text style={styles.title}>Dosis</Text>
+              </View>
             </View>
             {visit.medicines?.map((item) => (
               <View style={[styles.row, styles.summary.item]}>
@@ -352,6 +355,9 @@ export default function SampleReport(props) {
                 </View>
                 <View style={styles.summary.column}>
                   <Text>{item.kind}</Text>
+                </View>
+                <View style={styles.summary.column}>
+                  <Text>{item.dose}</Text>
                 </View>
               </View>
             ))}

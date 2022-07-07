@@ -103,7 +103,7 @@ const Activites = () => {
                   {activity.map((activites) => (
                     <tr>
                       <td>
-                        <div>{activites.user}</div>
+                        <div>{activites.user?.name}</div>
                       </td>
                       <td>
                         <div>{activites.operation}</div>
@@ -119,7 +119,7 @@ const Activites = () => {
                           <NavLink
                             className={classes.ico1}
                             exact
-                            to={`/app/user/viewuser?id=${activites.user}`}
+                            to={`/app/user/viewactivite?id=${activites._id}`}
                           >
                             <IoIosEye />
                             <span className={classes.tooltiptext}>Ver</span>

@@ -9,10 +9,74 @@ import { useDispatch } from 'react-redux';
 import Button from '../UI/Button';
 import { motion } from 'framer-motion';
 import CardForm from '../UI/CardForm';
+import { FiX } from 'react-icons/fi';
+import { BsCheckLg } from 'react-icons/bs';
 const backdrop = {
   visible: { opacity: 1 },
   hidden: { opacity: 0 },
 };
+const infomed = [
+  {
+    id: '1',
+    kind: 'ANTIINFLAMATORIO',
+    brand: 'Biofarm',
+    product: 'BIODEX',
+  },
+  {
+    id: '2',
+    kind: 'ANTIBIOTICO',
+    brand: 'Weizur',
+    product: 'BIOFLOR',
+  },
+  {
+    id: '3',
+    kind: 'ANTIPARASITARIO',
+    brand: 'Galmedic',
+    product: 'BIOMISOL',
+  },
+  {
+    id: '4',
+    kind: 'SUPLEMENTO VITAMINICO',
+    brand: 'Proagro',
+    product: 'CALCIFICANTE',
+  },
+  {
+    id: '5',
+    kind: 'ANTIBIOTICO',
+    brand: 'Biomont',
+    product: 'BIOMIZONA',
+  },
+  {
+    id: '6',
+    kind: 'ANTIBIOTICO',
+    brand: 'BIOFARM',
+    product: 'BIOSULFAN',
+  },
+  {
+    id: '7',
+    kind: 'SUERO RECONSTITUYENTE',
+    brand: 'ValleSA',
+    product: 'BIOXAN',
+  },
+  {
+    id: '8',
+    kind: 'MINERALIZANTE',
+    brand: 'Galmedic',
+    product: 'BOROGLUCONATO',
+  },
+  {
+    id: '9',
+    kind: 'ANTISEPTICO PULMONAR',
+    brand: 'Von Franken',
+    product: 'BRONCOPUL',
+  },
+  {
+    id: '10',
+    kind: 'ANALGESICO-ANTIINFLAMATORIO',
+    brand: 'Proagro',
+    product: 'CALMIGEL',
+  },
+];
 const UpdateVisit = () => {
   const [opensearch, setOpensearch] = useState(false);
   const [petname, setPetname] = useState(null);
@@ -35,6 +99,17 @@ const UpdateVisit = () => {
     },
     medicines: [],
   });
+  const [dosis, setDosis] = useState({
+    num: '',
+    unidad: 'ml',
+    tiempo: 'cada 4 horas',
+  });
+  const [auxmedicine, setAuxmedicine] = useState({
+    kind: 'ANTIINFLAMATORIO',
+    brand: 'Biofarm',
+    product: 'BIODEX',
+    dose: '',
+  });
   const navigate = useNavigate();
   const dispatch = useDispatch();
   let { search } = useLocation();
@@ -56,15 +131,36 @@ const UpdateVisit = () => {
     });
   };
   const addMedicineHandler = (e) => {
-    console.log(e.target.value);
-    console.log('meyko');
-    const newMedicine = JSON.parse(e.target.value);
-    setVisit((prev) => {
-      return {
-        ...prev,
-        medicines: [...prev.medicines, newMedicine],
-      };
-    });
+    // console.log(JSON.parse(e.target.value));
+    console.log(dosis);
+    var findmedicine = false;
+    var caddosis = dosis.num + ' ' + dosis.unidad + ' ' + dosis.tiempo;
+    console.log(caddosis);
+    const newMedicine = auxmedicine;
+    if (caddosis) {
+      newMedicine.dose = caddosis;
+
+      console.log(newMedicine);
+    }
+    console.log(auxmedicine);
+    for (var i = 0; i < visit.medicines.length; i++) {
+      // console.log(credentials.medicines[i]);
+      // console.log(newMedicine);
+      if (visit.medicines[i].id == newMedicine.id) {
+        findmedicine = true;
+
+        break;
+      }
+    }
+    if (findmedicine == false) {
+      setVisit((prev) => {
+        return {
+          ...prev,
+          medicines: [...prev.medicines, newMedicine],
+        };
+      });
+      console.log(visit.medicines);
+    }
   };
   const deleteMedicineHandler = (idm) => {
     setVisit((prev) => {
@@ -143,6 +239,20 @@ const UpdateVisit = () => {
     setSearchs(e.target.value);
   };
 
+  const changeInputDosis = (e) => {
+    setDosis((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+  const changeInputMedicine = (e) => {
+    setAuxmedicine(JSON.parse(e.target.value));
+    // const caddosis = dosis.num + ' ' + dosis.unidad + ' ' + dosis.tiempo;
+    // setAuxmedicine((prev) => ({
+    //   ...prev,
+    //   dosis: caddosis,
+    // }));
+  };
   return (
     <Container>
       <div className={classes.NewVisit}>
@@ -363,61 +473,73 @@ const UpdateVisit = () => {
               </div>
               {visit.medicines.map((medicine) => {
                 return (
-                  <div onClick={deleteMedicineHandler.bind(null, medicine.id)}>
+                  <div
+                    onClick={deleteMedicineHandler.bind(null, medicine.id)}
+                    className={classes.opmedicine}
+                  >
                     <strong>{medicine.kind}</strong>
                     <em>{medicine.product}</em>
                     <em>{medicine.brand}</em>
+                    <em>{medicine.dose}</em>
+                    <FiX />
                     {/* <button onClick={deleteMedicineHandler(medicine.id)}>
                           Quitar
                         </button> */}
                   </div>
                 );
               })}
-              <select name='vaccine' onChange={addMedicineHandler}>
-                {/* {infomed.map((data, index) => {
-                      <option
-                        key={index}
-                        value={JSON.stringify({
-                          id: `${data.id}`,
-                          kind: `${data.kind}`,
-                          brand: `${data.brand}`,
-                          product: `${data.product}`,
-                        })}
-                      >
-                        {data.product}
-                      </option>;
-                    })} */}
-                <option
-                  value={JSON.stringify({
-                    id: '1',
-                    kind: 'Antiinflamatorio',
-                    brand: 'Biofarm',
-                    product: 'BIODEX',
-                  })}
-                >
-                  BIODEX
-                </option>
-                <option
-                  value={JSON.stringify({
-                    id: '2',
-                    kind: 'ANTIBIOTICO',
-                    brand: 'Weizur',
-                    product: 'BIOFLOR',
-                  })}
-                >
-                  BIOFLOR
-                </option>
-                <option
-                  value={JSON.stringify({
-                    id: '3',
-                    kind: 'ANTIPARASITARIO',
-                    brand: 'Galmedic',
-                    product: 'BIOMISOL',
-                  })}
-                >
-                  BIOMISOL
-                </option>
-              </select>
+              <div className={classes.medicine}>
+                <div className={classes.medicinecol}>
+                  <p>Medicamento:</p>
+                  <select name='medicines' onChange={changeInputMedicine}>
+                    {infomed.map((data, index) => {
+                      return (
+                        <option
+                          key={index}
+                          value={JSON.stringify({
+                            id: `${data.id}`,
+                            kind: `${data.kind}`,
+                            brand: `${data.brand}`,
+                            product: `${data.product}`,
+                            dose: '',
+                          })}
+                        >
+                          {data.product} {data.kind}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+                <div className={classes.medi}>
+                  <p>Dosis</p>
+                  <div className={classes.medicinecols}>
+                    <input
+                      type='number'
+                      min='0'
+                      id='num'
+                      name='num'
+                      onChange={changeInputDosis}
+                    ></input>
+
+                    <select name='unidad' onChange={changeInputDosis}>
+                      <option value='ml'>ml</option>
+                      <option value='mg'>mg</option>
+                      <option value='unid'>unid</option>
+                    </select>
+                    <select name='tiempo' onChange={changeInputDosis}>
+                      <option value='cada 4 horas'>cada 4 horas</option>
+                      <option value='cada 6 horas'>cada 6 horas</option>
+                      <option value='cada 8 horas'>cada 8 horas</option>
+                      <option value='cada 12 horas'>cada 12 horas</option>
+                      <option value='cada 24 horas'>cada 24 horas</option>
+                      <option value='cada 48 horas'>cada 48 horas</option>
+                    </select>
+                    <Button onClick={addMedicineHandler}>
+                      <BsCheckLg />
+                    </Button>
+                  </div>
+                </div>
+              </div>
             </div>
           </CardForm>
         </div>

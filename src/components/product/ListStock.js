@@ -1,24 +1,23 @@
 import { React, useState, useEffect } from 'react';
-import { VisitRequests } from '../../lib/api/';
-import { NavLink } from 'react-router-dom';
-import { IoIosEye } from 'react-icons/io';
-import { AiTwotoneEdit } from 'react-icons/ai';
-import { MdOutlineNavigateNext, MdKeyboardArrowLeft } from 'react-icons/md';
+import { StockRequests } from '../../lib/api/';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { MdOutlineAddCircle, MdOutlineSearch } from 'react-icons/md';
+import { MdOutlineNavigateNext, MdKeyboardArrowLeft } from 'react-icons/md';
 import FiltersContainer from '../UI/FiltersContainer';
+import { IoIosEye } from 'react-icons/io';
 import Container from '../UI/Container';
 import List from '../UI/List';
-import ListModel from '../UI/ListModel';
 import classes from '../user/ListUser.module.css';
-const ListVisit = () => {
+const ListStock = () => {
   const [search, setSearch] = useState('');
   const [todo, setTodo] = useState(0);
   const [opensearch, setOpensearch] = useState(false);
-  const [visit, setVisit] = useState([]);
+  const [stock, setStock] = useState([]);
+
   const [filter, setFilter] = useState({
-    'fechaReg[gte]': '2022-01-01T19:42:51.955Z',
-    'fechaReg[lte]': '2023-01-01T19:42:51.955Z',
-    sort: '-fechaReg',
+    'enterDate[gte]': '2022-01-01T19:42:51.955Z',
+    'enterDate[lte]': '2023-01-01T19:42:51.955Z',
+    sort: '-enterDate',
     page: 1,
     limit: 5,
   });
@@ -30,7 +29,7 @@ const ListVisit = () => {
   };
   useEffect(() => {
     const getnumber = async () => {
-      const result = await VisitRequests.getAll(
+      const result = await StockRequests.getAll(
         localStorage.getItem('userToken')
       );
       setTodo(parseInt((result.data.data.length + parseInt(4)) / parseInt(5)));
@@ -40,8 +39,8 @@ const ListVisit = () => {
     getnumber();
   }, []);
   useEffect(() => {
-    const getvisit = async () => {
-      const result = await VisitRequests.getAll(
+    const getproduct = async () => {
+      const result = await StockRequests.getAll(
         localStorage.getItem('userToken'),
         filter
       );
@@ -50,39 +49,11 @@ const ListVisit = () => {
         console.log(result.message);
         return;
       } else {
-        setVisit(result.data.data);
+        setStock(result.data.data);
       }
     };
-    getvisit();
+    getproduct();
   }, [filter]);
-  useEffect(() => {
-    const getAllVisits = async () => {
-      const result = await VisitRequests.getAll(
-        localStorage.getItem('userToken'),
-        filter
-      );
-      console.log(result);
-      console.log(opensearch);
-      setVisit(
-        result.data.data.filter((visit) =>
-          visit.reason.toLowerCase().includes(search.toLowerCase())
-        )
-      );
-    };
-    const fetchVisits = setTimeout(() => {
-      console.log('fetching');
-      getAllVisits();
-    }, 1000);
-
-    return () => {
-      clearTimeout(fetchVisits);
-    };
-  }, [search]);
-
-  const onSearchHandler = async (e) => {
-    setSearch(e.target.value);
-  };
-
   const formatDate = (rawDate) => {
     const date = new Date(rawDate);
     const result = `${date.getDate()}/${
@@ -113,8 +84,8 @@ const ListVisit = () => {
           </div>
           <input
             type='datetime-local'
-            id='fechaReg[gte]'
-            name='fechaReg[gte]'
+            id='enterDate[gte]'
+            name='enterDate[gte]'
             onChange={changeInputHandler}
           ></input>
         </div>
@@ -124,8 +95,8 @@ const ListVisit = () => {
           </div>
           <input
             type='datetime-local'
-            id='fechaReg[lte]'
-            name='fechaReg[lte]'
+            id='enterDate[lte]'
+            name='enterDate[lte]'
             onChange={changeInputHandler}
           ></input>
         </div>
@@ -134,10 +105,10 @@ const ListVisit = () => {
         <div className={classes.ListUser}>
           <List>
             <div className={classes.cabecera}>
-              <h2>Resultados</h2>
-              <NavLink exact to='/app/visit/newvisit' className={classes.new}>
+              <h2>Registro de entradas de productos</h2>
+              <NavLink exact to='/app/product/newstock' className={classes.new}>
                 <MdOutlineAddCircle />
-                <span className={classes.tooltiptext}>Nuevo</span>
+                <span className={classes.tooltiptext}>Nuevo stock</span>
               </NavLink>
             </div>
 
@@ -146,36 +117,37 @@ const ListVisit = () => {
                 <thead className={classes.title}>
                   <tr>
                     <th>
-                      <div>Paciente</div>
+                      <div>Producto</div>
                     </th>
                     <th>
-                      <div>Motivo</div>
+                      <div>Cantidad</div>
                     </th>
                     <th>
-                      <div>Diagnostico</div>
+                      <div>Precio Total</div>
                     </th>
                     <th>
-                      <div>Fecha</div>
+                      <div>Fecha De ingreso</div>
                     </th>
+
                     <th>
                       <div></div>
                     </th>
                   </tr>
                 </thead>
                 <tbody className={classes.bodytable}>
-                  {visit.map((data) => (
+                  {stock.map((stock) => (
                     <tr>
                       <td>
-                        <div>{data.pet?.name}</div>
+                        <div>{stock.product?.name}</div>
                       </td>
                       <td>
-                        <div>{data.reason}</div>
+                        <div>{stock.quantityEntered}</div>
                       </td>
                       <td>
-                        <div>{data.diagnosis}</div>
+                        <div>{stock.totalPrice} Bs.</div>
                       </td>
                       <td>
-                        <div>{formatDate(data.fechaReg)}</div>
+                        <div>{formatDate(stock.enterDate)}</div>
                       </td>
 
                       <td>
@@ -183,19 +155,21 @@ const ListVisit = () => {
                           <NavLink
                             className={classes.ico1}
                             exact
-                            to={`/app/visit/viewvisit?id=${data._id}`}
+                            to={`/app/product/viewstock?id=${stock._id}`}
                           >
                             <IoIosEye />
                             <span className={classes.tooltiptext}>Ver</span>
                           </NavLink>
-                          <NavLink
-                            className={classes.ico2}
-                            exact
-                            to={`/app/visit/editvisit?id=${data._id}`}
-                          >
-                            <AiTwotoneEdit />
-                            <span className={classes.tooltiptext}>Editar</span>
-                          </NavLink>
+                          {/* <NavLink
+                                className={classes.ico2}
+                                exact
+                                to={`/app/product/editproduct?id=${products._id}`}
+                              >
+                                <AiTwotoneEdit />
+                                <span className={classes.tooltiptext}>
+                                  Editar
+                                </span>
+                              </NavLink> */}
                         </div>
                       </td>
                     </tr>
@@ -222,4 +196,4 @@ const ListVisit = () => {
   );
 };
 
-export default ListVisit;
+export default ListStock;

@@ -36,6 +36,16 @@ const UpdatePet = () => {
   let { search } = useLocation();
   let query = new URLSearchParams(search);
   let id = query.get('id');
+  const [filteredop, setFilteredop] = useState([]);
+  const opciones = [
+    'Canino',
+    'Felino',
+    'Ave',
+    'Bovino',
+    'Caprino',
+    'Porcino',
+    'Ovino',
+  ];
   const changeInputHandler = (e) => {
     setCredentials((prev) => ({
       ...prev,
@@ -50,6 +60,10 @@ const UpdatePet = () => {
       );
       setCredentials(result.data.data);
       setOwnername(result.data.data.owner?.name);
+      var auxpos = opciones.indexOf(result.data.data.kind);
+      opciones.splice(auxpos, 1);
+      opciones.splice(0, 0, result.data.data.kind);
+      setFilteredop(opciones);
       console.log(result.data.data.owner?.namee);
       if (result.status === 'fail') {
         dispatch(
@@ -129,14 +143,9 @@ const UpdatePet = () => {
               </div>
               <div className={classes.formresp}>
                 <select id='kind' name='kind' onChange={changeInputHandler}>
-                  <option value={credentials.kind}>{credentials.kind}</option>
-                  <option value={'Canino'}>Canino</option>
-                  <option value={'Felino'}>Felino</option>
-                  <option value={'Ave'}>Ave</option>
-                  <option value={'Bovino'}>Bovino</option>
-                  <option value={'Caprino'}>Caprino</option>
-                  <option value={'Porcino'}>Porcino</option>
-                  <option value={'Ovino'}>Ovino</option>
+                  {filteredop?.map((data) => {
+                    return <option value={data}>{data}</option>;
+                  })}
                 </select>
               </div>
             </div>
@@ -160,11 +169,22 @@ const UpdatePet = () => {
                 <p>Sexo: </p>
               </div>
               <div className={classes.formresp}>
-                <select id='sex' name='sex' onChange={changeInputHandler}>
-                  <option value={credentials.sex}>{credentials.sex}</option>
-                  <option value={'macho'}>Macho</option>
-                  <option value={'Hembra'}>Hembra</option>
-                </select>
+                {credentials.sex == 'Hembra' && (
+                  <div>
+                    <select id='sex' name='sex' onChange={changeInputHandler}>
+                      <option value={credentials.role}>Hembra</option>
+                      <option value={'Macho'}>Macho</option>}
+                    </select>
+                  </div>
+                )}
+                {credentials.sex == 'Macho' && (
+                  <div>
+                    <select id='sex' name='sex' onChange={changeInputHandler}>
+                      <option value={credentials.role}>Macho</option>
+                      <option value={'Hembra'}>Hembra</option>
+                    </select>
+                  </div>
+                )}
               </div>
             </div>
             <div className={classes.formsection}>

@@ -13,7 +13,9 @@ const backdrop = {
   visible: { opacity: 1 },
   hidden: { opacity: 0 },
 };
+
 const UpdateEsthetic = () => {
+  const [filteredop, setFilteredop] = useState([]);
   const [opensearch, setOpensearch] = useState(false);
   const [petname, setPetname] = useState(null);
   const [pets, setPets] = useState([]);
@@ -29,6 +31,17 @@ const UpdateEsthetic = () => {
   let { search } = useLocation();
   let query = new URLSearchParams(search);
   let id = query.get('id');
+  const opciones = [
+    'Otros',
+    'Baño',
+    'Corte',
+    'Baño y Corte',
+    'Baño Sanitario',
+    'Corte Sanitario',
+    'Limpieza Dental',
+    'Baño Sanitario y Corte',
+  ];
+
   const changeInputHandler = (e) => {
     setCredentials((prev) => ({
       ...prev,
@@ -43,6 +56,10 @@ const UpdateEsthetic = () => {
       );
       setCredentials(result.data.data);
       setPetname(result.data.data.pet?.name);
+      var auxpos = opciones.indexOf(result.data.data.kind);
+      opciones.splice(auxpos, 1);
+      opciones.splice(0, 0, result.data.data.kind);
+      setFilteredop(opciones);
       if (result.status === 'fail') {
         dispatch(
           errorActions.setError(Object.values(JSON.parse(result.message)))
@@ -178,17 +195,9 @@ const UpdateEsthetic = () => {
               <div>
                 <p> Tipo de visita</p>
                 <select id='kind' name='kind' onChange={changeInputHandler}>
-                  <option value={credentials.kind}>{credentials.kind}</option>
-                  <option value={'Otros'}>Otros</option>
-                  <option value={'Baño'}>Baño</option>
-                  <option value={'Corte'}>Corte</option>
-                  <option value={'Baño y Corte'}>Baño y Corte</option>
-                  <option value={'Baño Sanitario'}>Baño Sanitario</option>
-                  <option value={'Corte Sanitario'}>Corte Sanitario</option>
-                  <option value={'Limpieza Dental'}>Limpieza Dental</option>
-                  <option value={'Baño Sanitario y Corte'}>
-                    Baño Sanitario y Corte
-                  </option>
+                  {filteredop?.map((data) => {
+                    return <option value={data}>{data}</option>;
+                  })}
                 </select>
               </div>
 

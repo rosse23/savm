@@ -24,6 +24,7 @@ const NewSale = () => {
   const [showProductSearcher, setShowProductSearcher] = useState(false);
   const [products, setProducts] = useState([]);
   const [tempProduct, setTempProduct] = useState(null);
+  const [cant, setCant] = useState();
 
   const [adding, setAdding] = useState(false);
   const [quantity, setQuantity] = useState(0);
@@ -68,6 +69,9 @@ const NewSale = () => {
 
   const cancelProductHandler = () => {
     setShowProductSearcher(false);
+    setCant(1);
+    setAdding(false);
+    setTempProduct(null);
   };
 
   const addProductHandler = () => {
@@ -110,6 +114,7 @@ const NewSale = () => {
 
   const selectProductHandler = (item) => {
     setTempProduct(item);
+    setCant(item.stock);
   };
 
   const showClientSearcherHandler = () => {
@@ -196,17 +201,23 @@ const NewSale = () => {
                     </>
                   )}
                   <br />
-                  <label>Elegir la cantidad</label>
-                  <input
-                    type='number'
-                    min='1'
-                    max={tempProduct?.stock}
-                    value={quantity}
-                    disabled={!tempProduct}
-                    onChange={(e) => {
-                      setQuantity(e.target.value);
-                    }}
-                  />
+                  {cant != 0 ? (
+                    <div>
+                      <label>Elegir la cantidad</label>
+                      <input
+                        type='number'
+                        min='1'
+                        max={tempProduct?.stock}
+                        value={quantity}
+                        disabled={!tempProduct}
+                        onChange={(e) => {
+                          setQuantity(e.target.value);
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <p>'Este producto se encuentra agotado'</p>
+                  )}
                 </>
               ) : (
                 products.length === 0 && (
@@ -228,7 +239,9 @@ const NewSale = () => {
                   >
                     Confirmar
                   </button>
-                  <button type='button'>Cancelar</button>
+                  <button type='button' onClick={cancelProductHandler}>
+                    Cancelar
+                  </button>
                 </div>
               )}
             </div>

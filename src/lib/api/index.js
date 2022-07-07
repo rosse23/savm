@@ -6,6 +6,7 @@ import Product from './product-requests';
 import Visit from './visit-requests';
 import Esthetic from './esthetic-requests';
 import Activity from './activity-request';
+import Stock from './stock-request';
 import Auth from './auth-requests';
 
 // Aqui tienes que cambiar a tu direccion IP
@@ -20,3 +21,4 @@ export const ProductRequests = new Product(apiUri);
 export const VisitRequests = new Visit(apiUri);
 export const EstheticRequests = new Esthetic(apiUri);
 export const ActivityRequests = new Activity(apiUri);
+export const StockRequests = new Stock(apiUri);

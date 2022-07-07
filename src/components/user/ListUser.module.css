@@ -161,7 +161,7 @@ select {
   border-radius: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
-  padding-left: 25px;
+  padding-left: 30px;
 }
 .Filter label {
   width: 70%;
@@ -169,11 +169,23 @@ select {
 .title {
   margin-right: 5px;
 }
+.title2 {
+  width: 300px;
+  margin-right: 5px;
+}
 .icon {
   margin-top: 7px;
   position: absolute;
   margin-left: 57px;
 }
+.icon2 {
+  margin-top: 7px;
+  position: absolute;
+  margin-left: 162px;
+}
 .icon svg {
+  fill: #222;
+}
+.icon2 svg {
   fill: #222;
 }

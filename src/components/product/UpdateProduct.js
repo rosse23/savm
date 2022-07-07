@@ -15,8 +15,9 @@ const UpdateProduct = () => {
     price: '',
     stock: '',
   });
+  const [filteredop, setFilteredop] = useState([]);
   const opciones = [
-    'Medicamento Veterinario',
+    'Medicamentos y suplementos',
     'Alimentación',
     'Accesorios',
     'Cuidados y limpieza',
@@ -33,8 +34,15 @@ const UpdateProduct = () => {
         id,
         localStorage.getItem('userToken')
       );
+
       setCredentials(result.data.data);
       console.log(result.data.data);
+
+      var auxpos = opciones.indexOf(result.data.data.category);
+      opciones.splice(auxpos, 1);
+      opciones.splice(0, 0, result.data.data.category);
+      setFilteredop(opciones);
+
       if (result.status === 'fail') {
         dispatch(
           errorActions.setError(Object.values(JSON.parse(result.message)))
@@ -53,16 +61,11 @@ const UpdateProduct = () => {
   };
   const actionButton = async (e) => {
     e.preventDefault();
-    console.log(credentials);
-    console.log('kalesita');
     const result = await ProductRequests.updateOne(
       id,
       credentials,
       localStorage.getItem('userToken')
     );
-    console.log(credentials);
-    console.log(result);
-
     if (result.status === 'fail') {
       dispatch(
         errorActions.setError(Object.values(JSON.parse(result.message)))
@@ -76,7 +79,10 @@ const UpdateProduct = () => {
   };
   const actionCancel = async (e) => {
     e.preventDefault();
-    navigate({ pathname: `/app/product/viewproduct?id=${id}` }, { replace: true });
+    navigate(
+      { pathname: `/app/product/viewproduct?id=${id}` },
+      { replace: true }
+    );
   };
 
   return (
@@ -100,45 +106,10 @@ const UpdateProduct = () => {
                 name='category'
                 onChange={changeInputHandler}
               >
-                <option value={credentials.category}>
-                  {credentials.category}
-                </option>
-                <option value={'Medicamento Veterinario'}>
-                  Medicamento Veterinario
-                </option>
-                <option value={'Alimentación'}>Alimentación</option>
-                <option value={'Accesorios'}>Accesorios</option>
-                <option value={'Cuidados y limpieza'}>
-                  Cuidados y limpieza
-                </option>
-
-                {/* {opciones.map((opcioncate) => {
-                  <option value="Alimentación">Alimentación</option>;
-                  <option key={opcioncate} value={opcioncate}>
-                    {opcioncate}
-                  </option>;
-                })} */}
-                {/* <option value={"Medicamento Veterinario"}>
-                  Medicamento Veterinario
-                </option>
-                <option value={"Alimentación"}>Alimentación</option>
-                <option value={"Accesorios"}>Accesorios</option>
-                <option value={"Cuidados y limpieza"}>
-                  Cuidados y limpieza
-                </option> */}
+                {filteredop?.map((data) => {
+                  return <option value={data}>{data}</option>;
+                })}
               </select>
-
-              {/* <option value={credentials.category}>
-                  {credentials.category}
-                </option>
-                {opciones.map((op) => {
-                  console.log(op);
-                  <option value={op}>{op}</option>;
-                })} */}
-              {/* */}
-              {/* {
-                
-              } */}
             </p>
             <p type='price'>
               <input
@@ -161,6 +132,7 @@ const UpdateProduct = () => {
                 name='stock'
                 value={credentials.stock}
                 onChange={changeInputHandler}
+                readOnly
               ></input>
             </p>
           </Form>

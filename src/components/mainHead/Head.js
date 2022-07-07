@@ -2,14 +2,12 @@ import { React, useState } from 'react';
 import classes from './Head.module.css';
 import Button from '../UI/Button';
 import logo from '../../imgs/logo.png';
-import { IoPawSharp, IoWarning } from 'react-icons/io5';
+import { IoPawSharp, IoWarning, IoCloseCircle } from 'react-icons/io5';
 import { BiLogIn } from 'react-icons/bi';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Form } from '../UI/Form';
-
 import { AuthRequests } from '../../lib/api';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import { authActions } from '../../store/auth';
 import CardForm from '../UI/CardForm';
 const backdrop = {
@@ -54,7 +52,7 @@ const Head = (props) => {
   const actionButton = async (e) => {
     e.preventDefault();
     const result = await AuthRequests.logIn(credentials);
-
+    console.log(result);
     if (result.status === 'fail') {
       setErrors(result.message);
       console.log(errors);
@@ -140,17 +138,27 @@ const Head = (props) => {
                   ></input>
 
                   {errors ? (
-                    <motion.div className={classes.alert} variants={backdrop}>
+                    <motion.div
+                      className={classes.alert}
+                      variants={backdrop}
+                      onClick={() => setErrors(null)}
+                    >
                       <IoWarning />
                       <div>
                         <b>{errors}</b>
                       </div>
+                      <IoCloseCircle />
                     </motion.div>
                   ) : (
                     <div></div>
                   )}
                   <div className={classes.buttonlogin}>
                     <Button onClick={actionButton}>Login</Button>
+                  </div>
+                  <div className={classes.resetpassword}>
+                    <NavLink className={classes.Navreset} to='/forgotpassword'>
+                      <p>¿Olvidaste tu contraseña?</p>
+                    </NavLink>
                   </div>
                 </CardForm>
               </motion.div>

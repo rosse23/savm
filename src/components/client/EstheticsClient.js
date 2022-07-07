@@ -20,7 +20,7 @@ const EstheticsClient = (props) => {
               <NavLink
                 className={classes.ico1}
                 exact
-                to={`/app/visit/viewvisit?id=${data._id}`}
+                to={`/app/esthetic/viewesthetic?id=${data._id}`}
               >
                 <IoIosEye />
                 <span className={classes.tooltiptext}>Ver</span>

@@ -10,12 +10,12 @@ const routes = [
   {
     path1: '/app/user/newuser',
     path2: '/app/user/',
-    path3: '/app/',
+    path3: '/app/user/activites',
     name: 'Usuarios',
     icon: <HiUsers />,
     op1: 'Crear nuevo',
     op2: 'Lista / Búsqueda',
-    op3: 'Descargar listado',
+    op3: 'Actividad de usuarios',
   },
   {
     path1: '/app/client/newclient',
@@ -25,7 +25,6 @@ const routes = [
     icon: <HiUserGroup />,
     op1: 'Crear nuevo',
     op2: 'Lista / Búsqueda',
-    op3: 'Descargar listado',
   },
   {
     path1: '/app/pet/newpet',
@@ -35,22 +34,23 @@ const routes = [
     icon: <MdPets />,
     op1: 'Crear nuevo',
     op2: 'Lista / Búsqueda',
-    op3: 'Descargar listado',
   },
   {
     path1: '/app/sale/newsale',
     path2: '/app/sale/',
-    path3: '/app/sale/',
+    path3: '/app/product',
+    path4: 'product/newstock',
     name: 'Ventas',
     icon: <MdLocalGroceryStore />,
     op1: 'Crear nuevo',
     op2: 'Lista / Búsqueda',
-    op3: 'Descargar listado',
+    op3: 'Inventario',
+    op4: 'Nuevo stock',
   },
   {
     path1: '/app/esthetic/',
     path2: '/app/visit/',
-    path3: '/app/esthetic/new esthetica',
+    path3: '/app/visit/newvisit',
     name: 'Servicios',
     icon: <FaHandHoldingMedical />,
     op1: 'Visitas a Esthetica',
@@ -65,19 +65,19 @@ const routes = [
     icon: <FcStatistics />,
     op1: 'Estadisticas',
     // op2: 'Visitas',
-    op3: 'Nueva visita',
+    // op3: 'Nueva visita',
   },
 ];
 const routes1 = [
   {
     path1: '/app/product/newproduct',
     path2: '/app/product/',
-    path3: '/app/',
+    path3: '/app/product/newstock',
     name: 'Productos',
     icon: <MdAllInbox />,
     op1: 'Registrar producto',
     op2: 'Inventario',
-    op3: 'Descargar listado',
+    op3: 'Añadir stock',
   },
   {
     path1: '/app/client/newclient',
@@ -87,7 +87,6 @@ const routes1 = [
     icon: <HiUserGroup />,
     op1: 'Crear nuevo',
     op2: 'Lista / Búsqueda',
-    op3: 'Descargar listado',
   },
   {
     path1: '/app/pet/newpet',
@@ -97,22 +96,21 @@ const routes1 = [
     icon: <MdPets />,
     op1: 'Crear nuevo',
     op2: 'Lista / Búsqueda',
-    op3: 'Descargar listado',
   },
   {
     path1: '/app/sale/newsale',
     path2: '/app/sale/',
-    path3: '/app/sale/',
+    path3: '/app/product/foulproduct',
     name: 'Ventas',
     icon: <MdLocalGroceryStore />,
     op1: 'Crear nuevo',
     op2: 'Lista / Búsqueda',
-    op3: 'Descargar listado',
+    op3: 'Productos Escasos',
   },
   {
     path1: '/app/esthetic/',
     path2: '/app/visit/',
-    path3: '/app/esthetic/new esthetica',
+    path3: '/app/visit/newvisit',
     name: 'Servicios',
     icon: <FaHandHoldingMedical />,
     op1: 'Visitas a Esthetica',
@@ -127,7 +125,7 @@ const routes1 = [
     icon: <FcStatistics />,
     op1: 'Estadisticas',
     // op2: 'Visitas',
-    op3: 'Nueva visita',
+    // op3: 'Nueva visita',
   },
 ];
 
@@ -192,13 +190,24 @@ const OptionContainer = () => {
                       {route.op2}
                     </NavLink>
                   )}
-                  {/* <NavLink
-                    to={route.path3}
-                    key={index}
-                    className={classes.optionlink}
-                  >
-                    {route.op3}
-                  </NavLink> */}
+                  {route.op3 && (
+                    <NavLink
+                      to={route.path3}
+                      key={index}
+                      className={classes.optionlink}
+                    >
+                      {route.op3}
+                    </NavLink>
+                  )}
+                  {route.op4 && (
+                    <NavLink
+                      to={route.path4}
+                      key={index}
+                      className={classes.optionlink}
+                    >
+                      {route.op4}
+                    </NavLink>
+                  )}
                 </div>
               ) : (
                 <Fragment>

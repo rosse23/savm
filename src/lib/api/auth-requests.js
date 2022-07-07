@@ -1,8 +1,8 @@
-import axios from "axios";
+import axios from 'axios';
 
 class AuthRequests {
   constructor(uri) {
-    this.uri = uri + "user";
+    this.uri = uri + 'user';
   }
 
   async signUp(data) {

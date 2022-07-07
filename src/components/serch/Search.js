@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from 'react';
 
-import classes from "./Search.module.css";
+import classes from './Search.module.css';
 
 const Search = ({ TargetRequests, onAccept, onCancel, fieldToShow }) => {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [data, setData] = useState([]);
   const [showList, setShowList] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -13,7 +13,7 @@ const Search = ({ TargetRequests, onAccept, onCancel, fieldToShow }) => {
   useEffect(() => {
     const getAllData = async () => {
       const result = await TargetRequests.getAll(
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZDViMDE5MGIyMTQzNjBkYzA1NyIsImlhdCI6MTY1NDQzOTcyOCwiZXhwIjoxNjYyMjE1NzI4fQ.19s4e2XIHqqXrQkM2tJ2-yFg9ZQyxpSx1Z0gc2381kc"
+        localStorage.getItem('userToken')
       );
       // console.log(result);
       setData(
@@ -49,7 +49,7 @@ const Search = ({ TargetRequests, onAccept, onCancel, fieldToShow }) => {
   const onCancelHandler = () => {
     setShowList(false);
     setData([]);
-    inputValueRef.current.value = "";
+    inputValueRef.current.value = '';
     onCancel();
   };
 
@@ -58,25 +58,25 @@ const Search = ({ TargetRequests, onAccept, onCancel, fieldToShow }) => {
       setError(false);
       setShowList(false);
       setData([]);
-      inputValueRef.current.value = "";
+      inputValueRef.current.value = '';
       onAccept(selectedItem);
     } else setError(true);
   };
 
   return (
     <div
-      className={classes["search-wrapper"]}
+      className={classes['search-wrapper']}
       // onBlur={() => {
       //   setShowList(false);
       // }}
     >
-      <section className={classes["search-section"]}>
+      <section className={classes['search-section']}>
         {error && <p>Debe seleccionar un item</p>}
         <input
-          type="text"
+          type='text'
           onChange={onSearchHandler}
-          className={classes["search-input"]}
-          placeholder="Sin Seleccionar"
+          className={classes['search-input']}
+          placeholder='Sin Seleccionar'
           onFocus={() => {
             setShowList(true);
           }}
@@ -101,15 +101,15 @@ const Search = ({ TargetRequests, onAccept, onCancel, fieldToShow }) => {
         )}
       </section>
       <button
-        type="button"
-        className={classes["button-cancel"]}
+        type='button'
+        className={classes['button-cancel']}
         onClick={onCancelHandler}
       >
         Cancelar
       </button>
       <button
-        type="button"
-        className={classes["button-accept"]}
+        type='button'
+        className={classes['button-accept']}
         onClick={onAcceptHandler}
       >
         Aceptar

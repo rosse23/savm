@@ -15,8 +15,10 @@ import {
   MdPets,
   MdLocalGroceryStore,
   MdInventory,
+  MdDateRange,
 } from 'react-icons/md';
 import { VscMenu } from 'react-icons/vsc';
+import { AiFillAlert } from 'react-icons/ai';
 import { CgUserList } from 'react-icons/cg';
 import { GrDocumentStore } from 'react-icons/gr';
 import classes from './SideBar.module.css';
@@ -72,6 +74,16 @@ const routes = [
         name: 'Inventario',
         icon: <MdInventory />,
       },
+      {
+        path: '/app/product/liststock',
+        name: 'Stock',
+        icon: <MdDateRange />,
+      },
+      {
+        path: '/app/product/foulproduct',
+        name: 'Productos Escasos',
+        icon: <AiFillAlert />,
+      },
     ],
   },
   {
@@ -122,6 +134,16 @@ const routes1 = [
         path: '/app/product',
         name: 'Inventario',
         icon: <MdInventory />,
+      },
+      {
+        path: '/app/product/liststock',
+        name: 'Stock',
+        icon: <MdDateRange />,
+      },
+      {
+        path: '/app/product/foulproduct',
+        name: 'Productos Escasos',
+        icon: <AiFillAlert />,
       },
     ],
   },

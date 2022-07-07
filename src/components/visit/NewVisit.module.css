@@ -130,11 +130,29 @@ select {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 390px;
+  max-width: 590px;
   padding-left: 1rem;
 }
 .ejem {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+/*Medicine*/
+.medicine {
+  display: grid;
+  grid-template-columns: 1.5fr 2fr;
+  gap: 12px;
+}
+/* .medi {
+  display: flex;
+  flex-direction: row;
+} */
+.medicinecols {
+  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 3fr 1fr;
+  gap: 7px;
+  margin-top: -6px;
 }

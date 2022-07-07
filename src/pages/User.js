@@ -9,6 +9,7 @@ import UpdateUser from '../components/user/UpdateUser';
 import GetUser from '../components/user/GetUser';
 import Addphoto from '../components/user/Addphoto';
 import Activites from '../components/user/Activites';
+import GetActivite from '../components/user/GetActivite';
 const User = (props) => {
   return (
     <div className={classes.User}>
@@ -25,6 +26,7 @@ const User = (props) => {
         <Route path='viewuser' element={<GetUser />} />
         <Route path='edituser' element={<UpdateUser />} />
         <Route path='activites' element={<Activites />} />
+        <Route path='viewactivite' element={<GetActivite />} />
       </Routes>
       {/*   <FiltersContainer>
         <label>Nombre</label>

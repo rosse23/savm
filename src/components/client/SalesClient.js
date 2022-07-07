@@ -20,7 +20,7 @@ const SalesClient = (props) => {
               <NavLink
                 className={classes.ico1}
                 exact
-                to={`/app/product/viewproduct?id=${data._id}`}
+                to={`/app/sale/viewsale?id=${data._id}`}
               >
                 <IoIosEye />
                 <span className={classes.tooltiptext}>Ver</span>
@@ -39,7 +39,7 @@ const SalesClient = (props) => {
                 <p>Precio de venta</p>
               </div>
               <div className={classes.formresp1}>
-                <p>{data.price} Bs</p>
+                <p>{data.totalPrice} Bs</p>
               </div>
             </div>
           </div>

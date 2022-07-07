@@ -9,12 +9,15 @@ import CardForm from '../UI/CardForm';
 import Button from '../UI/Button';
 import classes from './NewVisit.module.css';
 import { FiX } from 'react-icons/fi';
+import { BsCheckLg } from 'react-icons/bs';
+
 const infomed = [
   {
     id: '1',
-    kind: 'Antiinflamatorio',
+    kind: 'ANTIINFLAMATORIO',
     brand: 'Biofarm',
     product: 'BIODEX',
+    dosis: '',
   },
   {
     id: '2',
@@ -34,11 +37,58 @@ const infomed = [
     brand: 'Proagro',
     product: 'CALCIFICANTE',
   },
+  {
+    id: '5',
+    kind: 'ANTIBIOTICO',
+    brand: 'Biomont',
+    product: 'BIOMIZONA',
+  },
+  {
+    id: '6',
+    kind: 'ANTIBIOTICO',
+    brand: 'BIOFARM',
+    product: 'BIOSULFAN',
+  },
+  {
+    id: '7',
+    kind: 'SUERO RECONSTITUYENTE',
+    brand: 'ValleSA',
+    product: 'BIOXAN',
+  },
+  {
+    id: '8',
+    kind: 'MINERALIZANTE',
+    brand: 'Galmedic',
+    product: 'BOROGLUCONATO',
+  },
+  {
+    id: '9',
+    kind: 'ANTISEPTICO PULMONAR',
+    brand: 'Von Franken',
+    product: 'BRONCOPUL',
+  },
+  {
+    id: '10',
+    kind: 'ANALGESICO-ANTIINFLAMATORIO',
+    brand: 'Proagro',
+    product: 'CALMIGEL',
+  },
 ];
 const NewVaccines = () => {
   const [credentials, setCredentials] = useState({
     pet: '',
     medicines: [],
+  });
+  const [dosis, setDosis] = useState({
+    num: '',
+    unidad: 'ml',
+    tiempo: 'cada 4 horas',
+  });
+  const [auxmedicine, setAuxmedicine] = useState({
+    kind: 'ANTIINFLAMATORIO',
+    brand: 'Biofarm',
+    product: 'BIODEX',
+    dose: '',
   });
   let { search } = useLocation();
   const dispatch = useDispatch();
@@ -62,15 +112,36 @@ const NewVaccines = () => {
   }, []);
 
   const addMedicineHandler = (e) => {
-    console.log(e.target.value);
-    console.log('meyko');
-    const newMedicine = JSON.parse(e.target.value);
-    setCredentials((prev) => {
-      return {
-        ...prev,
-        medicines: [...prev.medicines, newMedicine],
-      };
-    });
+    // console.log(JSON.parse(e.target.value));
+    console.log(dosis);
+    var findmedicine = false;
+    var caddosis = dosis.num + ' ' + dosis.unidad + ' ' + dosis.tiempo;
+    console.log(caddosis);
+    const newMedicine = auxmedicine;
+    if (caddosis) {
+      newMedicine.dose = caddosis;
+
+      console.log(newMedicine);
+    }
+    console.log(auxmedicine);
+    for (var i = 0; i < credentials.medicines.length; i++) {
+      // console.log(credentials.medicines[i]);
+      // console.log(newMedicine);
+      if (credentials.medicines[i].id == newMedicine.id) {
+        findmedicine = true;
+
+        break;
+      }
+    }
+    if (findmedicine == false) {
+      setCredentials((prev) => {
+        return {
+          ...prev,
+          medicines: [...prev.medicines, newMedicine],
+        };
+      });
+      console.log(credentials.medicines);
+    }
   };
   const deleteMedicineHandler = (idm) => {
     setCredentials((prev) => {
@@ -110,6 +181,20 @@ const NewVaccines = () => {
       { replace: true }
     );
   };
+  const changeInputDosis = (e) => {
+    setDosis((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+  const changeInputMedicine = (e) => {
+    setAuxmedicine(JSON.parse(e.target.value));
+    // const caddosis = dosis.num + ' ' + dosis.unidad + ' ' + dosis.tiempo;
+    // setAuxmedicine((prev) => ({
+    //   ...prev,
+    //   dosis: caddosis,
+    // }));
+  };
 
   return (
     <Container>
@@ -134,7 +219,6 @@ const NewVaccines = () => {
             <div className={classes.contenido}>
               <div className={classes.ejem}>
                 <div>
-                  <p>Medicamento:</p>
                   {credentials.medicines.map((medicine) => {
                     return (
                       <div
@@ -144,6 +228,7 @@ const NewVaccines = () => {
                         <strong>{medicine.kind}</strong>
                         <em>{medicine.product}</em>
                         <em>{medicine.brand}</em>
+                        <em>{medicine.dose}</em>
                         <FiX />
                         {/* <button onClick={deleteMedicineHandler(medicine.id)}>
                           Quitar
@@ -151,53 +236,58 @@ const NewVaccines = () => {
                       </div>
                     );
                   })}
-                  <select name='vaccine' onChange={addMedicineHandler}>
-                    {infomed.map((data, index) => {
-                      return (
-                        <option
-                          key={index}
-                          value={JSON.stringify({
-                            id: `${data.id}`,
-                            kind: `${data.kind}`,
-                            brand: `${data.brand}`,
-                            product: `${data.product}`,
-                          })}
-                        >
-                          {data.product}
-                        </option>
-                      );
-                    })}
-                    {/* <option
-                      value={JSON.stringify({
-                        id: '1',
-                        kind: 'Antiinflamatorio',
-                        brand: 'Biofarm',
-                        product: 'BIODEX',
-                      })}
-                    >
-                      BIODEX
-                    </option>
-                    <option
-                      value={JSON.stringify({
-                        id: '2',
-                        kind: 'ANTIBIOTICO',
-                        brand: 'Weizur',
-                        product: 'BIOFLOR',
-                      })}
-                    >
-                      BIOFLOR
-                    </option>
-                    <option
-                      value={JSON.stringify({
-                        id: '3',
-                        kind: 'ANTIPARASITARIO',
-                        brand: 'Galmedic',
-                        product: 'BIOMISOL',
-                      })}
-                    >
-                      BIOMISOL
-                    </option> */}
-                  </select>
+                  <div className={classes.medicine}>
+                    <div className={classes.medicinecol}>
+                      <p>Medicamento:</p>
+                      <select name='medicines' onChange={changeInputMedicine}>
+                        {infomed.map((data, index) => {
+                          return (
+                            <option
+                              key={index}
+                              value={JSON.stringify({
+                                id: `${data.id}`,
+                                kind: `${data.kind}`,
+                                brand: `${data.brand}`,
+                                product: `${data.product}`,
+                                dose: '',
+                              })}
+                            >
+                              {data.product} {data.kind}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
+                    <div className={classes.medi}>
+                      <p>Dosis</p>
+                      <div className={classes.medicinecols}>
+                        <input
+                          type='number'
+                          min={0}
+                          id='num'
+                          name='num'
+                          onChange={changeInputDosis}
+                        ></input>
+
+                        <select name='unidad' onChange={changeInputDosis}>
+                          <option value='ml'>ml</option>
+                          <option value='mg'>mg</option>
+                          <option value='unid'>unid</option>
+                        </select>
+                        <select name='tiempo' onChange={changeInputDosis}>
+                          <option value='cada 4 horas'>cada 4 horas</option>
+                          <option value='cada 6 horas'>cada 6 horas</option>
+                          <option value='cada 8 horas'>cada 8 horas</option>
+                          <option value='cada 12 horas'>cada 12 horas</option>
+                          <option value='cada 24 horas'>cada 24 horas</option>
+                          <option value='cada 48 horas'>cada 48 horas</option>
+                        </select>
+                        <Button onClick={addMedicineHandler}>
+                          <BsCheckLg />
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

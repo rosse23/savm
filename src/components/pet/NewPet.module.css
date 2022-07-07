@@ -96,3 +96,19 @@ select {
   grid-template-columns: 1fr 1fr;
   gap: 4%;
 }
+
+/* stock */
+.item-client {
+  background-color: rgb(27, 53, 44);
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-top: 1rem;
+}
+
+.enterproduct {
+  color: white;
+}
+.enterproduct button {
+  color: white;
+  background-color: #957c5c;
+}

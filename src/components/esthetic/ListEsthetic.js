@@ -17,6 +17,8 @@ const ListEsthetic = () => {
   const [esthetic, setEsthetic] = useState([]);
   const navigate = useNavigate();
   const [filter, setFilter] = useState({
+    'dateReg[gte]': '2022-01-01T19:42:51.955Z',
+    'dateReg[lte]': '2023-01-01T19:42:51.955Z',
     sort: '-dateReg',
     page: 1,
     limit: 5,
@@ -106,22 +108,25 @@ const ListEsthetic = () => {
       <FiltersContainer>
         <div className={classes.Filter}>
           <div className={classes.title}>
-            <label>Ordenar Por</label>
+            <label>desde:</label>
           </div>
-
-          <select id='sort' name='sort' onChange={changeInputHandler}>
-            <option value={'-dateReg'}>Fecha</option>
-            <option value={'kind'}>Motivo</option>
-          </select>
+          <input
+            type='datetime-local'
+            id='dateReg[gte]'
+            name='dateReg[gte]'
+            onChange={changeInputHandler}
+          ></input>
         </div>
         <div className={classes.Filter}>
           <div className={classes.title}>
-            <label>Buscar</label>
+            <label>Hasta:</label>
           </div>
-          <span className={classes.icon}>
-            <MdOutlineSearch />
-          </span>
-          <input placeholder='search.....' onChange={onSearchHandler}></input>
+          <input
+            type='datetime-local'
+            id='dateReg[lte]'
+            name='dateReg[lte]'
+            onChange={changeInputHandler}
+          ></input>
         </div>
       </FiltersContainer>
       <Container>
